@@ -22,6 +22,10 @@ public class Order {
     @JoinColumn(name="user_id")
     private User user;
 
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name="restaurant_id")
+    private Restaurant restaurant;
+
     @OneToMany(mappedBy = "order")
     private List<OrderDetail> orderItems = new ArrayList<>();
 
