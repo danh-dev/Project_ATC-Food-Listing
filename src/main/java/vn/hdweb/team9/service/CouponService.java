@@ -10,8 +10,8 @@ public class CouponService {
 
     public CouponService(ICouponRepository couponRepository) { this.couponRepository = couponRepository; }
 
-    public Long save(Coupon coupon) {
-        couponRepository.save(coupon);
+    public Long create(Coupon coupon) {
+        couponRepository.create(coupon);
         return coupon.getId();
     }
 

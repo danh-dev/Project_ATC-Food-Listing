@@ -25,7 +25,7 @@ public class CouponRepository implements ICouponRepository {
 
 
     @Override
-    public Coupon save(Coupon coupon) {
+    public Coupon create(Coupon coupon) {
         em.persist(coupon);
         return coupon;
     }
@@ -56,17 +56,7 @@ public class CouponRepository implements ICouponRepository {
     }
 
     @Override
-    public void deleteById(Long id) {
-
-    }
-
-    @Override
     public void delete(Coupon coupon) {
-
-    }
-
-    @Override
-    public void deleteAll() {
 
     }
 }

@@ -12,7 +12,7 @@ import java.util.Optional;
 public interface ICouponRepository {
     // CREATE
     // 1. Save new coupon
-    Coupon save(Coupon coupon);
+    Coupon create(Coupon coupon);
 
     // READ
     // 2. Find by ID

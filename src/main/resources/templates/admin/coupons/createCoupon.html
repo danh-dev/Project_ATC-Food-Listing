@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Create Coupon</title>
+    <!-- Add your CSS styles or include Bootstrap or other styling frameworks if needed -->
+</head>
+<body>
+<div class="container">
+    <h2>Create Coupon</h2>
+    <form th:action="@{/admin/coupons}" th:object="${couponForm}" method="post">
+        <!-- th:object="${coupon}" binds the form to the Coupon object -->
+        <div class="coupon-name">
+            <label for="couponName">Name</label>
+            <input type="text" id="couponName" name="couponName" placeholder="Coupon Name">
+        </div>
+        <div>
+            <label for="couponQuantity">Name</label>
+            <input type="text" id="couponQuantity" name="couponQuantity" placeholder="Coupon Quantity">
+        </div>
+
+        <button type="submit">Submit</button>
+    </form>
+</div>
+</body>
+</html>
