@@ -55,45 +55,46 @@
                                     <small class="text-muted float-end">Default label</small>
                                 </div>
                                 <div class="card-body">
-                                    <form>
+                                    <form action="/admin/restaurant/new" method="post">
                                         <div class="mb-3">
                                             <label class="form-label" for="basic-default-name">Name</label>
-                                            <input type="text" class="form-control" id="basic-default-name" placeholder="Input name" />
+                                            <input type="text" class="form-control" id="basic-default-name" name="restaurant_name" placeholder="Input name" />
                                         </div>
                                         <div class="mb-3">
                                             <label class="form-label" for="basic-default-address">Address</label>
-                                            <input type="text" class="form-control" id="basic-default-address" placeholder="Input address" />
+                                            <input type="text" class="form-control" id="basic-default-address" name="address" placeholder="Input address" />
                                         </div>
                                         <div class="mb-3">
                                             <label class="form-label" for="basic-default-slug">Slug</label>
-                                            <input type="text" class="form-control" id="basic-default-slug" placeholder="Input address" />
+                                            <input type="text" class="form-control" id="basic-default-slug" name="slug" placeholder="Input address" />
                                         </div>
                                         <div class="mb-3">
                                             <label class="form-label" for="basic-default-description">Description</label>
                                             <textarea
                                                     id="basic-default-description"
                                                     class="form-control"
+                                                    name="description"
                                                     placeholder="Describe about this restaurant"
                                             ></textarea>
                                         </div>
                                         <div class="mb-3">
                                             <label class="form-label" for="formFileLogo">Logo</label>
-                                            <input class="form-control" type="file" id="formFileLogo">
+                                            <input class="form-control" type="file" id="formFileLogo" name="logo">
                                         </div>
                                         <div class="mb-3">
                                             <label class="form-label" for="formFileImage">Image</label>
-                                            <input class="form-control" type="file" id="formFileImage">
+                                            <input class="form-control" type="file" id="formFileImage" name="image">
                                         </div>
                                         <div class="mb-3">
                                             <label class="form-label" for="html5-open_time-input">Open time</label>
-                                            <input class="form-control" type="time" value="12:30:00" id="html5-open_time-input">
+                                            <input class="form-control" type="time" value="12:30:00" id="html5-open_time-input" name="open_time">
                                         </div>
                                         <div class="mb-3">
                                             <label class="form-label" for="html5-close_time-input">Close time</label>
-                                            <input class="form-control" type="time" value="12:30:00" id="html5-close_time-input">
+                                            <input class="form-control" type="time" value="12:30:00" id="html5-close_time-input" name="close_time">
                                         </div>
                                         <div class="form-check form-switch mb-3">
-                                            <input class="form-check-input" type="checkbox" id="flexSwitchCheckChecked" checked="">
+                                            <input class="form-check-input" type="checkbox" id="flexSwitchCheckChecked" checked="" name="is_active">
                                             <label class="form-check-label" for="flexSwitchCheckChecked">Is active</label>
                                         </div>
                                         <button type="submit" class="btn btn-primary">Send</button>
