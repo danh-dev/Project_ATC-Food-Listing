@@ -1,15 +1,14 @@
 package vn.hdweb.team9.domain.entity;
 
 import jakarta.persistence.*;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.Data;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
 @Entity
-@Getter @Setter
+@Data
 @Table(name = "user")
 public class User {
 
@@ -17,18 +16,18 @@ public class User {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "user_id")
     private Long id;
-    @Column(name = "username")
-    private String username;
-    @Column(name = "password")
-    private String password;
     @Column(name = "full_name")
     private String fullName;
-    @Column(name = "phone")
-    private String phone;
     @Column(name = "email")
     private String email;
+    @Column(name = "password")
+    private String password;
+    @Column(name = "phone")
+    private String phone;
     @Column(name = "address")
     private String address;
+    @Column(name="avatar")
+    private String avatar;
     @Column(name="create_at")
     private LocalDateTime createdAt = LocalDateTime.now();
 
