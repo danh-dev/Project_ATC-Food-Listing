@@ -3,17 +3,12 @@ package vn.hdweb.team9.repository;
 
 import jakarta.persistence.EntityManager;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Example;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
-import org.springframework.data.domain.Sort;
-import org.springframework.data.repository.query.FluentQuery;
 import vn.hdweb.team9.domain.entity.Coupon;
 import vn.hdweb.team9.repository.interfaces.ICouponRepository;
 
 import java.util.List;
 import java.util.Optional;
-import java.util.function.Function;
+import java.util.stream.Stream;
 
 
 public class CouponRepository implements ICouponRepository {
@@ -38,10 +33,10 @@ public class CouponRepository implements ICouponRepository {
 
     @Override
     public Optional<Coupon> findByCouponCode(String couponCode) {
-        List<Coupon> coupons = em.createQuery("select c from Coupon c where c.coupon_code = :coupon_code", Coupon.class)
+        List<Coupon> results = em.createQuery("select c from Coupon c where c.couponCode = :coupon_code", Coupon.class)
                 .setParameter("coupon_code", couponCode)
                 .getResultList();
-        return coupons.stream().findAny();
+        return results.stream().findAny();
     }
 
     @Override
@@ -51,12 +46,16 @@ public class CouponRepository implements ICouponRepository {
     }
 
     @Override
-    public Optional<Coupon> saveAndFlush(Coupon coupon) {
-        return Optional.empty();
+    public Optional<Coupon> update(Coupon coupon) {
+       return Optional.ofNullable(em.merge(coupon));
     }
 
     @Override
     public void delete(Coupon coupon) {
-
+        em.remove(coupon);
     }
+
+
+    @Override
+    public void clearAll() { em.clear(); }
 }

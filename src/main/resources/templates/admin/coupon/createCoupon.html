@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+
+<!-- =========================================================
+* Sneat - Bootstrap 5 HTML Admin Template - Pro | v1.0.0
+==============================================================
+
+* Product Page: https://themeselection.com/products/sneat-bootstrap-html-admin-template/
+* Created by: ThemeSelection
+* License: You must have a valid license purchased in order to legally use the theme for your project.
+* Copyright ThemeSelection (https://themeselection.com)
+
+=========================================================
+ -->
+<!-- beautify ignore:start -->
+<html
+    lang="en" xmlns:th="http://www.thymeleaf.org"
+    class="light-style layout-menu-fixed"
+    dir="ltr"
+    data-theme="theme-default"
+    data-assets-path="../../admin/assets/"
+    data-template="vertical-menu-template-free"
+>
+<head th:replace="admin/fragments/layout :: head" />
+
+<body>
+<!-- Layout wrapper -->
+<div class="layout-wrapper layout-content-navbar">
+    <div class="layout-container">
+        <!-- Menu -->
+
+        <aside id="layout-menu" th:replace="admin/fragments/layout :: sidebar" class="layout-menu menu-vertical menu bg-menu-theme"></aside>
+        <!-- / Menu -->
+
+        <!-- Layout container -->
+        <div class="layout-page">
+            <!-- Navbar -->
+
+            <nav th:replace="admin/fragments/layout :: navbar" />
+
+            <!-- / Navbar -->
+
+            <!-- Content wrapper -->
+            <div class="content-wrapper">
+                <!-- Content -->
+
+                <div class="container-xxl flex-grow-1 container-p-y">
+                    <h4 class="fw-bold py-3 mb-4"><span class="text-muted fw-light">Coupon/</span> Create New</h4>
+
+                    <!-- Basic Layout -->
+                    <div class="row">
+                        <div class="col-xl">
+                            <div class="card mb-4">
+                                <div class="card-header d-flex justify-content-between align-items-center">
+                                    <h5 class="mb-0">New Coupon</h5>
+                                    <small class="text-muted float-end">Default label</small>
+                                </div>
+                                <div class="card-body">
+                                    <form>
+                                        <div class="mb-3">
+                                            <label class="form-label" for="basic-default-couponCode">Coupon Code</label>
+                                            <input type="text" class="form-control" id="basic-default-couponCode" placeholder="Coupon Code" />
+                                        </div>
+                                        <div class="mb-3">
+                                            <label class="form-label" for="basic-default-couponName">Coupon Name</label>
+                                            <input type="text"
+                                                   class="form-control"
+                                                   id="basic-default-couponName"
+                                                   placeholder="Discount" />
+                                        </div>
+                                        <div class="mb-3">
+                                            <label class="form-label" for="basic-default-couponDescription">Description</label>
+                                            <textarea type="text"
+                                                   class="form-control"
+                                                   id="basic-default-couponDescription"
+                                                   placeholder="Discount description"
+                                            ></textarea>
+                                        </div>
+                                        <div class="d-flex justify-content-between">
+                                            <div class="mb-3 mr-2">
+                                                <label class="form-label">Type Coupon</label>
+                                                <select class="form-select">
+                                                    <option value="DIRECT">Direct</option>
+                                                    <option value="PERCENT">Percent</option>
+                                                </select>
+                                            </div>
+                                            <div class="mb-3 flex-grow-1 mx-2">
+                                                <label class="form-label" for="basic-default-couponValue">Coupon Value</label>
+                                                <input
+                                                    type="number"
+                                                    class="form-control"
+                                                    id="basic-default-couponValue"
+                                                    placeholder="Discount value"
+                                                />
+                                            </div>
+                                            <div class="mb-3 flex-grow-1 ml-2">
+                                                <label class="form-label" for="basic-default-couponQuantity">Coupon Quantity</label>
+                                                <input type="number"
+                                                       class="form-control"
+                                                       id="basic-default-couponQuantity"
+                                                       placeholder="Coupon Quantity" />
+                                            </div>
+                                        </div>
+                                        <div class="d-flex justify-content-between">
+                                            <div class="mb-3 flex-grow-1 mr-2 ">
+                                                <label class="form-label" for="basic-default-startDate">Start Date</label>
+                                                <input type="date"
+                                                       class="form-control"
+                                                       id="basic-default-startDate"
+                                                />
+                                            </div>
+                                            <div class="mb-3 flex-grow-1 mx-2">
+                                                <label class="form-label" for="basic-default-endDate">End Date</label>
+                                                <input type="date"
+                                                       class="form-control"
+                                                       id="basic-default-endDate"
+                                                />
+                                            </div>
+                                        </div>
+                                        <button type="submit" class="btn btn-primary">Send</button>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- / Content -->
+
+                <!-- Footer -->
+                <footer th:replace="admin/fragments/layout :: footer"></footer>
+                <!-- / Footer -->
+
+                <div class="content-backdrop fade"></div>
+            </div>
+            <!-- Content wrapper -->
+        </div>
+        <!-- / Layout page -->
+    </div>
+
+    <!-- Overlay -->
+    <div class="layout-overlay layout-menu-toggle"></div>
+</div>
+<!-- / Layout wrapper -->
+
+<div th:replace="admin/fragments/layout :: script"></div>
+
+</body>
+</html>

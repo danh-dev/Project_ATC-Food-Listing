@@ -1,0 +1,24 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<body>
+<div class="container">
+    <div>
+        <table>
+            <thead>
+            <tr>
+                <th>#</th>
+                <th>COUPONS LIST</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="coupon : ${coupons}">
+                <td th:text="${coupon.id}"></td>
+                <td th:text="${coupon.couponName}"></td>
+                <td th:text="${coupon.couponQuantity}"></td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</div> <!-- /container -->
+</body>
+</html>

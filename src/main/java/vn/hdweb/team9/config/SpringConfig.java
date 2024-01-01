@@ -2,6 +2,7 @@ package vn.hdweb.team9.config;
 
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.Id;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import vn.hdweb.team9.domain.entity.Coupon;

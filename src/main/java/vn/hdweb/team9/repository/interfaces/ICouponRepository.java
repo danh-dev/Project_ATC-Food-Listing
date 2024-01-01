@@ -1,12 +1,11 @@
 package vn.hdweb.team9.repository.interfaces;
 
-import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 import vn.hdweb.team9.domain.entity.Coupon;
 
-import javax.swing.text.html.Option;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Stream;
 
 @Repository
 public interface ICouponRepository {
@@ -26,11 +25,13 @@ public interface ICouponRepository {
 
     // UPDATE
     // 5. Update existing coupon
-    Optional<Coupon> saveAndFlush(Coupon coupon);
+    Optional<Coupon> update(Coupon coupon);
 
     // DELETE
     // 6. Delete by entity
     void delete(Coupon coupon);
 
+
+    void clearAll();
 
 }
