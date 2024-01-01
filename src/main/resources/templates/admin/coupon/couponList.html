@@ -1,24 +1,250 @@
-<!DOCTYPE HTML>
-<html xmlns:th="http://www.thymeleaf.org">
+<!DOCTYPE html>
+
+<!-- =========================================================
+* Sneat - Bootstrap 5 HTML Admin Template - Pro | v1.0.0
+==============================================================
+
+* Product Page: https://themeselection.com/products/sneat-bootstrap-html-admin-template/
+* Created by: ThemeSelection
+* License: You must have a valid license purchased in order to legally use the theme for your project.
+* Copyright ThemeSelection (https://themeselection.com)
+
+=========================================================
+ -->
+<!-- beautify ignore:start -->
+<html
+    lang="en" xmlns:th="http://www.thymeleaf.org"
+    class="light-style layout-menu-fixed"
+    dir="ltr"
+    data-theme="theme-default"
+    data-assets-path="../../admin/assets/"
+    data-template="vertical-menu-template-free"
+>
+<head th:replace="admin/fragments/layout :: head" />
+
 <body>
-<div class="container">
-    <div>
-        <table>
-            <thead>
-            <tr>
-                <th>#</th>
-                <th>COUPONS LIST</th>
-            </tr>
-            </thead>
-            <tbody>
-            <tr th:each="coupon : ${coupons}">
-                <td th:text="${coupon.id}"></td>
-                <td th:text="${coupon.couponName}"></td>
-                <td th:text="${coupon.couponQuantity}"></td>
-            </tr>
-            </tbody>
-        </table>
+<!-- Layout wrapper -->
+<div class="layout-wrapper layout-content-navbar">
+    <div class="layout-container">
+        <!-- Menu -->
+
+        <aside id="layout-menu" th:replace="admin/fragments/layout :: sidebar" class="layout-menu menu-vertical menu bg-menu-theme"></aside>
+        <!-- / Menu -->
+
+        <!-- Layout container -->
+        <div class="layout-page">
+            <!-- Navbar -->
+
+            <nav th:replace="admin/fragments/layout :: navbar" />
+
+            <!-- / Navbar -->
+
+            <!-- Content wrapper -->
+            <div class="content-wrapper">
+                <!-- Content -->
+
+                <div class="container-xxl flex-grow-1 container-p-y">
+                    <h4 class="fw-bold py-3 mb-4"><span class="text-muted fw-light">Category /</span> List</h4>
+
+                    <!-- Basic Bootstrap Table -->
+                    <div class="card">
+                        <h5 class="card-header">Coupons</h5>
+                        <div class="table-responsive text-nowrap">
+                            <table class="table">
+                                <thead>
+                                <tr>
+                                    <th>Coupon Name</th>
+                                    <th>Coupon Code</th>
+                                    <th>Description</th>
+                                    <th>Type</th>
+                                    <th>Value</th>
+                                    <th>Quantity</th>
+                                    <th>Start At</th>
+                                    <th>End At</th>
+                                    <th>Actions</th>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <i class="fab fa-bootstrap fa-lg text-primary me-1"></i>
+                                        <strong>Flash Sale</strong>
+                                    </td>
+                                    <td>
+                                        <i class="fab fa-bootstrap fa-lg text-primary me-1"></i>
+                                        <strong>FLASH</strong>
+                                    </td>
+                                    <td>
+                                        <i class="fab fa-bootstrap fa-lg text-primary me-3"></i>
+                                        Flash sale 50% for all products
+                                    </td>
+                                    <td>
+                                        <span class="badge me-1 bg-label-success">
+                                            PERCENT
+                                        </span></td>
+                                    </td>
+                                    <td>
+                                        <i class="fab fa-bootstrap fa-lg text-primary me-1"></i>
+                                        50
+                                    </td>
+                                    <td>
+                                        <i class="fab fa-bootstrap fa-lg text-primary me-1"></i>
+                                        1000
+                                    </td>
+                                    <td>
+                                        <i class="fab fa-bootstrap fa-lg text-primary me-1"></i>
+                                        01/01/2024
+                                    </td>
+                                    <td>
+                                        <i class="fab fa-bootstrap fa-lg text-primary me-1"></i>
+                                        31/01/2024
+                                    </td>
+                                    <td>
+                                        <div class="dropdown">
+                                            <button type="button" class="btn p-0 dropdown-toggle hide-arrow" data-bs-toggle="dropdown">
+                                                <i class="bx bx-dots-vertical-rounded"></i>
+                                            </button>
+                                            <div class="dropdown-menu">
+                                                <a class="dropdown-item" href="javascript:void(0);"
+                                                ><i class="bx bx-edit-alt me-2"></i>Edit</a
+                                                >
+                                                <a class="dropdown-item" href="javascript:void(0);"
+                                                ><i class="bx bx-trash me-2"></i> Delete</a
+                                                >
+                                            </div>
+                                        </div>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <i class="fab fa-bootstrap fa-lg text-primary me-1"></i>
+                                        <strong>Discount 100$</strong>
+                                    </td>
+                                    <td>
+                                        <i class="fab fa-bootstrap fa-lg text-primary me-1"></i>
+                                        <strong>SALE</strong>
+                                    </td>
+                                    <td>
+                                        <i class="fab fa-bootstrap fa-lg text-primary me-3"></i>
+                                        Flash sale 50% for all products
+                                    </td>
+                                    <td>
+                                        <span class="badge me-1 bg-label-success">
+                                            DIRECT
+                                        </span></td>
+                                    </td>
+                                    <td>
+                                        <i class="fab fa-bootstrap fa-lg text-primary me-1"></i>
+                                        100
+                                    </td>
+                                    <td>
+                                        <i class="fab fa-bootstrap fa-lg text-primary me-1"></i>
+                                        99
+                                    </td>
+                                    <td>
+                                        <i class="fab fa-bootstrap fa-lg text-primary me-1"></i>
+                                        01/01/2024
+                                    </td>
+                                    <td>
+                                        <i class="fab fa-bootstrap fa-lg text-primary me-1"></i>
+                                        31/01/2024
+                                    </td>
+                                    <td>
+                                        <div class="dropdown">
+                                            <button type="button" class="btn p-0 dropdown-toggle hide-arrow" data-bs-toggle="dropdown">
+                                                <i class="bx bx-dots-vertical-rounded"></i>
+                                            </button>
+                                            <div class="dropdown-menu">
+                                                <a class="dropdown-item" href="javascript:void(0);"
+                                                ><i class="bx bx-edit-alt me-2"></i>Edit</a
+                                                >
+                                                <a class="dropdown-item" href="javascript:void(0);"
+                                                ><i class="bx bx-trash me-2"></i> Delete</a
+                                                >
+                                            </div>
+                                        </div>
+                                    </td>
+                                </tr>
+                                <tr th:each="coupon : ${coupons}">
+                                    <td>
+                                        <i class="fab fa-bootstrap fa-lg text-primary me-1"></i>
+                                        <strong>[[${coupon.couponName}]]</strong>
+                                    </td>
+                                    <td>
+                                        <i class="fab fa-bootstrap fa-lg text-primary me-1"></i>
+                                        <strong>[[${coupon.couponCode}]]</strong>
+                                    </td>
+                                    <td>
+                                        <i class="fab fa-bootstrap fa-lg text-primary me-3"></i>
+                                        [[${coupon.couponDescription}]]
+                                    </td>
+                                    <td>
+                                        <span class="badge me-1" th:classappend="${coupon.typeCoupon == 'DIRECT' ? 'bg-label-warning' : 'bg-label-success'}">
+                                            [[${coupon.typeCoupon}]]
+                                        </span></td>
+                                    </td>
+                                    <td>
+                                        <i class="fab fa-bootstrap fa-lg text-primary me-1"></i>
+                                        [[${coupon.couponValue}]]
+                                    </td>
+                                    <td>
+                                        <i class="fab fa-bootstrap fa-lg text-primary me-1"></i>
+                                        [[${coupon.couponQuantity}]]
+                                    </td>
+                                    <td>
+                                        <i class="fab fa-bootstrap fa-lg text-primary me-1"></i>
+                                        [[${coupon.startDate}]]
+                                    </td>
+                                    <td>
+                                        <i class="fab fa-bootstrap fa-lg text-primary me-1"></i>
+                                        [[${coupon.endDate}]]
+                                    </td>
+                                    <td>
+                                        <div class="dropdown">
+                                            <button type="button" class="btn p-0 dropdown-toggle hide-arrow" data-bs-toggle="dropdown">
+                                                <i class="bx bx-dots-vertical-rounded"></i>
+                                            </button>
+                                            <div class="dropdown-menu">
+                                                <form th:action="@{'/admin/coupon/update/' + ${coupon.id}}" method="get" id="updateCouponForm">
+                                                    <button type="submit" class="dropdown-item">
+                                                        <i class="bx bx-trash me-2"></i>Edit
+                                                    </button>
+                                                </form>
+                                                <form th:action="@{'/admin/coupon/delete/' + ${coupon.id}}" method="post" id="deleteCouponForm">
+                                                    <button type="submit" class="dropdown-item">
+                                                        <i class="bx bx-trash me-2"></i> Delete
+                                                    </button>
+                                                </form>
+                                            </div>
+                                        </div>
+                                    </td>
+                                </tr>
+                                </thead>
+                                <tbody class="table-border-bottom-0">
+
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                    <!--/ Basic Bootstrap Table -->
+                </div>
+                <!-- / Content -->
+
+                <!-- Footer -->
+                <footer th:replace="admin/fragments/layout :: footer"></footer>
+                <!-- / Footer -->
+
+                <div class="content-backdrop fade"></div>
+            </div>
+            <!-- Content wrapper -->
+        </div>
+        <!-- / Layout page -->
     </div>
-</div> <!-- /container -->
+
+    <!-- Overlay -->
+    <div class="layout-overlay layout-menu-toggle"></div>
+</div>
+<!-- / Layout wrapper -->
+
+<div th:replace="admin/fragments/layout :: script"></div>
+
 </body>
 </html>

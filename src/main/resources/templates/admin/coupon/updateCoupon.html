@@ -44,24 +44,24 @@
                 <!-- Content -->
 
                 <div class="container-xxl flex-grow-1 container-p-y">
-                    <h4 class="fw-bold py-3 mb-4"><span class="text-muted fw-light">Coupon/</span>New Coupon</h4>
+                    <h4 class="fw-bold py-3 mb-4"><span class="text-muted fw-light">Coupon/</span>Edit</h4>
 
                     <!-- Basic Layout -->
                     <div class="row">
                         <div class="col-xl">
                             <div class="card mb-4">
                                 <div class="card-header d-flex justify-content-between align-items-center">
-                                    <h5 class="mb-0">Create Coupon</h5>
+                                    <h5 class="mb-0">Edit Coupon</h5>
                                     <small class="text-muted float-end">Default label</small>
                                 </div>
                                 <div class="card-body">
-                                    <form th:object="${coupon}" th:action="@{/admin/coupon/new}" method="post">
+                                    <form th:object="${coupon}" th:action="@{'/admin/coupon/update/' + ${coupon.id}}" method="post">
                                         <div class="mb-3">
                                             <label class="form-label" for="basic-default-couponCode">Coupon Code</label>
                                             <input type="text"
                                                    class="form-control"
                                                    id="basic-default-couponCode"
-                                                   th:field="${coupon.couponCode}"
+                                                   th:value="${coupon.couponCode}"
                                                    placeholder="Coupon Code" />
                                         </div>
                                         <div class="mb-3">
@@ -69,7 +69,7 @@
                                             <input type="text"
                                                    class="form-control"
                                                    id="basic-default-couponName"
-                                                   th:field="${coupon.couponName}"
+                                                   th:value="${coupon.couponName}"
                                                    placeholder="Coupon name" />
                                         </div>
                                         <div class="mb-3">
@@ -77,14 +77,14 @@
                                             <textarea type="text"
                                                       class="form-control"
                                                       id="basic-default-couponDescription"
-                                                      th:field="${coupon.couponDescription}"
+                                                      th:value="${coupon.couponDescription}"
                                                       placeholder="Coupon description"
                                             ></textarea>
                                         </div>
                                         <div class="d-flex justify-content-between">
                                             <div class="mb-3 mr-2">
                                                 <label class="form-label">Type Coupon</label>
-                                                <select class="form-select" th:field="${coupon.typeCoupon}">
+                                                <select class="form-select" th:value="${coupon.typeCoupon}">
                                                     <option value="DIRECT">Direct</option>
                                                     <option value="PERCENT">Percent</option>
                                                 </select>
@@ -95,7 +95,7 @@
                                                     type="number"
                                                     class="form-control"
                                                     id="basic-default-couponValue"
-                                                    th:field="${coupon.couponValue}"
+                                                    th:value="${coupon.couponValue}"
                                                     placeholder="Discount value"
                                                 />
                                             </div>
@@ -104,7 +104,7 @@
                                                 <input type="number"
                                                        class="form-control"
                                                        id="basic-default-couponQuantity"
-                                                       th:field="${coupon.couponQuantity}"
+                                                       th:value="${coupon.couponQuantity}"
                                                        placeholder="Coupon Quantity" />
                                             </div>
                                         </div>
@@ -114,7 +114,7 @@
                                                 <input type="date"
                                                        class="form-control"
                                                        id="basic-default-startDate"
-                                                       th:field="${coupon.startDate}"
+                                                       th:value="${coupon.startDate}"
                                                 />
                                             </div>
                                             <div class="mb-3 flex-grow-1 mx-2">
@@ -122,7 +122,7 @@
                                                 <input type="date"
                                                        class="form-control"
                                                        id="basic-default-endDate"
-                                                       th:field="${coupon.endDate}"
+                                                       th:value="${coupon.endDate}"
                                                 />
                                             </div>
                                         </div>
