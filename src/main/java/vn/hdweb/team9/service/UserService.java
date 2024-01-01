@@ -6,18 +6,19 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.multipart.MultipartFile;
 import vn.hdweb.team9.domain.dto.request.SignUpDto;
 import vn.hdweb.team9.domain.dto.respon.UserDto;
 import vn.hdweb.team9.domain.entity.User;
 import vn.hdweb.team9.repository.interfaces.IRoleRepository;
 import vn.hdweb.team9.repository.interfaces.IUserRepository;
 import vn.hdweb.team9.service.imp.IUserService;
+import vn.hdweb.team9.utility.UploadFile;
 
 import java.util.List;
 
@@ -68,14 +69,38 @@ public class UserService implements IUserService {
         if (user == null) {
             throw new UsernameNotFoundException("User not found");
         }
-        return new UserDto(
-                user.getFullName(),
-                user.getEmail(),
-                user.getPhone(),
-                user.getAddress(),
-                user.getAvatar(),
-                user.getCreatedAt()
-        );
+        UserDto userDto = new UserDto();
+        userDto.setFullName(user.getFullName());
+        userDto.setEmail(user.getEmail());
+        userDto.setPhone(user.getPhone());
+        userDto.setAddress(user.getAddress());
+        userDto.setAvatar(user.getAvatar());
+        userDto.setRole(user.getRole().getRoleName());
+        userDto.setCreatedAt(user.getCreatedAt().toString());
+        return userDto;
+    }
+
+    @Override
+    public void uploadAvatar(MultipartFile avatar, String email) {
+        User user = userRepository.findByEmail(email);
+        try {
+            if(!user.getAvatar().isEmpty()){
+                UploadFile.deleteFile(user.getAvatar());
+            }
+            user.setAvatar(UploadFile.uploadFile(avatar));
+            userRepository.save(user);
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    @Override
+    public void userUpdate(UserDto userDto, String userEmail) {
+        User user = userRepository.findByEmail(userEmail);
+        user.setFullName(userDto.getFullName());
+        user.setPhone(userDto.getPhone());
+        user.setAddress(userDto.getAddress());
+        userRepository.save(user);
     }
 
 

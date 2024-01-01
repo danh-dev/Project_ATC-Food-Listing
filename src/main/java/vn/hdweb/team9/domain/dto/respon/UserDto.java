@@ -1,5 +1,6 @@
 package vn.hdweb.team9.domain.dto.respon;
 import lombok.Data;
+import vn.hdweb.team9.domain.entity.Role;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
@@ -11,14 +12,6 @@ public class UserDto {
     private String email;
     private String address;
     private String avatar;
+    private String role;
     private String createdAt;
-
-    public UserDto(String fullName, String email, String phone, String address, String avatar, LocalDateTime createdAt) {
-        this.fullName = fullName;
-        this.email = email;
-        this.phone = phone;
-        this.address = address;
-        this.avatar = avatar;
-        this.createdAt = createdAt.format(DateTimeFormatter.ofPattern("dd-MM-yyyy"));
-    }
 }

@@ -1,0 +1,44 @@
+<header th:fragment="header">
+    <!-- Spinner Start -->
+    <div id="spinner" class="show w-100 vh-100 bg-white position-fixed translate-middle top-50 start-50  d-flex align-items-center justify-content-center">
+        <div class="spinner-grow text-primary" role="status"></div>
+    </div>
+    <!-- Spinner End -->
+
+    <!-- Navbar start -->
+    <div class="container-fluid fixed-top">
+        <div class="container topbar bg-primary d-none d-lg-block">
+            <div class="d-flex justify-content-between">
+                <div class="top-info ps-2">
+                    <span class="text-white">Project Restaurant food listing - Team 9_ATC</span>
+                </div>
+                <div class="top-link pe-2">
+                    <a href="#" class="text-white"><small class="text-white mx-2">About Us</small>/</a>
+                    <a th:href="@{/contact.html}" class="text-white"><small class="text-white ms-2">Contact</small></a>
+                </div>
+            </div>
+        </div>
+        <div class="container px-0">
+            <nav class="navbar navbar-light bg-white navbar-expand-xl">
+                <a th:href="@{/}" class="navbar-brand"><h1 class="text-primary display-6">Project_Team9</h1></a>
+                <button class="navbar-toggler py-2 px-3" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse">
+                    <span class="fa fa-bars text-primary"></span>
+                </button>
+                <div class="collapse navbar-collapse bg-white" id="navbarCollapse">
+                    <div class="navbar-nav mx-auto">
+                        <a href="index.html" class="nav-item nav-link active">Ăn Vặt</a>
+                        <a href="shop.html" class="nav-item nav-link">Cơm Trưa</a>
+                        <a href="shop-detail.html" class="nav-item nav-link">Đồ Uống</a>
+                        <a href="contact.html" class="nav-item nav-link">Pizza</a>
+                    </div>
+                    <div class="d-flex m-3 me-0">
+                        <a th:href="@{/users}" class="my-auto">
+                            <i class="fas fa-user fa-2x"></i>
+                        </a>
+                    </div>
+                </div>
+            </nav>
+        </div>
+    </div>
+    <!-- Navbar End -->
+</header>

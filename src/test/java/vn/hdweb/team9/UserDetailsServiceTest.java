@@ -22,11 +22,11 @@ public class UserDetailsServiceTest {
 
     @Test
     public void testLoadUserByUsername() {
-        String username = "user1@gmail.com"; // replace with your actual username
+        String username = "user@hdweb.vn"; // replace with your actual username
         UserDetails userDetails = userDetailsService.loadUserByUsername(username);
         assertNotNull(userDetails, "UserDetails should not be null");
         assertEquals(username, userDetails.getUsername(), "Username should match");
         System.out.println("Password: " + userDetails);
-        System.out.println("Result: " + passwordEncoder().matches("123", userDetails.getPassword()));
+        System.out.println("Result: " + passwordEncoder().matches("123@321@", userDetails.getPassword()));
     }
 }

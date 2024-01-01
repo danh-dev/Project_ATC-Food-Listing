@@ -9,18 +9,18 @@ import java.util.List;
 
 @Entity
 @Data
-@Table(name = "user")
+@Table(name = "user" )
 public class User {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "user_id")
     private Long id;
-    @Column(name = "full_name")
+    @Column(name = "full_name" , nullable = false)
     private String fullName;
-    @Column(name = "email")
+    @Column(name = "email", unique = true, nullable = false)
     private String email;
-    @Column(name = "password")
+    @Column(name = "password", nullable = false)
     private String password;
     @Column(name = "phone")
     private String phone;

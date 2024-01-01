@@ -12,9 +12,7 @@ import org.springframework.security.config.annotation.web.configurers.LogoutConf
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
-import org.springframework.security.web.authentication.AuthenticationFailureHandler;
 import vn.hdweb.team9.service.UserService;
-import vn.hdweb.team9.service.imp.IUserService;
 
 @Configuration
 @EnableWebSecurity
@@ -25,8 +23,6 @@ public class SecurityConfig {
         return new BCryptPasswordEncoder();
     }
 
-    @Autowired
-    AuthenticationFailureHandler customAuthenticationFailureHandler;
 
     @Bean
     public DaoAuthenticationProvider authenticationProvider(UserService userService) {
@@ -49,7 +45,6 @@ public class SecurityConfig {
                         .usernameParameter("email")
                         .passwordParameter("password")
                         .defaultSuccessUrl("/users", true)
-                        .failureHandler(customAuthenticationFailureHandler)
                         .permitAll()
                 )
                 .logout(LogoutConfigurer::permitAll);
