@@ -19,7 +19,7 @@ public class Permission {
     @Column(name = "permission_name")
     private String permissionName;
 
-    @ManyToMany(mappedBy = "permissions")
+    @ManyToMany(mappedBy = "permissions", cascade = CascadeType.ALL)
     private List<Role> roles = new ArrayList<>();
 
 }

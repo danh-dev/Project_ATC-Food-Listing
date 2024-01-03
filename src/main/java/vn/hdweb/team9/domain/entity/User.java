@@ -2,6 +2,7 @@ package vn.hdweb.team9.domain.entity;
 
 import jakarta.persistence.*;
 import lombok.Data;
+import vn.hdweb.team9.domain.dto.respon.OrderListOfUserDto;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -31,16 +32,17 @@ public class User {
     @Column(name="create_at")
     private LocalDateTime createdAt = LocalDateTime.now();
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "role_id")
     private Role role;
 
-    @OneToMany(mappedBy = "user")
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
     private List<Order> listOrder = new ArrayList<>();
 
-    @OneToMany(mappedBy = "user")
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
     private List<RatingFood> listRatingFood = new ArrayList<>();
 
-    @OneToMany(mappedBy = "user")
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
     private List<RatingRestaurant> listRatingRestaurant = new ArrayList<>();
+
 }

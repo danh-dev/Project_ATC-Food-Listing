@@ -36,7 +36,7 @@ public class SecurityConfig {
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         http.authorizeHttpRequests(
                         auth -> auth
-                                .requestMatchers("/admincp/**").hasAuthority("ADMIN")
+                                .requestMatchers("/admin/**").hasAuthority("ADMIN")
                                 .requestMatchers("/users/**").hasAnyAuthority("ADMIN", "USER")
                                 .anyRequest().permitAll()
                 )
@@ -47,7 +47,11 @@ public class SecurityConfig {
                         .defaultSuccessUrl("/users", true)
                         .permitAll()
                 )
-                .logout(LogoutConfigurer::permitAll);
+                .logout(LogoutConfigurer::permitAll)
+                .exceptionHandling(exceptionHandling -> exceptionHandling
+                        .accessDeniedPage("/404")
+                )
+        ;
         return http.build();
     }
 

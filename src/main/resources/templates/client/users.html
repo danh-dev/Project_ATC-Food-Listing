@@ -20,7 +20,7 @@
                 <div class="col-lg-3 col-12  bg-body m-3 p-3">
                     <div class="d-flex flex-lg-column ">
                         <div class="d-lg-flex d-none justify-content-center">
-                            <img th:src="${user.avatar}" alt="avatar"
+                            <img th:src="@{'/' + ${user.avatar}}" alt="avatar"
                                  class="rounded-circle border border-3 border-white m-3" width="100px" height="100px">
                         </div>
                         <div class="d-lg-flex d-none justify-content-center">
@@ -30,6 +30,10 @@
                             <h5 class="text-center text-lowercase" th:text="${user.role}"></h5>
                         </div>
                         <div class="container">
+                            <div th:if="${user.role== 'ADMIN'}" class="d-flex justify-content-center py-3">
+                                <a th:href="@{/admin}" class="btn btn-outline-dark w-75">
+                                    <i class="fas fa-user-shield mx-1"></i>Admin CP</a>
+                            </div>
                             <ul class="nav flex-lg-column flex-row justify-content-center align-content-center">
                                 <li class="nav-item">
                                     <a class="nav-link" th:href="@{/users}"><i class="fas fa-user mx-1"></i> Cập nhật
@@ -39,7 +43,6 @@
                                     <a class="nav-link" th:href="@{/users/orders}"><i class="fas fa-history mx-1"></i> Lịch sử đặt hàng</a>
                                 </li>
                             </ul>
-
                             <form th:action="@{/logout}" method="post" class="d-none d-lg-flex pt-5 justify-content-center">
                                 <button type="submit" class="btn btn-danger w-75">
                                     <i class="fas fa-sign-out-alt mx-1"></i> Logout
@@ -53,11 +56,18 @@
                         <h5 class="card-header">Thông tin người dùng</h5>
                         <div class="card-body">
                             <h5 class="card-title">Tải ảnh đại diện</h5>
+                            <div th:if="${success_upload}">
+                                <div th:text="${success_upload}" class="alert alert-success"></div>
+                            </div>
+                            <div th:if="${error_upload}">
+                                <div th:text="${error_upload}" class="alert alert-danger"></div>
+                            </div>
                             <div class="d-flex">
                                 <div class="d-flex flex-column w-25">
-                                    <img th:src="${user.avatar}" alt="avatar"
-                                         class="rounded-circle border border-3 border-white m-3" width="100px"
-                                         height="100px"
+                                    <img th:src="@{'/' + ${user.avatar}}" alt="avatar"
+                                         class="rounded-circle border border-3 border-white m-3"
+                                         width="120px"
+                                         height="120px"
                                          id="avatar-view"
                                     >
                                 </div>
@@ -73,35 +83,65 @@
                         <hr>
                         <div class="card-body">
                             <h5 class="card-title">Thay đổi thông tin</h5>
-                            <form th:action="@{/users/update}" method="POST">
+                            <div th:if="${success_update}">
+                                <div th:text="${success_update}" class="alert alert-success"></div>
+                            </div>
+                            <div th:if="${error_update}">
+                                <div th:text="${error_update}" class="alert alert-danger"></div>
+                            </div>
+                            <form th:action="@{/users/update}" method="POST" th:object="${user}">
                                 <div class="mb-3">
                                     <label for="fullName" class="form-label">Họ và tên</label>
-                                    <input type="text" class="form-control" id="fullName" name="fullName"
-                                           th:value="${user.fullName}">
+                                    <input type="text" class="form-control" id="fullName" th:field="*{fullName}">
                                 </div>
                                 <div class="mb-3">
                                     <label for="email" class="form-label">Email</label>
-                                    <input type="email" class="form-control" id="email" name="email"
+                                    <input type="email" class="form-control" id="email"
                                            th:value="${user.email}" disabled>
                                 </div>
                                 <div class="mb-3">
                                     <label for="phone" class="form-label">Số điện thoại</label>
-                                    <input type="text" class="form-control" id="phone" name="phone"
-                                           th:value="${user.phone}">
+                                    <input th:classappend="${error_phone != null?'is-invalid':''}" type="text" class="form-control" id="phone" th:field="*{phone}">
+                                    <span th:if="${error_phone}" th:text="${error_phone}" class="invalid-feedback"></span>
                                 </div>
                                 <div class="mb-3">
                                     <label for="address" class="form-label">Địa chỉ</label>
-                                    <input type="text" class="form-control" id="address" name="address"
-                                           th:value="${user.address}">
+                                    <input type="text" class="form-control" id="address" th:field="*{address}">
                                 </div>
                                 <button type="submit" class="btn btn-primary">Cập nhật</button>
                             </form>
                         </div>
                         <hr>
                         <div class="card-body">
-                            <h5 class="card-title">Tài khoản liên kết</h5>
-                            <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
-                            <a href="#" class="btn btn-primary">Go somewhere</a>
+                            <h5 class="card-title">Đổi mật khẩu</h5>
+                            <div th:if="${param.changePasswordSuccess}">
+                                <div class="alert alert-success">Cập nhật mật khẩu thành công.</div>
+                            </div>
+                            <div th:if="${param.confirmPasswordError}">
+                                <div class="alert alert-danger">Mật khẩu mới và Xác nhận mật khẩu không trùng nhau.</div>
+                            </div>
+                            <div th:if="${param.oldPasswordError}">
+                                <div class="alert alert-danger">Mật khẩu cũ không đúng.</div>
+                            </div>
+                            <div th:if="${param.existPasswordError}">
+                                <div class="alert alert-danger">Mật khẩu mới trùng với Mật khẩu cũ.</div>
+                            </div>
+                            <form th:action="@{/users/change_password}" method="POST">
+                                <div class="mb-3">
+                                    <label for="oldPassword" class="form-label">Mật khẩu cũ*</label>
+                                    <input type="password" class="form-control" id="oldPassword" name="oldPassword" required>
+                                </div>
+                                <div class="mb-3">
+                                    <label for="newPassword" class="form-label">Mật khẩu mới*</label>
+                                    <input type="password" class="form-control" id="newPassword" name="newPassword" required>
+                                </div>
+                                <div class="mb-3">
+                                    <label for="confirmPassword" class="form-label">Xác nhận mật khẩu*</label>
+                                    <input type="password" class="form-control" id="confirmPassword"
+                                           name="confirmPassword" required>
+                                </div>
+                                <button type="submit" class="btn btn-primary">Đổi mật khẩu</button>
+                            </form>
                         </div>
                     </div>
                 </div>
@@ -110,8 +150,8 @@
     </div>
 </div>
 <!-- Contact End -->
-<div th:replace="client/fragments/footer::footer"></div>
-<div th:replace="client/fragments/js::js-insert"></div>
+<div th:replace="~{client/fragments/footer::footer}"></div>
+<div th:replace="~{client/fragments/js::js-insert}"></div>
 <script>
     $(document).ready(() => {
         const photoInp = $("#file-avatar-waiting");
