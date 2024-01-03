@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Order Detail</title>
+</head>
+
+<body>
+
+<h2>Order Detail</h2>
+
+<!-- Display order details here using Thymeleaf expressions -->
+<div th:object="${order}">
+<!--    <p>ID: <span th:text="${order.id}"></span></p>-->
+<!--    <p>User: <span th:text="${order.user.username}"></span></p>-->
+<!--    <p>Restaurant: <span th:text="${order.restaurant.name}"></span></p>-->
+
+    <h3>Order Items</h3>
+    <table>
+        <thead>
+        <tr>
+            <th>Food</th>
+            <th>Quantity</th>
+            <!-- Add more header columns as needed -->
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="orderItem : ${order}">
+            <td th:text="${orderItem.getFood()}"></td>
+            <td th:text="${orderItem.getQuantity()}"></td>
+            <!-- Add more columns as needed -->
+        </tr>
+        </tbody>
+    </table>
+
+<!--    <p>Note: <span th:text="${order.orderNote}"></span></p>-->
+<!--    <p>Total Bill: <span th:text="${order.totalBill}"></span></p>-->
+<!--    <p>Status: <span th:text="${order.orderStatus}"></span></p>-->
+<!--    <p>Rating Restaurant: <span th:text="${order.isRatingRestaurant}"></span></p>-->
+
+    <!-- Add more details as needed -->
+</div>
+
+</body>
+
+</html>

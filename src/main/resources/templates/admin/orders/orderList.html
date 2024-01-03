@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Order List</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 0;
+        }
+
+        h2 {
+            color: #333;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+
+        th, td {
+            border: 1px solid #ddd;
+            padding: 12px;
+            text-align: left;
+        }
+
+        th {
+            background-color: #4CAF50;
+            color: white;
+        }
+
+        tr:nth-child(even) {
+            background-color: #f2f2f2;
+        }
+
+        tr:hover {
+            background-color: #ddd;
+        }
+    </style>
+</head>
+
+<body>
+
+<h2>Order List</h2>
+
+<!-- Display order list here using Thymeleaf expressions -->
+<table>
+    <thead>
+    <tr>
+        <th>ID</th>
+        <th>User</th>
+        <th>Restaurant</th>
+        <th>Total Bill</th>
+        <th>Status</th>
+        <th>Rating Restaurant</th>
+        <th>Time</th>
+        <th>Note</th>
+        <!-- Add more header columns as needed -->
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="order : ${orders}">
+        <td th:text="${order.id}"></td>
+        <td th:text="${order.user.username}"></td>
+        <td th:text="${order.restaurant.restaurantName}"></td>
+        <td th:text="${order.totalBill}"></td>
+        <td th:text="${order.status}"></td>
+        <td th:text="${order.ratingRestaurant}"></td>
+        <td th:text="${order.createdAt}"></td>
+        <td th:text="${order.orderNote}"></td>
+
+    </tr>
+    </tbody>
+</table>
+
+</body>
+
+</html>

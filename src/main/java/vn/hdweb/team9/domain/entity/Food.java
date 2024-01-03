@@ -49,4 +49,6 @@ public class Food {
 
     @OneToMany(mappedBy = "food")
     private List<RatingFood> listRatingFood = new ArrayList<>();
+
+
 }

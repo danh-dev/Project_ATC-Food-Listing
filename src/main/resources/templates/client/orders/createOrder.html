@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Create Order</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            margin: 20px;
+        }
+
+        h2 {
+            color: #333;
+        }
+
+        form {
+            width: 50%;
+            margin: 20px auto;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 5px;
+        }
+
+        input, select {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 15px;
+            box-sizing: border-box;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+
+        button {
+            background-color: #4CAF50;
+            color: white;
+            padding: 12px 18px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #45a049;
+        }
+
+        /* Styling for the select element */
+        select {
+            height: 40px;
+            appearance: none; /* Remove default arrow */
+            background: white url('https://cdn3.iconfinder.com/data/icons/fatcow/32/bullet_arrow_down.png') no-repeat right 10px center; /* Add custom arrow */
+            background-size: 20px; /* Adjust arrow size */
+            padding-right: 30px; /* Ensure arrow doesn't overlap text */
+        }
+    </style>
+
+
+</head>
+<body>
+
+<h2>Create Order</h2>
+
+<form action="/client/orders/create" method="post">
+    <!-- Form fields for order information -->
+    <label for="orderNote">Order Note:</label>
+    <input type="text" id="orderNote" name="order.orderNote" required>
+
+    <!-- Select available foods -->
+    <label for="foodId">Select Food:</label>
+    <select id="foodId" name="foodIds" required>
+        <option value="">Select Food</option>
+        <option th:each="food : ${availableFoods}" th:value="${food.id}" th:text="${food.foodName}"></option>
+    </select>
+
+
+    <!-- Select restaurant -->
+    <label for="restaurantId">Select Restaurant:</label>
+    <select id="restaurantId" name="order.restaurant.id" required>
+        <option value="">Select Restaurant</option>
+        <option th:each="restaurant : ${restaurants}" th:value="${restaurant.id}" th:text="${restaurant.restaurantName}"></option>
+    </select>
+
+    <!-- Select user -->
+    <!-- Select user -->
+    <label for="userId">Select User:</label>
+    <select id="userId" name="order.user.id" required>
+        <option value="">Select User</option>
+        <option th:each="user : ${users}" th:value="${user.id}" th:text="${user.username}"></option>
+    </select>
+
+
+    <!-- Input quantity for the selected food -->
+    <label for="quantity">Quantity:</label>
+    <input type="number" id="quantity" name="quantities" required>
+
+    <!-- Additional fields -->
+    <label for="isRatingFood">Is Rating Food:</label>
+    <input type="checkbox" id="isRatingFood" name="orderDetail.isRatingFood">
+
+    <!-- Select OrderStatus -->
+    <label for="orderStatus">Order Status:</label>
+    <select id="orderStatus" name="order.orderStatus" th:field="*{order.orderStatus}" required>
+        <option th:each="status : ${T(vn.hdweb.team9.domain.entity.OrderStatus).values()}" th:value="${status}" th:text="${#strings.capitalize(status.toString().toLowerCase())}"></option>
+    </select>
+
+    <label for="isRatingRestaurant">Is Rating Restaurant:</label>
+    <input type="checkbox" id="isRatingRestaurant" name="order.isRatingRestaurant">
+
+    <!-- Submit button -->
+    <button type="submit">Place Order</button>
+</form>
+
+</body>
+</html>

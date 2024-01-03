@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Order Detail Detail</title>
+</head>
+
+<body>
+
+<h2>Order Detail Detail</h2>
+
+<!-- Display order detail details here using Thymeleaf expressions -->
+<div th:object="${orderDetail}">
+    <p>ID: <span th:text="${orderDetail.id}"></span></p>
+    <p>Order ID: <span th:text="${orderDetail.order.id}"></span></p>
+    <!-- Add more details as needed -->
+</div>
+
+</body>
+
+</html>

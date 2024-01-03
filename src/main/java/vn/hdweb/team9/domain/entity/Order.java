@@ -26,7 +26,7 @@ public class Order {
     @JoinColumn(name="restaurant_id")
     private Restaurant restaurant;
 
-    @OneToMany(mappedBy = "order")
+    @OneToMany(mappedBy = "order", cascade = CascadeType.ALL)
     private List<OrderDetail> orderItems = new ArrayList<>();
 
     @Column(name = "order_note")
@@ -34,9 +34,6 @@ public class Order {
 
     @Column(name = "total_bill")
     private int totalBill;
-
-    @Column(name = "order_status")
-    private String orderStatus;
 
     @Column(name = "is_rating_restaurant")
     private boolean isRatingRestaurant;
@@ -51,4 +48,6 @@ public class Order {
 
     @Column(name = "update_at")
     private LocalDateTime updatedAt = LocalDateTime.now();
+
+
 }

@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Order Status List</title>
+</head>
+
+<body>
+
+<h2>Order Status List</h2>
+
+<!-- Display orders by status using Thymeleaf expressions -->
+<table>
+    <thead>
+    <tr>
+        <th>ID</th>
+        <th>User</th>
+        <th>Restaurant</th>
+        <th>Total Bill</th>
+        <!-- Add more header columns as needed -->
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="order : ${orders}">
+        <td th:text="${order.id}"></td>
+        <td th:text="${order.user.username}"></td>
+        <td th:text="${order.restaurant.name}"></td>
+        <td th:text="${order.totalBill}"></td>
+        <!-- Add more columns as needed -->
+    </tr>
+    </tbody>
+</table>
+
+</body>
+
+</html>

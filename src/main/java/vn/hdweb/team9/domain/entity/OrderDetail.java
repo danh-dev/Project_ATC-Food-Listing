@@ -35,4 +35,5 @@ public class OrderDetail {
 
     @Column(name = "create_at")
     private LocalDateTime createdAt = LocalDateTime.now();
+
 }
