@@ -41,7 +41,7 @@ public class OrderClientController {
             orderRequestDto.setUserId(userId);
             // Set orderDetailRequestDto in the OrderRequestDto
             orderRequestDto.setOrderDetails(Collections.singletonList(orderDetailRequestDto));
-            Long orderId = orderService.placeOrder(orderRequestDto);
+            Long orderId = orderService.createOrder(orderRequestDto);
 
             // Redirect to the order details page for the newly created order or page user's order
             // Retrieval list user's order

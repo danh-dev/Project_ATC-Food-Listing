@@ -9,6 +9,6 @@ public class OrderRequestDto {
     private Long userId;
     private Long restaurantId;
     private String orderNote;
-    private boolean isRatingRestaurant;
+//    private boolean isRatingRestaurant;
     private List<OrderDetailRequestDto> orderDetails;
 }

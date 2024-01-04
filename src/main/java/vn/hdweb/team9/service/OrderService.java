@@ -10,7 +10,7 @@ import vn.hdweb.team9.repository.OrderRepository;
 import vn.hdweb.team9.repository.UserRepository;
 import vn.hdweb.team9.repository.RestaurantRepository;
 
-import java.time.LocalDateTime;
+
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -92,55 +92,18 @@ public class OrderService {
         return responseDto;
     }
 
-    //== Association Assist Method ==//
-    // User Entity
-    @Transactional
-    public void setUser(Long orderId, Long userId) {
-        try {
-            Order order = orderRepository.findById(orderId)
-                    .orElseThrow(() -> new IllegalArgumentException("Order not found with id: " + orderId));
-            User user = userRepository.findById(userId)
-                    .orElseThrow(() -> new IllegalArgumentException("User not found with id: " + userId));
-            order.setUser(user);
-            user.getListOrder().add(order);
-            orderRepository.save(order);
-        } catch (Exception e) {
-            throw new RuntimeException("Error setting user for order", e);
-        }
-    }
-    // Restaurant Entity
-    @Transactional
-    public void setRestaurant(Long orderId, Long restaurantId) {
-        try {
-            Order order = orderRepository.findById(orderId)
-                    .orElseThrow(() -> new IllegalArgumentException("Order not found with id: " + orderId));
-            Restaurant restaurant = restaurantRepository.findById(restaurantId)
-                    .orElseThrow(() -> new IllegalArgumentException("Restaurant not found with id: " + restaurantId));
-            order.setRestaurant(restaurant);
-            restaurant.getListOrder().add(order);
-            orderRepository.save(order);
-        } catch (Exception e) {
-            throw new RuntimeException("Error setting restaurant for order", e);
-        }
-    }
     @Transactional
     public void cancelOrder(Long orderId) {
-        // LOGIC REMOVE ORDER HAS BEEN CANCELLED
         try {
             Order order = orderRepository.findById(orderId)
                     .orElseThrow(() -> new IllegalArgumentException("Order not found with id: " + orderId));
 
-            if (!order.getStatus().equals(OrderStatus.DELIVERED) && !order.getStatus().equals(OrderStatus.SHIPPING)){
+            if (order.getStatus().equals(OrderStatus.PROCESSING)){
                 order.setStatus(OrderStatus.CANCEL);
                 orderRepository.save(order);
 
-                // Remove the canceled order from the user's list of orders
-                User user = order.getUser();
-                user.getListOrder().remove(order);
-                userRepository.save(user);
-
             } else {
-                throw new RuntimeException("Cannot cancel order in DELIVERED, SHIPPING");
+                throw new RuntimeException("Cannot cancel order");
             }
 
         } catch (IllegalArgumentException e) {
@@ -203,7 +166,7 @@ public class OrderService {
             Long userId = orderRequestDto.getUserId();
             Long restaurantId = orderRequestDto.getRestaurantId();
             String orderNote = orderRequestDto.getOrderNote();
-            boolean isRatingRestaurant = orderRequestDto.isRatingRestaurant();
+//            boolean isRatingRestaurant = orderRequestDto.isRatingRestaurant();
 
             // Kiểm tra xem userId và restaurantId có tồn tại không
             User user = userRepository.findById(userId)
@@ -215,12 +178,16 @@ public class OrderService {
             // Tạo mới đối tượng Order từ thông tin trong OrderRequestDto
             Order order = new Order();
             order.setUser(user);
+
             order.setRestaurant(restaurant);
-            order.setCreatedAt(LocalDateTime.now());
+//          order.setCreatedAt(LocalDateTime.now());
             order.setStatus(OrderStatus.PROCESSING);
             order.setOrderNote(orderNote);
-            order.setRatingRestaurant(isRatingRestaurant);
+            order.setRatingRestaurant(false);
 
+            // Set order for user and restaurant
+            user.getListOrder().add(order);
+            restaurant.getListOrder().add(order);
             // Lưu Order vào cơ sở dữ liệu
             orderRepository.save(order);
 
@@ -242,21 +209,6 @@ public class OrderService {
     }
 
     @Transactional
-    public Long placeOrder(OrderRequestDto orderRequestDto) {
-        try {
-            // Tạo Order và chi tiết đơn hàng từ OrderRequestDto
-            Long orderId = createOrder(orderRequestDto);
-
-            // Set User và Restaurant cho Order
-            setUser(orderId, orderRequestDto.getUserId());
-            setRestaurant(orderId, orderRequestDto.getRestaurantId());
-
-            return orderId;
-        } catch (Exception e) {
-            throw new RuntimeException("Error placing order", e);
-        }
-    }
-    @Transactional
     public void updateOrderStatus(Long orderId, OrderUpdateRequestDto orderUpdateDto) {
         try {
             Order order = orderRepository.findById(orderId)
@@ -269,4 +221,37 @@ public class OrderService {
             throw new RuntimeException("Error updating order status", e);
         }
     }
+    @Transactional
+    public void changeIsRatingRestaurant (Long orderId) {
+        try {
+            Optional<Order> optionalOrder  = orderRepository.findById(orderId);
+            if (optionalOrder .isPresent()) {
+                Order order = optionalOrder.get();
+                order.setRatingRestaurant(true);
+                orderRepository.save(order);
+            } else {
+                throw new IllegalArgumentException("Order not found with id: " + orderId);
+            }
+        } catch (Exception e) {
+            throw new RuntimeException("Error ");
+        }
+    }
+    @Transactional
+    public void changeIsRatingFood(Long orderId) {
+        try {
+            Optional<Order> optionalOrder = orderRepository.findById(orderId);
+
+            if (optionalOrder.isPresent()) {
+                Order order = optionalOrder.get();
+
+                order.getOrderItems().forEach(orderDetail -> orderDetail.setRatingFood(true));
+                orderRepository.save(order);
+            } else {
+                throw new IllegalArgumentException("Order not found with id: " + orderId);
+            }
+        } catch (Exception e) {
+            throw new RuntimeException("Error changing isRatingFood", e);
+        }
+    }
+
 }

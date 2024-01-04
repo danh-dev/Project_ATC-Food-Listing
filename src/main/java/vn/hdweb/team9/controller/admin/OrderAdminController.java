@@ -13,7 +13,7 @@ import vn.hdweb.team9.service.OrderService;
 import java.util.List;
 
 @Controller
-@RequestMapping("/admin/orders")
+@RequestMapping("/no")
 public class OrderAdminController {
 
     private final OrderService orderService;
