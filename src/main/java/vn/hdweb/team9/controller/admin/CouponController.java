@@ -6,6 +6,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import vn.hdweb.team9.domain.dto.CouponSearch;
 import vn.hdweb.team9.domain.entity.Coupon;
 import vn.hdweb.team9.service.CouponService;
 
@@ -41,7 +42,9 @@ public class CouponController {
     @GetMapping("/list")
     public String couponList(Model model) {
         List<Coupon> coupons = couponService.findAll();
+        CouponSearch couponSearch = new CouponSearch();
         model.addAttribute("coupons", coupons);
+        model.addAttribute("couponSearch", couponSearch);
         return "admin/coupon/couponList";
     }
 
