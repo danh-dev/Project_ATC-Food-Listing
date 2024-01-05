@@ -50,4 +50,6 @@ public class RatingRestaurantService {
         ratingRestaurantRepository.deleteById(id);
     }
 
+    // AVG
+//    public int
 }
