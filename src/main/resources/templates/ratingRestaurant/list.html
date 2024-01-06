@@ -1,0 +1,31 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="fragments/header :: header">
+    <title>Hello</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+</head>
+<div class="container">
+    <h2>Ratings List</h2>
+    <p>Average Rating: <span th:text="${averageRating}"></span></p>
+    <table border="1">
+        <tr>
+            <th>Content</th>
+            <th>Rate Star</th>
+            <th>Created At</th>
+            <th>Action</th>
+        </tr>
+        <tr th:each="rating : ${ratings}">
+            <td th:text="${rating.content}"></td>
+            <td th:text="${rating.rateStar}"></td>
+            <td th:text="${rating.createdAt}"></td>
+            <td>
+                <a th:href="@{'/rating-restaurant/delete/' + ${rating.id} + '?restaurantId=' + ${rating.restaurant.id}}">Delete</a>
+            </td>
+        </tr>
+    </table>
+</div>
+
+<div th:replace="fragments/footer :: footer"/>
+
+</body>
+</html>

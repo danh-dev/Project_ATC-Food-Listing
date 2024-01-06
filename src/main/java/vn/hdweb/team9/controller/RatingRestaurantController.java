@@ -1,47 +1,63 @@
 package vn.hdweb.team9.controller;
 
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import vn.hdweb.team9.domain.entity.RatingRestaurant;
+import vn.hdweb.team9.domain.entity.Restaurant;
+import vn.hdweb.team9.repository.interfaces.RestaurantRepository;
 import vn.hdweb.team9.service.RatingRestaurantService;
 
 import java.util.List;
 import java.util.Optional;
 
 @Controller
+@RequiredArgsConstructor
 @RequestMapping("/rating-restaurant")
 public class RatingRestaurantController {
     private final RatingRestaurantService ratingRestaurantService;
 
-    @Autowired
-    public RatingRestaurantController(RatingRestaurantService ratingRestaurantService) {
-        this.ratingRestaurantService = ratingRestaurantService;
+    /*
+     * add new
+     */
+    @GetMapping("/add")
+    public String addRating(Model model) {
+        return "ratingRestaurant/add";
     }
 
-    @PostMapping("/create")
-    public RatingRestaurant createRatingRestaurant(@RequestBody RatingRestaurant ratingRestaurant) {
-        return ratingRestaurantService.createRatingRestaurant(ratingRestaurant);
+    @PostMapping("/add")
+    public String addRating(@RequestParam("userId") Long userId,
+                            @RequestParam("restaurantId") Long restaurantId,
+                            @RequestParam("content") String content,
+                            @RequestParam("rateStar") int rateStar) {
+
+        ratingRestaurantService.rateRestaurant(userId, restaurantId, content, rateStar);
+        return "index";
     }
 
-    @GetMapping("/{id}")
-    public Optional<RatingRestaurant> getRatingRestaurantById(@PathVariable Long id) {
-        return ratingRestaurantService.getRatingRestaurantById(id);
-    }
-    @GetMapping("/all")
-    public List<RatingRestaurant> getAllRatingRestaurants() {
-        return ratingRestaurantService.getAllRatingRestaurants();
-    }
+    /*
+     * list by restaurant id
+     */
+    @GetMapping("/list/{restaurantId}")
+    public String listRatings(@PathVariable ("restaurantId") Long restaurantId, Model model) {
+        List<RatingRestaurant> ratings = ratingRestaurantService.getRatingsByRestaurantId(restaurantId);
+        Double averageRating = ratingRestaurantService.calculateAverageRatingByRestaurantId(restaurantId);
+        System.out.println(averageRating);
+        model.addAttribute("ratings", ratings);
+        model.addAttribute("averageRating", averageRating);
 
-    @PutMapping("/{id}")
-    public RatingRestaurant updateRatingRestaurant(@PathVariable Long id, @RequestBody RatingRestaurant updatedRatingRestaurant) {
-        return ratingRestaurantService.updateRatingRestaurant(id, updatedRatingRestaurant);
-    }
+        return "ratingRestaurant/list";
 
-    @DeleteMapping("/{id}")
-    public void deleteRatingRestaurantById(@PathVariable Long id) {
-        ratingRestaurantService.deleteRatingRestaurantById(id);
     }
 
-
+    /*
+     * delete
+     */
+    @GetMapping("/delete/{ratingId}")
+    public String deleteRating(@PathVariable("ratingId") Long ratingId, @RequestParam("restaurantId") Long restaurantId) {
+        ratingRestaurantService.deleteRating(ratingId);
+        return "redirect:/rating-restaurant/list/" + restaurantId;
+    }
 }

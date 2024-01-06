@@ -1,55 +1,74 @@
 package vn.hdweb.team9.service;
 
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import vn.hdweb.team9.domain.entity.RatingRestaurant;
+import vn.hdweb.team9.domain.entity.Restaurant;
+import vn.hdweb.team9.domain.entity.User;
 import vn.hdweb.team9.repository.interfaces.RatingRestaurantRepository;
+import vn.hdweb.team9.repository.interfaces.RestaurantRepository;
+import vn.hdweb.team9.repository.interfaces.UserRepository;
 
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 
 @Service
 @Transactional
+@RequiredArgsConstructor
 public class RatingRestaurantService {
     private final RatingRestaurantRepository ratingRestaurantRepository;
+    private final RestaurantRepository restaurantRepository;
+    private final UserRepository userRepository;
 
-    @Autowired
-    public RatingRestaurantService(RatingRestaurantRepository ratingRestaurantRepository) {
-        this.ratingRestaurantRepository = ratingRestaurantRepository;
+    /*
+     * add new
+     */
+    @Transactional
+    public Long rateRestaurant(Long userId, Long restaurantId, String content, int rateStar) {
+        System.out.println("service------------>>>..");
+        // Retrieve Entities
+        User user = userRepository.findById(userId).orElseThrow(() -> new RuntimeException("User not found"));
+
+        Restaurant restaurant = restaurantRepository.findById(restaurantId).orElseThrow(() -> new RuntimeException("Restaurant not found"));
+        System.out.println(restaurant);
+        System.out.println(restaurant.getRestaurantName());
+
+        // Create Rating
+        RatingRestaurant rating = new RatingRestaurant();
+        rating.setContent(content);
+        rating.setRateStar(rateStar);
+        rating.setCreatedAt(LocalDateTime.now());
+        rating.setUser(user);
+        rating.setRestaurant(restaurant);
+
+        // Save Rating
+        ratingRestaurantRepository.save(rating);
+
+        return rating.getId();
     }
 
 
-    // create
-    public RatingRestaurant createRatingRestaurant(RatingRestaurant ratingRestaurant) {
-        return ratingRestaurantRepository.save(ratingRestaurant);
+    /*
+     * get by restaurant Id
+     */
+    public List<RatingRestaurant> getRatingsByRestaurantId(Long restaurantId) {
+        return ratingRestaurantRepository.findByRestaurantId(restaurantId);
     }
 
-    // get by Id
-    public Optional<RatingRestaurant> getRatingRestaurantById(Long id) {
-        return ratingRestaurantRepository.findById(id);
+    /*
+     * calAVGRatingByRestaurantId
+     */
+    public Double calculateAverageRatingByRestaurantId(Long restaurantId) {
+        return ratingRestaurantRepository.calAVGRatingByRestaurantId(restaurantId);
     }
 
-
-    // getAll
-    public List<RatingRestaurant> getAllRatingRestaurants() {
-        return ratingRestaurantRepository.findAll();
+    /*
+     * delete
+     */
+    public void deleteRating(Long ratingId) {
+        ratingRestaurantRepository.deleteById(ratingId);
     }
-
-    // update
-    public RatingRestaurant updateRatingRestaurant(Long id, RatingRestaurant updatedRatingRestaurant) {
-        if (ratingRestaurantRepository.existsById(id)) {
-            updatedRatingRestaurant.setId(id);
-            return ratingRestaurantRepository.save(updatedRatingRestaurant);
-        }
-        return null;
-    }
-
-    // delete
-    public void deleteRatingRestaurantById(Long id) {
-        ratingRestaurantRepository.deleteById(id);
-    }
-
-    // AVG
-//    public int
 }

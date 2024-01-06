@@ -1,0 +1,29 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="fragments/header :: header">
+    <title>Hello</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+</head>
+<body>
+<div class="container">
+    <h2>Add Rating</h2>
+    <form th:action="@{/rating-food/add}" method="post">
+        <label for="userId">User ID:</label>
+        <input type="number" id="userId" name="userId" required><br>
+
+        <label for="foodId">Food ID:</label>
+        <input type="number" id="foodId" name="foodId" required><br>
+
+        <label for="content">Content:</label>
+        <input type="text" id="content" name="content" required><br>
+
+        <label for="rateStar">Rate Star:</label>
+        <input type="number" id="rateStar" name="rateStar" min="0" max="5" required><br>
+
+        <button type="submit">Submit Rating</button>
+    </form>
+</div>
+
+<div th:replace="fragments/footer :: footer"/>
+</body>
+</html>
