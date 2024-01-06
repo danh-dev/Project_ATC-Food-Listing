@@ -23,7 +23,6 @@ spring:
     banner-mode: off
 
 
-
 logging:
   level:
     org.hibernate.SQL: debug
