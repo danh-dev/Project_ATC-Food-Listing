@@ -117,7 +117,7 @@
                                     </div>
 
                                     <div class="d-flex">
-                                        <div class="mb-3 pr-2">
+                                        <div class="pr-2">
                                             <label class="form-label">Status</label>
                                             <select class="form-select" th:field="*{couponStatus}" id="couponStatus">
                                                 <option value="" selected></option>
@@ -128,7 +128,7 @@
                                             </select>
                                         </div>
 
-                                        <div class="mb-3 pr-2">
+                                        <div class="pr-2">
                                             <label class="form-label">Type Coupon</label>
                                             <select class="form-select" th:field="*{typeCoupon}" id="couponType">
                                                 <option value="" selected></option>
@@ -139,7 +139,7 @@
                                             </select>
                                         </div>
 
-                                        <div class="mb-3 pr-2">
+                                        <div class="pr-2">
                                             <label class="form-label" for="couponValue">Coupon Value</label>
                                             <input
                                               type="number"
@@ -152,7 +152,7 @@
                                             <p th:if="${#fields.hasErrors('couponValue')}" th:errors="*{couponValue}" th:errorclass="errorMessage"></p>
                                         </div>
 
-                                        <div class="mb-3 pr-2">
+                                        <div class="pr-2">
                                             <label class="form-label" for="couponQuantity">Coupon Quantity</label>
                                             <input type="number"
                                                    class="form-control"
@@ -187,7 +187,7 @@
                                                 <th>Start At</th>
                                                 <th>End At</th>
                                                 <th>Status</th>
-                                                <th></th>
+                                                <th>Actions</th>
                                             </tr>
                                             </thead>
                                             <tbody class="table-border-bottom-0">
@@ -202,7 +202,7 @@
                                                     <strong>[[${coupon.couponCode}]]</strong>
                                                 </td>
                                                 <td>
-                                                    <span class="badge me-1" th:classappend="${coupon.typeCoupon == T(vn.hdweb.team9.domain.entity.TypeCoupon).DIRECT ? 'bg-label-primary' : 'bg-label-info'}">
+                                                    <span class="badge me-1" th:classappend="${coupon.typeCoupon == T(vn.hdweb.team9.domain.entity.TypeCoupon).DIRECT ? 'bg-label-success' : 'bg-label-warning'}">
                                                         [[${coupon.typeCoupon}]]
                                                     </span></td>
                                                 </td>
