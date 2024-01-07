@@ -37,7 +37,7 @@ class CouponServiceTest {
         Long couponId = couponService.create(coupon);
 
         // then
-        Optional<Coupon> result = couponRepository.findById(couponId);
+        Optional<Coupon> result = couponRepository.findOne(couponId);
         assertThat(couponId).isEqualTo(result.get().getId());
     }
 
@@ -80,7 +80,7 @@ class CouponServiceTest {
         couponService.create(coupon2);
 
         // when
-        Optional<Coupon> result = couponRepository.findById(coupon1.getId());
+        Optional<Coupon> result = couponRepository.findOne(coupon1.getId());
 
         //then
         assertThat(result.get()).isEqualTo(coupon1);

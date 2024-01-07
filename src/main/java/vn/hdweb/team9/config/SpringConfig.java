@@ -13,17 +13,4 @@ import vn.hdweb.team9.service.CouponService;
 @Configuration
 public class SpringConfig {
 
-    // private final DataSource dataSource;
-    private final EntityManager em;
-
-    public SpringConfig(EntityManager em) { this.em = em; }
-
-    @Bean
-    public CouponService postService() {
-        return new CouponService(couponRepository());
-    }
-
-    @Bean
-    public ICouponRepository couponRepository() { return new CouponRepository(em); }
-
 }
