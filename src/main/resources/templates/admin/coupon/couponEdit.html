@@ -1,26 +1,16 @@
 <!DOCTYPE html>
-<!--https://www.baeldung.com/spring-thymeleaf-error-messages-->
-<!-- =========================================================
-* Sneat - Bootstrap 5 HTML Admin Template - Pro | v1.0.0
-==============================================================
-
-* Product Page: https://themeselection.com/products/sneat-bootstrap-html-admin-template/
-* Created by: ThemeSelection
-* License: You must have a valid license purchased in order to legally use the theme for your project.
-* Copyright ThemeSelection (https://themeselection.com)
-
-=========================================================
- -->
-<!-- beautify ignore:start -->
-<html
-    lang="en" xmlns:th="http://www.thymeleaf.org"
-    class="light-style layout-menu-fixed"
-    dir="ltr"
-    data-theme="theme-default"
-    data-assets-path="../../admin/assets/"
-    data-template="vertical-menu-template-free"
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity6"
+      class="light-style layout-menu-fixed layout-navbar-fixed"
+      dir="ltr"
+      data-theme="theme-default"
+      data-assets-path="/admin/assets/"
+      data-template="vertical-menu-template-free"
 >
-<head th:replace="admin/fragments/layout :: head"/>
+<head th:replace="~{admin/fragments/head :: heads(pageTitle='Edit Coupon')}">
+    <title></title>
+</head>
 <style>
     .fieldError {
         border-color: #bd2130;
@@ -30,21 +20,21 @@
         color: red !important;
         font-size: 12px;
     }
+
+    .infoMessage {
+        color: blue !important;
+        font-size: 12px;
+        font-style: italic;
+    }
 </style>
 <body>
-<!-- Layout wrapper -->
 <div class="layout-wrapper layout-content-navbar">
     <div class="layout-container">
-        <!-- Menu -->
-
-        <aside id="layout-menu" th:replace="admin/fragments/layout :: sidebar" class="layout-menu menu-vertical menu bg-menu-theme"></aside>
-        <!-- / Menu -->
-
-        <!-- Layout container -->
+        <!--đưa giá trị value_menu để so sánh với menu kích hoạt active-->
+        <aside th:replace="~{admin/fragments/menu :: drawer-menu(value_menu = 'coupon,couponList')}"></aside>
         <div class="layout-page">
-            <!-- Navbar -->
-
-            <nav th:replace="admin/fragments/layout :: navbar" />
+            <!-- Nav-bar -->
+            <nav th:replace="~{admin/fragments/nav :: nav-bar(value_title = 'Edit Coupon')}"></nav>
 
             <!-- / Navbar -->
 
@@ -53,44 +43,41 @@
                 <!-- Content -->
 
                 <div class="container-xxl flex-grow-1 container-p-y">
-                    <h4 class="fw-bold py-3 mb-4"><span class="text-muted fw-light">Coupon/</span>New Coupon</h4>
+                    <h4 class="fw-bold py-3 mb-4"><span class="text-muted fw-light">Coupon/</span>Edit Coupon</h4>
 
                     <!-- Basic Layout -->
                     <div class="row">
                         <div class="col-xl">
                             <div class="card mb-4">
                                 <div class="card-body">
-                                    <form th:object="${couponForm}" th:action="@{/admin/coupon/new}" method="post" id="couponForm">
+                                    <form th:object="${couponForm}" th:action="@{'/admin/coupon/edit/' + ${couponForm.id}}" method="post" id="couponForm">
 
-                                        <div class="d-flex justify-content-between">
-                                            <div class="mb-3 flex-grow-1 mr-2">
-                                                <label class="form-label" for="couponCode">Coupon Code</label>
-                                                <input type="text"
-                                                       class="form-control"
-                                                       id="couponCode"
-                                                       th:field="${couponForm.couponCode}"
-                                                       placeholder="Coupon Code"
-                                                       th:class="${#fields.hasErrors('couponCode')}? 'form-control fieldError' : 'form-control'"
-                                                       maxlength="20"
-                                                       oninput="formatCouponCode(this)"/>
-                                                <p th:if="${#fields.hasErrors('couponCode')}" th:errors="*{couponCode}" th:errorclass="errorMessage">
-                                                    This entry is required
-                                                </p>
-                                            </div>
+                                        <div class="mb-3">
+                                            <label class="form-label" for="couponCode">Coupon Code</label>
+                                            <input type="text"
+                                                   class="form-control"
+                                                   id="couponCode"
+                                                   th:field="${couponForm.couponCode}"
+                                                   placeholder="Coupon Code"
+                                                   th:class="${#fields.hasErrors('couponCode')}? 'form-control fieldError' : 'form-control'"
+                                                   maxlength="20"/>
+                                            <p th:if="${#fields.hasErrors('couponCode')}" th:errors="*{couponCode}" th:errorclass="errorMessage">
+                                                This entry is required
+                                            </p>
+                                        </div>
 
-                                            <div class="mb-3 flex-grow-1 mx-2">
-                                                <label class="form-label" for="couponName">Coupon Name</label>
-                                                <input type="text"
-                                                       class="form-control"
-                                                       id="couponName"
-                                                       th:field="${couponForm.couponName}"
-                                                       placeholder="Coupon name"
-                                                       th:class="${#fields.hasErrors('couponName')}? 'form-control fieldError' : 'form-control'"
-                                                       maxlength="30"/>
-                                                <p th:if="${#fields.hasErrors('couponName')}" th:errors="*{couponName}" th:errorclass="errorMessage">
-                                                    This entry is required
-                                                </p>
-                                            </div>
+                                        <div class="mb-3">
+                                            <label class="form-label" for="couponName">Coupon Name</label>
+                                            <input type="text"
+                                                   class="form-control"
+                                                   id="couponName"
+                                                   th:field="${couponForm.couponName}"
+                                                   placeholder="Coupon name"
+                                                   th:class="${#fields.hasErrors('couponName')}? 'form-control fieldError' : 'form-control'"
+                                                   maxlength="30"/>
+                                            <p th:if="${#fields.hasErrors('couponName')}" th:errors="*{couponName}" th:errorclass="errorMessage">
+                                                This entry is required
+                                            </p>
                                         </div>
 
                                         <div class="mb-3">
@@ -112,21 +99,19 @@
                                             <div class="mb-3 mr-2">
                                                 <label class="form-label">Type Coupon</label>
                                                 <select class="form-select" th:field="${couponForm.typeCoupon}" id="couponType">
-                                                    <option th:each="type : ${T(vn.hdweb.team9.domain.entity.TypeCoupon).values()}"
-                                                            th:value="${type}"
-                                                            th:text="${type}">option
-                                                    </option>
+                                                    <option value="DIRECT">Direct</option>
+                                                    <option value="PERCENT">Percent</option>
                                                 </select>
                                             </div>
                                             <div class="mb-3 flex-grow-1 mx-2">
                                                 <label class="form-label" for="couponValue">Coupon Value</label>
                                                 <input
-                                                    type="number"
-                                                    class="form-control"
-                                                    id="couponValue"
-                                                    th:field="${couponForm.couponValue}"
-                                                    placeholder="Discount value"
-                                                    th:class="${#fields.hasErrors('couponValue')}? 'form-control fieldError' : 'form-control'"/>
+                                                  type="number"
+                                                  class="form-control"
+                                                  id="couponValue"
+                                                  th:field="${couponForm.couponValue}"
+                                                  placeholder="Discount value"
+                                                  th:class="${#fields.hasErrors('couponValue')}? 'form-control fieldError' : 'form-control'"/>
                                                 <p th:if="${#fields.hasErrors('couponValue')}" th:errors="*{couponValue}" th:errorclass="errorMessage">
                                                     This entry is required
                                                 </p>
@@ -153,10 +138,9 @@
                                                        id="datePicker-startDate"
                                                        th:field="${couponForm.startDate}"
                                                        th:class="${#fields.hasErrors('startDate')}? 'form-control
-                                                        fieldError' : 'form-control'"/>
-                                                <p th:if="${#fields.hasErrors('startDate')}" th:errors="*{startDate}" th:errorclass="errorMessage">
-                                                    This entry is required
-                                                </p>
+                                                        fieldError' : 'form-control'"
+                                                       readonly="readonly"/>
+                                                <p class="infoMessage">Date bound is not editable</p>
                                                 <script>
                                                     <!--start date min is today-->
                                                     document.getElementById("datePicker-startDate").min = new Date().toISOString().split('T')[0];
@@ -169,10 +153,9 @@
                                                        class="form-control"
                                                        id="datePicker-endDate"
                                                        th:field="${couponForm.endDate}"
-                                                       th:class="${#fields.hasErrors('endDate')}? 'form-control fieldError' : 'form-control'"/>
-                                                <p th:if="${#fields.hasErrors('endDate')}" th:errors="*{endDate}" th:errorclass="errorMessage">
-                                                    This entry is required
-                                                </p>
+                                                       th:class="${#fields.hasErrors('endDate')}? 'form-control fieldError' : 'form-control'"
+                                                       readonly="readonly"/>
+<!--                                                <p class="infoMessage">Date bound is not editable</p>-->
                                                 <script>
                                                     <!--end date min is today-->
                                                     document.getElementById("datePicker-endDate").min = new Date().toISOString().split('T')[0];
@@ -180,7 +163,7 @@
                                             </div>
 
                                         </div>
-                                        <button type="submit" class="btn btn-primary">Send</button>
+                                        <button type="submit" class="btn btn-primary">Update</button>
                                     </form>
                                 </div>
                             </div>
@@ -190,7 +173,7 @@
                 <!-- / Content -->
 
                 <!-- Footer -->
-                <footer th:replace="admin/fragments/layout :: footer"></footer>
+                <footer th:replace="admin/fragments/footer :: footer"></footer>
                 <!-- / Footer -->
 
                 <div class="content-backdrop fade"></div>
@@ -205,17 +188,12 @@
 </div>
 <!-- / Layout wrapper -->
 
-<div th:replace="admin/fragments/layout :: script"></div>
+<div th:replace="~{admin/fragments/js :: js-insert}"></div>
 
 </body>
 <script>
-    function formatCouponCode(input) {
-        // Remove spaces and convert to uppercase
-        input.value = input.value.replace(/\s+/g, '').toUpperCase();
-    }
-
     document.getElementById("couponForm").addEventListener("submit", function (event) {
-        // event.preventDefault(); // Prevent the default form submission
+        //event.preventDefault(); // Prevent the default form submission
         console.log("Form submitted:", {
             couponCode: document.getElementById("couponCode").value,
             couponName: document.getElementById("couponName").value,

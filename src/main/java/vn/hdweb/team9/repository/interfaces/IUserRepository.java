@@ -8,11 +8,6 @@ import java.util.List;
 
 @Repository
 public interface IUserRepository extends JpaRepository<User, Long> {
-<<<<<<< HEAD
-    //Registration
-    User save(User user);
-    //Get user by username
-=======
 
     //Check if user exists
     boolean existsByEmail(String email);
@@ -20,6 +15,4 @@ public interface IUserRepository extends JpaRepository<User, Long> {
     //Get user by email
     User findByEmail(String email);
 
-
->>>>>>> Dev
 }

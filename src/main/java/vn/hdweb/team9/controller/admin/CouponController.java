@@ -31,7 +31,7 @@ public class CouponController {
     public String createCoupon(Model model) {
         CouponForm couponForm = new CouponForm();
         model.addAttribute("couponForm", couponForm);
-        return "admin/coupon/createCoupon";
+        return "admin/coupon/couponCreate";
     }
 
 
@@ -41,7 +41,7 @@ public class CouponController {
                                RedirectAttributes redirectAttributes) {
 
         if (result.hasErrors()) {
-            return "admin/coupon/createCoupon";
+            return "admin/coupon/couponCreate";
         }
 
         try {
@@ -52,12 +52,12 @@ public class CouponController {
             // Handle the exception for duplicate coupon code
             result.rejectValue("couponCode", "duplicate.couponCode", "This coupon code has already existed!");
             redirectAttributes.addFlashAttribute("couponForm", couponForm);
-            return "admin/coupon/createCoupon";
+            return "admin/coupon/couponCreate";
         } catch (DateTimeException e) {
             // Handle the exception for invalid start and end dates
             result.rejectValue("startDate", "invalid.dateRange", "Start date cannot be after or equal to end date");
             redirectAttributes.addFlashAttribute("couponForm", couponForm);
-            return "admin/coupon/createCoupon";
+            return "admin/coupon/couponCreate";
         }
     }
 
@@ -74,8 +74,8 @@ public class CouponController {
         return "redirect:/admin/coupon/list";
     }
 
-    @GetMapping("/update/{id}")
-    public String updateCoupon(@PathVariable("id") Long id, Model model) {
+    @GetMapping("/edit/{id}")
+    public String editCoupon(@PathVariable("id") Long id, Model model) {
         Optional<Coupon> coupon = couponService.findOne(id);
 
         if (coupon.isEmpty()) {
@@ -86,10 +86,10 @@ public class CouponController {
         CouponForm couponForm = CouponForm.parseNew(getCoupon);
 
         model.addAttribute("couponForm", couponForm);
-        return "admin/coupon/updateCoupon";
+        return "admin/coupon/couponEdit";
     }
 
-    @PostMapping("/update/{id}")
+    @PostMapping("/edit/{id}")
     public String updateCoupon(CouponForm couponForm,
                                BindingResult result,
                                RedirectAttributes redirectAttributes) {
@@ -100,7 +100,7 @@ public class CouponController {
             // Handle the exception for invalid start and end dates
             result.rejectValue("startDate", "invalid.dateRange", "Start date cannot be after or equal to end date");
             redirectAttributes.addFlashAttribute("couponForm", couponForm);
-            return "admin/coupon/updateCoupon";
+            return "admin/coupon/couponEdit";
         }
     }
 
