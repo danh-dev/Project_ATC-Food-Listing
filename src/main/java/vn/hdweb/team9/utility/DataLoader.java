@@ -43,7 +43,7 @@ public class DataLoader implements CommandLineRunner {
 
             User newUser = new User();
             newUser.setEmail("user@hdweb.vn");
-            newUser.setPassword(passwordEncoder.encode("123@321@"));
+            newUser.setPassword(passwordEncoder.encode(""));
             newUser.setFullName("User");
             newUser.setRole(roleRepository.findByRoleName("USER"));
             userRepository.save(newUser);
