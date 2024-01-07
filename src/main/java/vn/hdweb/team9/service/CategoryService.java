@@ -26,7 +26,7 @@ public class CategoryService {
         
         // trim category name white spaces
         String result = category.getCategoryName()
-                                .replaceAll("\\s+", " ")
+                                .replaceAll("[^\\p{L}\\s]", "")
                                 .trim();
         category.setCategoryName(result);
         
