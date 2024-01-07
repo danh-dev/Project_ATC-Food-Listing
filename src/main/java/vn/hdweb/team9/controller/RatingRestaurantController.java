@@ -41,14 +41,27 @@ public class RatingRestaurantController {
      * list by restaurant id
      */
     @GetMapping("/list/{restaurantId}")
-    public String listRatings(@PathVariable ("restaurantId") Long restaurantId, Model model) {
+    public String listRatings(@PathVariable("restaurantId") Long restaurantId, Model model) {
         List<RatingRestaurant> ratings = ratingRestaurantService.getRatingsByRestaurantId(restaurantId);
         Double averageRating = ratingRestaurantService.calculateAverageRatingByRestaurantId(restaurantId);
-        System.out.println(averageRating);
+
         model.addAttribute("ratings", ratings);
         model.addAttribute("averageRating", averageRating);
 
         return "ratingRestaurant/list";
+
+    }
+
+    /*
+     * rating by restaurantId and userId
+     */
+    @GetMapping("/detail/{restaurantId}/{userId}")
+    public String ratingByRestaurantIdAndUserId(@PathVariable("restaurantId") Long restaurantId,
+                                                @PathVariable("userId") Long userId,
+                                                Model model) {
+        Optional<RatingRestaurant> rating = ratingRestaurantService.getRatingByRestaurantIdAndUserId(restaurantId, userId);
+        model.addAttribute("rating", rating.orElse(null));
+        return "ratingRestaurant/detail";
 
     }
 

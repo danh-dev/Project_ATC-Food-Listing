@@ -59,6 +59,13 @@ public class RatingRestaurantService {
     }
 
     /*
+     * get by restaurantId and userId
+     */
+    public Optional<RatingRestaurant> getRatingByRestaurantIdAndUserId(Long restaurantId, Long userId){
+        return ratingRestaurantRepository.findByRestaurantIdAndUserId(restaurantId,userId);
+    }
+
+    /*
      * calAVGRatingByRestaurantId
      */
     public Double calculateAverageRatingByRestaurantId(Long restaurantId) {

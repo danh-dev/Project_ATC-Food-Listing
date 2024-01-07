@@ -1,0 +1,29 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="fragments/header :: header">
+    <title>Ratings List</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+</head>
+<body>
+<div class="container">
+    <h2>Ratings List</h2>
+    <table border="1">
+        <tr>
+            <th>Content</th>
+            <th>Rate Star</th>
+            <th>Created At</th>
+        </tr>
+        <tr th:if="${rating != null}">
+            <td th:text="${rating.content}"></td>
+            <td th:text="${rating.rateStar}"></td>
+            <td th:text="${rating.createdAt}"></td>
+        </tr>
+        <tr th:if="${rating == null}">
+            <td colspan="3">No rating found for the specified food and user.</td>
+        </tr>
+    </table>
+</div>
+
+<div th:replace="fragments/footer :: footer"/>
+</body>
+</html>

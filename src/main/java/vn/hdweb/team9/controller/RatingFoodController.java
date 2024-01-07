@@ -17,6 +17,7 @@ import java.util.Optional;
 @RequestMapping("/rating-food")
 public class RatingFoodController {
     private final RatingFoodService ratingFoodService;
+
     /*
      * add new
      */
@@ -47,6 +48,16 @@ public class RatingFoodController {
         model.addAttribute("averageRating", averageRating);
 
         return "ratingFood/list";
+    }
+
+    /*
+     * list by foodId and userId
+     */
+    @GetMapping("/detail/{foodId}/{userId}")
+    public String ratingByFoodAndUser(@PathVariable("foodId") Long foodId, @PathVariable("userId") Long userId, Model model) {
+        Optional<RatingFood> rating = ratingFoodService.getRatingByFoodIdAndUserId(foodId, userId);
+        model.addAttribute("rating", rating.orElse(null));
+        return "ratingFood/detail";
     }
 
     /*

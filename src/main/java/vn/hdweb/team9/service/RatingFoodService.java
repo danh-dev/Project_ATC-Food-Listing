@@ -55,6 +55,13 @@ public class RatingFoodService {
     }
 
     /*
+     * Get rating by foodId and userId
+     */
+    public Optional<RatingFood> getRatingByFoodIdAndUserId(Long foodId, Long userId) {
+        return ratingFoodRepository.findByFoodIdAndUserId(foodId, userId);
+    }
+
+    /*
      * calculateAverageRatingByFoodId
      */
     public Double calculateAverageRatingByFoodId(Long foodId) {
