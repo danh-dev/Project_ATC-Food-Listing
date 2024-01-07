@@ -1,0 +1,13 @@
+<div th:fragment="blog" class="col">
+    <div class="card h-100">
+        <a th:href="@{${link}}">
+            <img class="card-img-top" th:src="@{'/' + ${image}}" th:alt="${title}"/>
+        </a>
+        <div class="card-body">
+            <a th:href="@{${link}}">
+                <h5 th:text="${title}" class="card-title">Title</h5>
+            </a>
+            <p th:text="${content}" class="card-text"> </p>
+        </div>
+    </div>
+</div>

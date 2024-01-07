@@ -1,4 +1,5 @@
 <!DOCTYPE html>
+<<<<<<< HEAD
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -6,5 +7,737 @@
 </head>
 <body>
     <h1>Home Page</h1>
+=======
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity6">
+<head th:replace="~{client/fragments/head :: heads(pageTitle='Project Index')}"></head>
+<body>
+
+<div th:replace="~{client/fragments/header :: header}"></div>
+
+
+<!-- Hero Slider Start -->
+<div th:insert="~{client/fragments/slider_index :: slider}"></div>
+<!-- Hero Slider End -->
+
+
+<!-- Category Start-->
+<div class="container-fluid fruite py-5">
+    <div class="container py-5">
+        <div class="tab-class text-center">
+            <div class="row g-4">
+                <div class="col-lg-4 text-start">
+                    <h2 class="my-3 alert-link">Bạn thích ăn gì nào?</h2>
+                </div>
+            </div>
+            <div>
+                <div class="tab-pane fade show p-0 active">
+                    <div class="row g-4">
+                        <div class="col-lg-12">
+                            <div class="row g-4">
+                                <div class="col-md-6 col-lg-4 col-xl-3">
+                                    <div class="rounded position-relative fruite-item">
+                                        <div class="fruite-img">
+                                            <img src="/client/img/category/mi-y.webp"
+                                                 class="img-fluid w-100 rounded-top" alt="">
+                                        </div>
+                                        <div class="p-2 bg-light border-top-0 rounded-bottom">
+                                            <h4 class="m-2">Mì Ý</h4>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-6 col-lg-4 col-xl-3">
+                                    <div class="rounded position-relative fruite-item">
+                                        <div class="fruite-img">
+                                            <img src="/client/img/category/an-trua.webp"
+                                                 class="img-fluid w-100 rounded-top" alt="">
+                                        </div>
+                                        <div class="p-2 bg-light border-top-0 rounded-bottom">
+                                            <h4 class="m-2">Ăn trưa</h4>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-6 col-lg-4 col-xl-3">
+                                    <div class="rounded position-relative fruite-item">
+                                        <div class="fruite-img">
+                                            <img src="/client/img/category/do-uong-lanh.webp"
+                                                 class="img-fluid w-100 rounded-top" alt="">
+                                        </div>
+                                        <div class="p-2 bg-light border-top-0 rounded-bottom">
+                                            <h4 class="m-2">Đồ uống lạnh</h4>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-6 col-lg-4 col-xl-3">
+                                    <div class="rounded position-relative fruite-item">
+                                        <div class="fruite-img">
+                                            <img src="/client/img/category/an-vat.webp"
+                                                 class="img-fluid w-100 rounded-top" alt="">
+                                        </div>
+                                        <div class="p-2 bg-light border-top-0 rounded-bottom">
+                                            <h4 class="m-2">Ăn vặt</h4>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-6 col-lg-4 col-xl-3">
+                                    <div class="rounded position-relative fruite-item">
+                                        <div class="fruite-img">
+                                            <img src="/client/img/category/rau-tron.webp"
+                                                 class="img-fluid w-100 rounded-top" alt="">
+                                        </div>
+                                        <div class="p-2 bg-light border-top-0 rounded-bottom">
+                                            <h4 class="m-2">Rau trộn</h4>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-6 col-lg-4 col-xl-3">
+                                    <div class="rounded position-relative fruite-item">
+                                        <div class="fruite-img">
+                                            <img src="/client/img/category/com.webp" class="img-fluid w-100 rounded-top"
+                                                 alt="">
+                                        </div>
+                                        <div class="p-2 bg-light border-top-0 rounded-bottom">
+                                            <h4 class="m-2">Cơm</h4>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-6 col-lg-4 col-xl-3">
+                                    <div class="rounded position-relative fruite-item">
+                                        <div class="fruite-img">
+                                            <img src="/client/img/category/mi-y.webp"
+                                                 class="img-fluid w-100 rounded-top" alt="">
+                                        </div>
+                                        <div class="p-2 bg-light border-top-0 rounded-bottom">
+                                            <h4 class="m-2">Mì Ý</h4>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-6 col-lg-4 col-xl-3">
+                                    <div class="rounded position-relative fruite-item">
+                                        <div class="fruite-img">
+                                            <img src="/client/img/category/mi-y.webp"
+                                                 class="img-fluid w-100 rounded-top" alt="">
+                                        </div>
+                                        <div class="p-2 bg-light border-top-0 rounded-bottom">
+                                            <h4 class="m-2">Mì Ý</h4>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Category End-->
+
+
+<!-- Coupon Start -->
+<div class="container-fluid service py-5">
+    <div class="container py-5">
+        <div class="row g-4 justify-content-center">
+            <div class="col-md-6 col-lg-4">
+                <div class="service-item bg-dark rounded border border-secondary">
+                    <div class="px-4 rounded-bottom">
+                        <div class="service-content bg-primary text-center p-4 rounded">
+                            <h5 class="text-white">Tết sum vầy ăn no say</h5>
+                            <h3 class="text-white alert-link">20OFF</h3>
+                            <p class="text-center text-white">Giảm ngay 20% giá trị đơn hàng</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-6 col-lg-4">
+                <div class="service-item bg-primary rounded border border-secondary">
+                    <div class="px-4 rounded-bottom">
+                        <div class="service-content bg-white text-center p-4 rounded">
+                            <h5 class="text-primary">Tết sum vầy ăn no say</h5>
+                            <h3 class="text-primary alert-link">20OFF</h3>
+                            <p class="text-primary text-center">Giảm ngay 20% giá trị đơn hàng</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6 col-lg-4">
+                <div class="service-item bg-dark rounded border border-secondary">
+                    <div class="px-4 rounded-bottom">
+                        <div class="service-content bg-primary text-center p-4 rounded">
+                            <h5 class="text-white">Tết sum vầy ăn no say</h5>
+                            <h3 class="text-white alert-link">20OFF</h3>
+                            <p class="text-center text-white">Giảm ngay 20% giá trị đơn hàng</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Coupon End -->
+
+
+<!-- Foods Start-->
+<div class="container-fluid vesitable py-5">
+    <div class="container py-5">
+        <h2 class="my-3 alert-link">Oh món lạ ...</h2>
+        <div class="owl-carousel vegetable-carousel justify-content-center">
+            <div class="border border-primary rounded position-relative vesitable-item">
+                <div class="vesitable-img">
+                    <img src="/client/img/category/an-trua.webp" class="img-fluid w-100 rounded-top" alt="">
+                </div>
+                <div class="text-white bg-primary px-3 py-1 rounded position-absolute"
+                     style="top: 10px; right: 10px;">
+                    Category
+                </div>
+                <div class="p-4 rounded-bottom bg-white">
+                    <h4>Giò heo phỉ thuý</h4>
+                    <p>Cắt phỉ thuý ra làm giò heo. @@.</p>
+                    <div class="d-flex justify-content-between flex-lg-wrap">
+                        <p class="text-dark fs-5 fw-bold mb-0">$4.99</p>
+                        <a href="#" class="btn btn-outline-primary"><i
+                                class="fas fa-location-arrow me-2"></i> Xem chi tiết</a>
+                    </div>
+                </div>
+            </div>
+            <div class="border border-primary rounded position-relative vesitable-item">
+                <div class="vesitable-img">
+                    <img src="/client/img/category/an-trua.webp" class="img-fluid w-100 rounded-top" alt="">
+                </div>
+                <div class="text-white bg-primary px-3 py-1 rounded position-absolute"
+                     style="top: 10px; right: 10px;">
+                    Category
+                </div>
+                <div class="p-4 rounded-bottom bg-white">
+                    <h4>Giò heo phỉ thuý</h4>
+                    <p>Cắt phỉ thuý ra làm giò heo. @@.</p>
+                    <div class="d-flex justify-content-between flex-lg-wrap">
+                        <p class="text-dark fs-5 fw-bold mb-0">$4.99</p>
+                        <a href="#" class="btn btn-outline-primary"><i
+                                class="fas fa-location-arrow me-2"></i> Xem chi tiết</a>
+                    </div>
+                </div>
+            </div>
+            <div class="border border-primary rounded position-relative vesitable-item">
+                <div class="vesitable-img">
+                    <img src="/client/img/category/an-trua.webp" class="img-fluid w-100 rounded-top" alt="">
+                </div>
+                <div class="text-white bg-primary px-3 py-1 rounded position-absolute"
+                     style="top: 10px; right: 10px;">
+                    Category
+                </div>
+                <div class="p-4 rounded-bottom bg-white">
+                    <h4>Giò heo phỉ thuý</h4>
+                    <p>Cắt phỉ thuý ra làm giò heo. @@.</p>
+                    <div class="d-flex justify-content-between flex-lg-wrap">
+                        <p class="text-dark fs-5 fw-bold mb-0">$4.99</p>
+                        <a href="#" class="btn btn-outline-primary"><i
+                                class="fas fa-location-arrow me-2"></i> Xem chi tiết</a>
+                    </div>
+                </div>
+            </div>
+            <div class="border border-primary rounded position-relative vesitable-item">
+                <div class="vesitable-img">
+                    <img src="/client/img/category/an-trua.webp" class="img-fluid w-100 rounded-top" alt="">
+                </div>
+                <div class="text-white bg-primary px-3 py-1 rounded position-absolute"
+                     style="top: 10px; right: 10px;">
+                    Category
+                </div>
+                <div class="p-4 rounded-bottom bg-white">
+                    <h4>Giò heo phỉ thuý</h4>
+                    <p>Cắt phỉ thuý ra làm giò heo. @@.</p>
+                    <div class="d-flex justify-content-between flex-lg-wrap">
+                        <p class="text-dark fs-5 fw-bold mb-0">$4.99</p>
+                        <a href="#" class="btn btn-outline-primary"><i
+                                class="fas fa-location-arrow me-2"></i> Xem chi tiết</a>
+                    </div>
+                </div>
+            </div>
+            <div class="border border-primary rounded position-relative vesitable-item">
+                <div class="vesitable-img">
+                    <img src="/client/img/category/an-trua.webp" class="img-fluid w-100 rounded-top" alt="">
+                </div>
+                <div class="text-white bg-primary px-3 py-1 rounded position-absolute"
+                     style="top: 10px; right: 10px;">
+                    Category
+                </div>
+                <div class="p-4 rounded-bottom bg-white">
+                    <h4>Giò heo phỉ thuý</h4>
+                    <p>Cắt phỉ thuý ra làm giò heo. @@.</p>
+                    <div class="d-flex justify-content-between flex-lg-wrap">
+                        <p class="text-dark fs-5 fw-bold mb-0">$4.99</p>
+                        <a href="#" class="btn btn-outline-primary"><i
+                                class="fas fa-location-arrow me-2"></i> Xem chi tiết</a>
+                    </div>
+                </div>
+            </div>
+            <div class="border border-primary rounded position-relative vesitable-item">
+                <div class="vesitable-img">
+                    <img src="/client/img/category/an-trua.webp" class="img-fluid w-100 rounded-top" alt="">
+                </div>
+                <div class="text-white bg-primary px-3 py-1 rounded position-absolute"
+                     style="top: 10px; right: 10px;">
+                    Category
+                </div>
+                <div class="p-4 rounded-bottom bg-white">
+                    <h4>Giò heo phỉ thuý</h4>
+                    <p>Cắt phỉ thuý ra làm giò heo. @@.</p>
+                    <div class="d-flex justify-content-between flex-lg-wrap">
+                        <p class="text-dark fs-5 fw-bold mb-0">$4.99</p>
+                        <a href="#" class="btn btn-outline-primary"><i
+                                class="fas fa-location-arrow me-2"></i> Xem chi tiết</a>
+                    </div>
+                </div>
+            </div>
+            <div class="border border-primary rounded position-relative vesitable-item">
+                <div class="vesitable-img">
+                    <img src="/client/img/category/an-trua.webp" class="img-fluid w-100 rounded-top" alt="">
+                </div>
+                <div class="text-white bg-primary px-3 py-1 rounded position-absolute"
+                     style="top: 10px; right: 10px;">
+                    Category
+                </div>
+                <div class="p-4 rounded-bottom bg-white">
+                    <h4>Giò heo phỉ thuý</h4>
+                    <p>Cắt phỉ thuý ra làm giò heo. @@.</p>
+                    <div class="d-flex justify-content-between flex-lg-wrap">
+                        <p class="text-dark fs-5 fw-bold mb-0">$4.99</p>
+                        <a href="#" class="btn btn-outline-primary"><i
+                                class="fas fa-location-arrow me-2"></i> Xem chi tiết</a>
+                    </div>
+                </div>
+            </div>
+            <div class="border border-primary rounded position-relative vesitable-item">
+                <div class="vesitable-img">
+                    <img src="/client/img/category/an-trua.webp" class="img-fluid w-100 rounded-top" alt="">
+                </div>
+                <div class="text-white bg-primary px-3 py-1 rounded position-absolute"
+                     style="top: 10px; right: 10px;">
+                    Category
+                </div>
+                <div class="p-4 rounded-bottom bg-white">
+                    <h4>Giò heo phỉ thuý</h4>
+                    <p>Cắt phỉ thuý ra làm giò heo. @@.</p>
+                    <div class="d-flex justify-content-between flex-lg-wrap">
+                        <p class="text-dark fs-5 fw-bold mb-0">$4.99</p>
+                        <a href="#" class="btn btn-outline-primary"><i
+                                class="fas fa-location-arrow me-2"></i> Xem chi tiết</a>
+                    </div>
+                </div>
+            </div>
+            <div class="border border-primary rounded position-relative vesitable-item">
+                <div class="vesitable-img">
+                    <img src="/client/img/category/an-trua.webp" class="img-fluid w-100 rounded-top" alt="">
+                </div>
+                <div class="text-white bg-primary px-3 py-1 rounded position-absolute"
+                     style="top: 10px; right: 10px;">
+                    Category
+                </div>
+                <div class="p-4 rounded-bottom bg-white">
+                    <h4>Giò heo phỉ thuý</h4>
+                    <p>Cắt phỉ thuý ra làm giò heo. @@.</p>
+                    <div class="d-flex justify-content-between flex-lg-wrap">
+                        <p class="text-dark fs-5 fw-bold mb-0">$4.99</p>
+                        <a href="#" class="btn btn-outline-primary"><i
+                                class="fas fa-location-arrow me-2"></i> Xem chi tiết</a>
+                    </div>
+                </div>
+            </div>
+            <div class="border border-primary rounded position-relative vesitable-item">
+                <div class="vesitable-img">
+                    <img src="/client/img/category/an-trua.webp" class="img-fluid w-100 rounded-top" alt="">
+                </div>
+                <div class="text-white bg-primary px-3 py-1 rounded position-absolute"
+                     style="top: 10px; right: 10px;">
+                    Category
+                </div>
+                <div class="p-4 rounded-bottom bg-white">
+                    <h4>Giò heo phỉ thuý</h4>
+                    <p>Cắt phỉ thuý ra làm giò heo. @@.</p>
+                    <div class="d-flex justify-content-between flex-lg-wrap">
+                        <p class="text-dark fs-5 fw-bold mb-0">$4.99</p>
+                        <a href="#" class="btn btn-outline-primary">
+                            <i class="fas fa-location-arrow me-2"></i> Xem chi tiết
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Foods End -->
+
+
+<!-- One Product Start-->
+<div class="container-fluid banner hero-header bg-gray my-5">
+    <div class="container py-5">
+        <div class="row g-4 align-items-center">
+            <div class="col-lg-6">
+                <div class="py-4 text-white">
+                    <h3 class="display-2 text-white">Tên món ăn</h3>
+                    <p class="fw-normal display-3 mb-4">của nhà hàng: </p>
+                    <p class="mb-4">Thông tin món ăn. Món ăn này được bỏ tiền ra quảng cáo.</p>
+                    <p class="fw-bold m-3 display-3 text-white">$4.99</p>
+                    <a href="#"
+                       class="banner-btn btn border-2 border-white rounded-pill py-3 px-5 text-white">
+                        <i class="fas fa-location-arrow me-2"></i>
+                        Xem chi tiết</a>
+                </div>
+            </div>
+            <div class="col-lg-6">
+                <div class="position-relative">
+                    <img src="/client/img/sliders/1.webp" class="img-fluid w-100 rounded" alt="">
+                    <div class="d-flex align-items-center justify-content-center card icon-card rounded-circle text-center mx-2 position-absolute"
+                         style="top: 5px; left: 5px;">
+                        <div class="card-body alert-link py-4 text-warning"><i class="fas fa-star"
+                                                                               style="font-size: 30px"></i>
+                            <p class="icon-name text-capitalize text-truncate mb-0">Editor picker</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- One Product End -->
+
+<!-- List Restaurant Start -->
+<div class="container-fluid vesitable py-5">
+    <div class="container py-5">
+        <div class="text-center mx-auto mb-5" style="max-width: 700px;">
+            <h1 class="display-4">Danh sách nhà hàng</h1>
+            <p>Hãy đến với những nhà hàng nổi tiếng và cùng những món ăn tuyệt vời.</p>
+        </div>
+        <div class="row g-4">
+            <div class="col-lg-6 col-xl-4">
+                <div class="p-4 border border-primary rounded vesitable-item bg-light">
+                    <div class="row align-items-center">
+                        <div class="col-6">
+                            <img src="/client/img/res/1.webp" class="img-fluid rounded-circle w-100" alt="">
+                        </div>
+                        <div class="col-6">
+                            <a href="#" class="h5">Nhà hàng 1</a>
+                            <div class="d-flex my-3">
+                                <i class="fas fa-star text-primary"></i>
+                                <i class="fas fa-star text-primary"></i>
+                                <i class="fas fa-star text-primary"></i>
+                                <i class="fas fa-star text-primary"></i>
+                                <i class="fas fa-star"></i>
+                            </div>
+                            <p>Giới thiệu ngắn</p>
+                            <a href="#" class="btn btn-outline-primary"><i
+                                    class="fas fa-location-arrow me-2"></i> Xem chi tiết</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-6 col-xl-4">
+                <div class="p-4 border border-primary rounded vesitable-item bg-light">
+                    <div class="row align-items-center">
+                        <div class="col-6">
+                            <img src="/client/img/res/1.webp" class="img-fluid rounded-circle w-100" alt="">
+                        </div>
+                        <div class="col-6">
+                            <a href="#" class="h5">Nhà hàng 1</a>
+                            <div class="d-flex my-3">
+                                <i class="fas fa-star text-primary"></i>
+                                <i class="fas fa-star text-primary"></i>
+                                <i class="fas fa-star text-primary"></i>
+                                <i class="fas fa-star text-primary"></i>
+                                <i class="fas fa-star"></i>
+                            </div>
+                            <p>Giới thiệu ngắn</p>
+                            <a href="#" class="btn btn-outline-primary"><i
+                                    class="fas fa-location-arrow me-2"></i> Xem chi tiết</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-6 col-xl-4">
+                <div class="p-4 border border-primary rounded vesitable-item bg-light">
+                    <div class="row align-items-center">
+                        <div class="col-6">
+                            <img src="/client/img/res/1.webp" class="img-fluid rounded-circle w-100" alt="">
+                        </div>
+                        <div class="col-6">
+                            <a href="#" class="h5">Nhà hàng 1</a>
+                            <div class="d-flex my-3">
+                                <i class="fas fa-star text-primary"></i>
+                                <i class="fas fa-star text-primary"></i>
+                                <i class="fas fa-star text-primary"></i>
+                                <i class="fas fa-star text-primary"></i>
+                                <i class="fas fa-star"></i>
+                            </div>
+                            <p>Giới thiệu ngắn</p>
+                            <a href="#" class="btn btn-outline-primary"><i
+                                    class="fas fa-location-arrow me-2"></i> Xem chi tiết</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-6 col-xl-4">
+                <div class="p-4 border border-primary rounded vesitable-item bg-light">
+                    <div class="row align-items-center">
+                        <div class="col-6">
+                            <img src="/client/img/res/1.webp" class="img-fluid rounded-circle w-100" alt="">
+                        </div>
+                        <div class="col-6">
+                            <a href="#" class="h5">Nhà hàng 1</a>
+                            <div class="d-flex my-3">
+                                <i class="fas fa-star text-primary"></i>
+                                <i class="fas fa-star text-primary"></i>
+                                <i class="fas fa-star text-primary"></i>
+                                <i class="fas fa-star text-primary"></i>
+                                <i class="fas fa-star"></i>
+                            </div>
+                            <p>Giới thiệu ngắn</p>
+                            <a href="#" class="btn btn-outline-primary"><i
+                                    class="fas fa-location-arrow me-2"></i> Xem chi tiết</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-6 col-xl-4">
+                <div class="p-4 border border-primary rounded vesitable-item bg-light">
+                    <div class="row align-items-center">
+                        <div class="col-6">
+                            <img src="/client/img/res/1.webp" class="img-fluid rounded-circle w-100" alt="">
+                        </div>
+                        <div class="col-6">
+                            <a href="#" class="h5">Nhà hàng 1</a>
+                            <div class="d-flex my-3">
+                                <i class="fas fa-star text-primary"></i>
+                                <i class="fas fa-star text-primary"></i>
+                                <i class="fas fa-star text-primary"></i>
+                                <i class="fas fa-star text-primary"></i>
+                                <i class="fas fa-star"></i>
+                            </div>
+                            <p>Giới thiệu ngắn</p>
+                            <a href="#" class="btn btn-outline-primary"><i
+                                    class="fas fa-location-arrow me-2"></i> Xem chi tiết</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-6 col-xl-4">
+                <div class="p-4 border border-primary rounded vesitable-item bg-light">
+                    <div class="row align-items-center">
+                        <div class="col-6">
+                            <img src="/client/img/res/1.webp" class="img-fluid rounded-circle w-100" alt="">
+                        </div>
+                        <div class="col-6">
+                            <a href="#" class="h5">Nhà hàng 1</a>
+                            <div class="d-flex my-3">
+                                <i class="fas fa-star text-primary"></i>
+                                <i class="fas fa-star text-primary"></i>
+                                <i class="fas fa-star text-primary"></i>
+                                <i class="fas fa-star text-primary"></i>
+                                <i class="fas fa-star"></i>
+                            </div>
+                            <p>Giới thiệu ngắn</p>
+                            <a href="#" class="btn btn-outline-primary"><i
+                                    class="fas fa-location-arrow me-2"></i> Xem chi tiết</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- List Restaurant End -->
+
+<!-- Rating Start -->
+<div class="container-fluid testimonial py-5">
+    <div class="container py-5">
+        <div class="testimonial-header text-center">
+            <h4 class="text-primary">Khách hàng</h4>
+            <h1 class="display-5 mb-5 text-dark">Khách hàng với chúng tôi!</h1>
+        </div>
+        <div class="owl-carousel testimonial-carousel">
+            <div class="testimonial-item img-border-radius bg-light rounded p-4">
+                <div class="position-relative">
+                    <i class="fa fa-quote-right fa-2x text-secondary position-absolute"
+                       style="bottom: 30px; right: 0;"></i>
+                    <div class="mb-4 pb-4 border-bottom border-secondary">
+                        <p class="mb-0">Lorem Ipsum is simply dummy text of the printing Ipsum has been the
+                            industry's
+                            standard dummy text ever since the 1500s,
+                        </p>
+                    </div>
+                    <div class="d-flex align-items-center flex-nowrap">
+                        <div class="bg-secondary rounded">
+                            <img src="/client/img/avatar/1%20(1).jpg" class="img-fluid rounded"
+                                 style="width: 100px; height: 100px;" alt="">
+                        </div>
+                        <div class="ms-4 d-block">
+                            <h4 class="text-dark">Client Name</h4>
+                            <p class="m-0 pb-3">Ở Food nào</p>
+                            <div class="d-flex pe-5">
+                                <i class="fas fa-star text-primary"></i>
+                                <i class="fas fa-star text-primary"></i>
+                                <i class="fas fa-star text-primary"></i>
+                                <i class="fas fa-star text-primary"></i>
+                                <i class="fas fa-star"></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="testimonial-item img-border-radius bg-light rounded p-4">
+                <div class="position-relative">
+                    <i class="fa fa-quote-right fa-2x text-secondary position-absolute"
+                       style="bottom: 30px; right: 0;"></i>
+                    <div class="mb-4 pb-4 border-bottom border-secondary">
+                        <p class="mb-0">Lorem Ipsum is simply dummy text of the printing Ipsum has been the
+                            industry's
+                            standard dummy text ever since the 1500s,
+                        </p>
+                    </div>
+                    <div class="d-flex align-items-center flex-nowrap">
+                        <div class="bg-secondary rounded">
+                            <img src="/client/img/avatar/1%20(2).jpg" class="img-fluid rounded"
+                                 style="width: 100px; height: 100px;" alt="">
+                        </div>
+                        <div class="ms-4 d-block">
+                            <h4 class="text-dark">Client Name</h4>
+                            <p class="m-0 pb-3">Ở cửa hàng nào</p>
+                            <div class="d-flex pe-5">
+                                <i class="fas fa-star text-primary"></i>
+                                <i class="fas fa-star text-primary"></i>
+                                <i class="fas fa-star text-primary"></i>
+                                <i class="fas fa-star text-primary"></i>
+                                <i class="fas fa-star text-primary"></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="testimonial-item img-border-radius bg-light rounded p-4">
+                <div class="position-relative">
+                    <i class="fa fa-quote-right fa-2x text-secondary position-absolute"
+                       style="bottom: 30px; right: 0;"></i>
+                    <div class="mb-4 pb-4 border-bottom border-secondary">
+                        <p class="mb-0">Lorem Ipsum is simply dummy text of the printing Ipsum has been the
+                            industry's
+                            standard dummy text ever since the 1500s,
+                        </p>
+                    </div>
+                    <div class="d-flex align-items-center flex-nowrap">
+                        <div class="bg-secondary rounded">
+                            <img src="/client/img/avatar/1%20(3).jpg" class="img-fluid rounded"
+                                 style="width: 100px; height: 100px;" alt="">
+                        </div>
+                        <div class="ms-4 d-block">
+                            <h4 class="text-dark">Client Name</h4>
+                            <p class="m-0 pb-3">Ở food nào</p>
+                            <div class="d-flex pe-5">
+                                <i class="fas fa-star text-primary"></i>
+                                <i class="fas fa-star text-primary"></i>
+                                <i class="fas fa-star text-primary"></i>
+                                <i class="fas fa-star text-primary"></i>
+                                <i class="fas fa-star text-primary"></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Rating End -->
+
+<!-- Blog Start -->
+<div class="container-fluid">
+    <div class="container py-5">
+        <h2 class="my-3 alert-link pb-3">Blog mới</h2>
+        <div class="row row-cols-1 row-cols-md-3 g-4 mb-5">
+            <div class="col">
+                <div class="card h-100">
+                    <a th:href="@{/}">
+                        <img class="card-img-top" src="/client/img/sliders/1.webp" alt="Card image cap"/>
+                    </a>
+                    <div class="card-body">
+                        <a th:href="@{/}">
+                            <h5 class="card-title">Bài viết 1</h5>
+                        </a>
+                        <p class="card-text">
+                            This is a longer card with supporting text below as a natural lead-in to additional content.
+                            This content is a little bit longer.
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="col">
+                <div th:href="@{/#}" class="card h-100">
+                    <img class="card-img-top" src="/client/img/sliders/1.webp" alt="Card image cap"/>
+                    <div class="card-body">
+                        <h5 class="card-title">Bài viết 1</h5>
+                        <p class="card-text">
+                            This is a longer card with supporting text below as a natural lead-in to additional content.
+                            This content is a little bit longer.
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="col">
+                <div th:href="@{/#}" class="card h-100">
+                    <img class="card-img-top" src="/client/img/sliders/1.webp" alt="Card image cap"/>
+                    <div class="card-body">
+                        <h5 class="card-title">Bài viết 1</h5>
+                        <p class="card-text">
+                            This is a longer card with supporting text below as a natural lead-in to additional content.
+                            This content is a little bit longer.
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="col">
+                <div th:href="@{/#}" class="card h-100">
+                    <img class="card-img-top" src="/client/img/sliders/1.webp" alt="Card image cap"/>
+                    <div class="card-body">
+                        <h5 class="card-title">Bài viết 1</h5>
+                        <p class="card-text">
+                            This is a longer card with supporting text below as a natural lead-in to additional content.
+                            This content is a little bit longer.
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="col">
+                <div th:href="@{/#}" class="card h-100">
+                    <img class="card-img-top" src="/client/img/sliders/1.webp" alt="Card image cap"/>
+                    <div class="card-body">
+                        <h5 class="card-title">Bài viết 1</h5>
+                        <p class="card-text">
+                            This is a longer card with supporting text below as a natural lead-in to additional content.
+                            This content is a little bit longer.
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="col">
+                <div th:href="@{/#}" class="card h-100">
+                    <img class="card-img-top" src="/client/img/sliders/1.webp" alt="Card image cap"/>
+                    <div class="card-body">
+                        <h5 class="card-title">Bài viết 1</h5>
+                        <p class="card-text">
+                            This is a longer card with supporting text below as a natural lead-in to additional content.
+                            This content is a little bit longer.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Blog End -->
+
+<!-- Footer Start -->
+
+<div th:replace="~{client/fragments/footer::footer}"></div>
+<div th:replace="~{client/fragments/js::js-insert}"></div>
+>>>>>>> Dev
 </body>
 </html>

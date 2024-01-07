@@ -1,15 +1,14 @@
 package vn.hdweb.team9.domain.entity;
 
 import jakarta.persistence.*;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.Data;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
 @Entity
-@Getter @Setter
+@Data
 @Table(name = "orders")
 public class Order {
 
@@ -26,7 +25,10 @@ public class Order {
     @JoinColumn(name="restaurant_id")
     private Restaurant restaurant;
 
-    @OneToMany(mappedBy = "order")
+    @Column(name = "delivery_address")
+    private String deliveryAddress;
+
+    @OneToMany(mappedBy = "order", cascade = CascadeType.ALL)
     private List<OrderDetail> orderItems = new ArrayList<>();
 
     @Column(name = "order_note")
@@ -34,9 +36,6 @@ public class Order {
 
     @Column(name = "total_bill")
     private int totalBill;
-
-    @Column(name = "order_status")
-    private String orderStatus;
 
     @Column(name = "is_rating_restaurant")
     private boolean isRatingRestaurant;
@@ -51,4 +50,8 @@ public class Order {
 
     @Column(name = "update_at")
     private LocalDateTime updatedAt = LocalDateTime.now();
+
+    public boolean getRatingRestaurant() {
+        return isRatingRestaurant;
+    }
 }

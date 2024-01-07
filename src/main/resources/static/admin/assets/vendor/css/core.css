@@ -15,7 +15,11 @@
   --bs-gray-dark: rgba(67, 89, 113, 0.8);
   --bs-gray-25: rgba(67, 89, 113, 0.025);
   --bs-gray-50: rgba(67, 89, 113, 0.05);
+<<<<<<< HEAD
   --bs-primary: #696cff;
+=======
+  --bs-primary: #ff3e1d;
+>>>>>>> Dev
   --bs-secondary: #8592a3;
   --bs-success: #71dd37;
   --bs-info: #03c3ec;
@@ -49,12 +53,15 @@
   --bs-body-bg: #f5f5f9;
 }
 
+<<<<<<< HEAD
 .errorMessage {
     color: red; /* Set the text color to red or your preferred color */
     font-size: 14px; /* Set the font size */
     /* Add any other styling properties as needed */
 }
 
+=======
+>>>>>>> Dev
 *,
 *::before,
 *::after {

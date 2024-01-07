@@ -1,0 +1,65 @@
+<aside th:fragment="drawer-menu" id="layout-menu" class="layout-menu menu-vertical menu bg-menu-theme">
+    <div class="app-brand demo">
+        <a th:href="@{/admin}" class="app-brand-link">
+            <span class="app-brand-text demo menu-text fw-bolder ms-2">Admin Panel</span>
+        </a>
+    </div>
+
+    <div class="menu-inner-shadow"></div>
+
+    <ul class="menu-inner py-1">
+        <!-- Dashboard -->
+        <!--/*@thymesVar id="value_menu" type=""*/-->
+        <li th:classappend="${value_menu.contains('dashboard')?'active':''}" class="menu-item">
+            <a th:href="@{/admin/dashboard}" class="menu-link">
+                <i class="menu-icon tf-icons bx bx-home-circle"></i>
+                <span>Dashboard</span>
+            </a>
+        </li>
+
+        <!-- Ví dụ xử lý menu Restaurants -->
+        <li class="menu-header small text-uppercase">
+            <span class="menu-header-text">Restaurants</span>
+        </li>
+        <li th:classappend="${value_menu.contains('restaurants')?'active open':''}" class="menu-item">
+            <a href="javascript:void(0)" class="menu-link menu-toggle">
+                <i class='menu-icon tf-icons bx bx-store' ></i>
+                <div>Restaurants</div>
+            </a>
+            <ul class="menu-sub">
+                <li th:classappend="${value_menu.contains('res_list')?'active':''}" class="menu-item">
+                    <a href="" class="menu-link">
+                        <div>List restaurants</div>
+                    </a>
+                </li>
+                <li class="menu-item">
+                    <a href="" class="menu-link">
+                        <div>Create new restaurant</div>
+                    </a>
+                </li>
+            </ul>
+        </li>
+        <!-- User -->
+        <li class="menu-header small text-uppercase">
+            <span class="menu-header-text">User</span>
+        </li>
+        <li th:classappend="${value_menu.contains('users')?'active open':''}" class="menu-item">
+            <a href="javascript:void(0)" class="menu-link menu-toggle">
+                <i class='menu-icon tf-icons bx bx-user' ></i>
+                <div>User</div>
+            </a>
+            <ul class="menu-sub">
+                <li th:classappend="${value_menu.contains('users_list')?'active':''}" class="menu-item">
+                    <a th:href="@{/admin/users/list}" class="menu-link">
+                        <div>List user</div>
+                    </a>
+                </li>
+                <li th:classappend="${value_menu.contains('users_create')?'active':''}" class="menu-item">
+                    <a th:href="@{/admin/users/create_new}" class="menu-link">
+                        <div>Create new user</div>
+                    </a>
+                </li>
+            </ul>
+        </li>
+    </ul>
+</aside>
