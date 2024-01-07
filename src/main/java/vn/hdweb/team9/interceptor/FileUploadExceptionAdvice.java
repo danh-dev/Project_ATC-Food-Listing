@@ -8,11 +8,20 @@ import org.springframework.web.multipart.MaxUploadSizeExceededException;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import org.springframework.web.servlet.view.RedirectView;
 
+import java.nio.file.NoSuchFileException;
+
 @ControllerAdvice
 public class FileUploadExceptionAdvice {
     @ExceptionHandler(MaxUploadSizeExceededException.class)
     public RedirectView handleMaxSizeException(RedirectAttributes redirectAttributes, HttpServletRequest request) {
         redirectAttributes.addFlashAttribute("error", "File size is bigger than 5MB. Or not a valid file!");
+        String referer = request.getHeader("Referer");
+        return new RedirectView(referer);
+    }
+    
+    @ExceptionHandler(NoSuchFileException.class)
+    public RedirectView handleFindNotFound(RedirectAttributes redirectAttributes, HttpServletRequest request) {
+        redirectAttributes.addFlashAttribute("error", "File not found!");
         String referer = request.getHeader("Referer");
         return new RedirectView(referer);
     }

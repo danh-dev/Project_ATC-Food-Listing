@@ -3,6 +3,7 @@ package vn.hdweb.team9.utility;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.nio.file.Files;
+import java.nio.file.NoSuchFileException;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.time.LocalDateTime;
@@ -50,13 +51,11 @@ public class UploadFileUtil {
                     filePath);
             // Trả về đường dẫn file
             return filePath.toString();
-        } catch (Exception e) {
+        } catch (NoSuchFileException e) {
             throw new Exception("Could not store file " + file.getOriginalFilename()
                                 + ". Please try again!", e);
         }
     }
-    
-
     
 }
 
