@@ -4,6 +4,13 @@ spring:
     username: ${db_username}
     password: ${db_password}
     driver-class-name: com.mysql.cj.jdbc.Driver
+  jpa:
+    hibernate:
+      ddl-auto: none # create , none
+    #    show-sql: true
+    properties:
+      hibernate:
+        format_sql: true
   servlet:
     multipart:
       max-file-size: 10MB
@@ -14,21 +21,6 @@ spring:
     max-in-memory-size: 1MB
   main:
     banner-mode: off
-
-  jpa:
-    hibernate:
-      ddl-auto: none # create , none
-    #    show-sql: true
-    properties:
-      hibernate:
-        format_sql: true
-        connection:
-          CharSet: utf8
-          characterEncoding: utf8
-          useUnicode: true
-  thymeleaf:
-    cache: false
-    mode: HTML
 
 
 logging:
