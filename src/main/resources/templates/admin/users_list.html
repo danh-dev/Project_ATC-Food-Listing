@@ -2,10 +2,10 @@
 <html lang="en"
       xmlns:th="http://www.thymeleaf.org"
       xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity6"
-      class="light-style layout-menu-fixed"
+      class="light-style layout-menu-fixed layout-navbar-fixed"
       dir="ltr"
       data-theme="theme-default"
-      data-assets-path="../../admin/assets/"
+      data-assets-path="/admin/assets/"
       data-template="vertical-menu-template-free"
 >
 <head th:replace="~{admin/fragments/head :: heads(pageTitle='List Users')}">
@@ -17,19 +17,15 @@
         <!--đưa giá trị value_menu để so sánh với menu kích hoạt active-->
         <aside th:replace="~{admin/fragments/menu :: drawer-menu(value_menu = 'users,users_list')}"></aside>
         <div class="layout-page">
-            <nav th:replace="~{admin/fragments/nav :: nav-bar}"></nav>
+            <nav th:replace="~{admin/fragments/nav :: nav-bar(value_title = 'User List')}"></nav>
             <div class="content-wrapper">
                 <div class="container-xxl flex-grow-1 container-p-y">
-                    <!--Title-->
-                    <h4 class="fw-bold py-3 mb-4"><span class="text-muted fw-light">AdminCP /</span> List Users</h4>
-                    <!--End Title-->
                     <!--Content-->
                     <div class="card">
-                        <h5 class="card-header">List user account</h5>
                         <div class="card-body">
                             <div class="card-content">
                                 <div class="card">
-                                    <h5 class="card-header">Striped rows</h5>
+                                    <h5 class="card-header">List user account</h5>
                                     <div class="table-responsive text-nowrap">
                                         <table class="table table-striped">
                                             <thead>
@@ -48,7 +44,9 @@
                                                 <td th:text="${user.id}"></td>
                                                 <td>
                                                     <th:block th:if="${user.avatar != null}">
-                                                        <img th:src="@{'/' + ${user.avatar}}" th:alt-title="${user.fullName}" class="rounded-circle" width="30" height="30"/>
+                                                        <img th:src="@{'/' + ${user.avatar}}"
+                                                             th:alt-title="${user.fullName}" class="rounded-circle"
+                                                             width="30" height="30"/>
                                                     </th:block>
                                                     <strong th:text="${user.fullName}"></strong>
                                                 </td>
@@ -56,23 +54,17 @@
                                                 <td th:text="${user.phone}"></td>
                                                 <td th:text="${user.address}"></td>
                                                 <td>
-                                                    <span class="badge bg-label-danger me-1" th:if="${user.role == 'ADMIN'}">Admin</span>
-                                                    <span class="badge bg-label-primary me-1" th:if="${user.role == 'USER'}">User</span>
+                                                    <span class="badge bg-label-danger me-1"
+                                                          th:if="${user.role == 'ADMIN'}">Admin</span>
+                                                    <span class="badge bg-label-primary me-1"
+                                                          th:if="${user.role == 'USER'}">User</span>
                                                 </td>
                                                 <td>
-                                                    <div class="dropdown">
-                                                        <button type="button" class="btn p-0 dropdown-toggle hide-arrow" data-bs-toggle="dropdown">
-                                                            <i class="bx bx-dots-vertical-rounded"></i>
-                                                        </button>
-                                                        <div class="dropdown-menu">
-                                                            <a class="dropdown-item" href="javascript:void(0);"
-                                                            ><i class="bx bx-edit-alt me-1"></i> Edit</a
-                                                            >
-                                                            <a class="dropdown-item" href="javascript:void(0);"
-                                                            ><i class="bx bx-trash me-1"></i> Delete</a
-                                                            >
-                                                        </div>
-                                                    </div>
+                                                    <a class="btn btn-sm btn-primary"
+                                                       th:href="@{/admin/users/edit/{id}(id=${user.id})}"
+                                                    >
+                                                        <i class="bx bx-edit-alt me-1"></i> Edit
+                                                    </a>
                                                 </td>
                                             </tr>
                                             </tbody>
@@ -80,7 +72,6 @@
                                     </div>
                                 </div>
                                 <!--/ Striped Rows -->
-
                             </div>
                         </div>
                     </div>

@@ -1,0 +1,599 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity6">
+<head th:replace="~{client/fragments/head :: heads(pageTitle='Restaurant name?')}">
+    <title></title>
+</head>
+<body>
+
+<div th:replace="~{client/fragments/header :: header}"></div>
+
+<div class="d-lg-block d-none my-3 py-5">
+
+</div>
+
+<!-- List Restaurant Start -->
+<div class="container-fluid py-5">
+    <div class="container py-5">
+        <div class="row gy-4 d-flex align-items-stretch">
+            <div class="col-lg-5 d-flex">
+                <div class="restaurant-img-box position-relative border p-2 d-flex flex-column justify-content-between">
+                    <img src="/client/img/res/res.jpg" alt="restaurant name" class="res-img w-100 scaleX-n1-rtl">
+                </div>
+            </div>
+            <div class="col-lg-7 d-flex">
+                <div class="card w-100">
+                    <div class="card-body d-flex flex-column justify-content-between">
+                        <h4 class="my-2 py-2">Tên Restaurant</h4>
+                        <p>Địa chỉ: xxx</p>
+                        <div class="d-flex align-items-center">
+                            <div th:insert="~{client/fragments/elements/rating :: rating(rating_value = 4.3)}"></div>
+
+                            <span class="badge bg-warning">999+</span>
+                        </div>
+                        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#modalScrollable">
+                            Xem Rating
+                        </button>
+                        <div th:insert="~{client/fragments/rating_list :: rating}"></div>
+                        <p>Giờ mở cửa: xxx Giờ đóng cửa: xxx</p>
+                        <p>Mức giá: xxx - xxx</p>
+                        <p class="my-3 content-res">
+                            If you would like to discuss anything related to payment, account, licensing,
+                            partnerships, or have pre-sales questions, you’re at the right place.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- List Restaurant End -->
+
+<!-- Blog Start -->
+<div class="container-fluid">
+    <div class="container py-5">
+        <div class="row gy-4 d-flex align-items-stretch">
+            <div class="col-lg-3 d-flex flex-column">
+                <div class="position-relative p-2 w-100 flex-grow-1">
+                    <div class="card my-2 position-sticky" style="top:100px">
+                        <div class="card-title">Menu</div>
+                        <div class="card-body d-flex flex-column justify-content-between">
+                            <ul>
+                                <li><a href="#">Món ăn 1</a></li>
+                                <li><a href="#">Món ăn 1</a></li>
+                                <li><a href="#">Món ăn 1</a></li>
+                                <li><a href="#">Món ăn 1</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-9 d-flex flex-column">
+                <div class="card w-100 my-3">
+                    <div class="card-body d-flex flex-column justify-content-between">
+                        <div class="card-title">
+                            <h3>Menu 1</h3>
+                        </div>
+                        <div class="row g-4">
+                            <div class="col-6 col-xl-4">
+                                <div class="border border-primary rounded position-relative vesitable-item">
+                                    <div class="vesitable-img">
+                                        <img src="/client/img/category/an-trua.webp" class="img-fluid w-100 rounded-top" alt="">
+                                    </div>
+                                    <div class="text-white bg-primary px-3 py-1 rounded position-absolute"
+                                         style="top: 10px; right: 10px;">
+                                        Category
+                                    </div>
+                                    <div class="p-4 rounded-bottom bg-white">
+                                        <h4>Giò heo phỉ thuý</h4>
+                                        <p>Cắt phỉ thuý ra làm giò heo. @@.</p>
+                                        <div class="d-flex justify-content-between flex-lg-wrap">
+                                            <p class="text-dark fs-5 fw-bold mb-0">$4.99</p>
+                                            <a href="#" class="btn btn-outline-primary"><i
+                                                    class="fas fa-location-arrow me-2"></i> Xem chi tiết</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-6 col-xl-4">
+                                <div class="border border-primary rounded position-relative vesitable-item">
+                                    <div class="vesitable-img">
+                                        <img src="/client/img/category/an-trua.webp" class="img-fluid w-100 rounded-top" alt="">
+                                    </div>
+                                    <div class="text-white bg-primary px-3 py-1 rounded position-absolute"
+                                         style="top: 10px; right: 10px;">
+                                        Category
+                                    </div>
+                                    <div class="p-4 rounded-bottom bg-white">
+                                        <h4>Giò heo phỉ thuý</h4>
+                                        <p>Cắt phỉ thuý ra làm giò heo. @@.</p>
+                                        <div class="d-flex justify-content-between flex-lg-wrap">
+                                            <p class="text-dark fs-5 fw-bold mb-0">$4.99</p>
+                                            <a href="#" class="btn btn-outline-primary"><i
+                                                    class="fas fa-location-arrow me-2"></i> Xem chi tiết</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-6 col-xl-4">
+                                <div class="border border-primary rounded position-relative vesitable-item">
+                                    <div class="vesitable-img">
+                                        <img src="/client/img/category/an-trua.webp" class="img-fluid w-100 rounded-top" alt="">
+                                    </div>
+                                    <div class="text-white bg-primary px-3 py-1 rounded position-absolute"
+                                         style="top: 10px; right: 10px;">
+                                        Category
+                                    </div>
+                                    <div class="p-4 rounded-bottom bg-white">
+                                        <h4>Giò heo phỉ thuý</h4>
+                                        <p>Cắt phỉ thuý ra làm giò heo. @@.</p>
+                                        <div class="d-flex justify-content-between flex-lg-wrap">
+                                            <p class="text-dark fs-5 fw-bold mb-0">$4.99</p>
+                                            <a href="#" class="btn btn-outline-primary"><i
+                                                    class="fas fa-location-arrow me-2"></i> Xem chi tiết</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-6 col-xl-4">
+                                <div class="border border-primary rounded position-relative vesitable-item">
+                                    <div class="vesitable-img">
+                                        <img src="/client/img/category/an-trua.webp" class="img-fluid w-100 rounded-top" alt="">
+                                    </div>
+                                    <div class="text-white bg-primary px-3 py-1 rounded position-absolute"
+                                         style="top: 10px; right: 10px;">
+                                        Category
+                                    </div>
+                                    <div class="p-4 rounded-bottom bg-white">
+                                        <h4>Giò heo phỉ thuý</h4>
+                                        <p>Cắt phỉ thuý ra làm giò heo. @@.</p>
+                                        <div class="d-flex justify-content-between flex-lg-wrap">
+                                            <p class="text-dark fs-5 fw-bold mb-0">$4.99</p>
+                                            <a href="#" class="btn btn-outline-primary"><i
+                                                    class="fas fa-location-arrow me-2"></i> Xem chi tiết</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-6 col-xl-4">
+                                <div class="border border-primary rounded position-relative vesitable-item">
+                                    <div class="vesitable-img">
+                                        <img src="/client/img/category/an-trua.webp" class="img-fluid w-100 rounded-top" alt="">
+                                    </div>
+                                    <div class="text-white bg-primary px-3 py-1 rounded position-absolute"
+                                         style="top: 10px; right: 10px;">
+                                        Category
+                                    </div>
+                                    <div class="p-4 rounded-bottom bg-white">
+                                        <h4>Giò heo phỉ thuý</h4>
+                                        <p>Cắt phỉ thuý ra làm giò heo. @@.</p>
+                                        <div class="d-flex justify-content-between flex-lg-wrap">
+                                            <p class="text-dark fs-5 fw-bold mb-0">$4.99</p>
+                                            <a href="#" class="btn btn-outline-primary"><i
+                                                    class="fas fa-location-arrow me-2"></i> Xem chi tiết</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-6 col-xl-4">
+                                <div class="border border-primary rounded position-relative vesitable-item">
+                                    <div class="vesitable-img">
+                                        <img src="/client/img/category/an-trua.webp" class="img-fluid w-100 rounded-top" alt="">
+                                    </div>
+                                    <div class="text-white bg-primary px-3 py-1 rounded position-absolute"
+                                         style="top: 10px; right: 10px;">
+                                        Category
+                                    </div>
+                                    <div class="p-4 rounded-bottom bg-white">
+                                        <h4>Giò heo phỉ thuý</h4>
+                                        <p>Cắt phỉ thuý ra làm giò heo. @@.</p>
+                                        <div class="d-flex justify-content-between flex-lg-wrap">
+                                            <p class="text-dark fs-5 fw-bold mb-0">$4.99</p>
+                                            <a href="#" class="btn btn-outline-primary"><i
+                                                    class="fas fa-location-arrow me-2"></i> Xem chi tiết</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="card w-100 my-3">
+                    <div class="card-body d-flex flex-column justify-content-between">
+                        <div class="card-title">
+                            <h3>Menu 1</h3>
+                        </div>
+                        <div class="row g-4">
+                            <div class="col-6 col-xl-4">
+                                <div class="border border-primary rounded position-relative vesitable-item">
+                                    <div class="vesitable-img">
+                                        <img src="/client/img/category/an-trua.webp" class="img-fluid w-100 rounded-top" alt="">
+                                    </div>
+                                    <div class="text-white bg-primary px-3 py-1 rounded position-absolute"
+                                         style="top: 10px; right: 10px;">
+                                        Category
+                                    </div>
+                                    <div class="p-4 rounded-bottom bg-white">
+                                        <h4>Giò heo phỉ thuý</h4>
+                                        <p>Cắt phỉ thuý ra làm giò heo. @@.</p>
+                                        <div class="d-flex justify-content-between flex-lg-wrap">
+                                            <p class="text-dark fs-5 fw-bold mb-0">$4.99</p>
+                                            <a href="#" class="btn btn-outline-primary"><i
+                                                    class="fas fa-location-arrow me-2"></i> Xem chi tiết</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-6 col-xl-4">
+                                <div class="border border-primary rounded position-relative vesitable-item">
+                                    <div class="vesitable-img">
+                                        <img src="/client/img/category/an-trua.webp" class="img-fluid w-100 rounded-top" alt="">
+                                    </div>
+                                    <div class="text-white bg-primary px-3 py-1 rounded position-absolute"
+                                         style="top: 10px; right: 10px;">
+                                        Category
+                                    </div>
+                                    <div class="p-4 rounded-bottom bg-white">
+                                        <h4>Giò heo phỉ thuý</h4>
+                                        <p>Cắt phỉ thuý ra làm giò heo. @@.</p>
+                                        <div class="d-flex justify-content-between flex-lg-wrap">
+                                            <p class="text-dark fs-5 fw-bold mb-0">$4.99</p>
+                                            <a href="#" class="btn btn-outline-primary"><i
+                                                    class="fas fa-location-arrow me-2"></i> Xem chi tiết</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-6 col-xl-4">
+                                <div class="border border-primary rounded position-relative vesitable-item">
+                                    <div class="vesitable-img">
+                                        <img src="/client/img/category/an-trua.webp" class="img-fluid w-100 rounded-top" alt="">
+                                    </div>
+                                    <div class="text-white bg-primary px-3 py-1 rounded position-absolute"
+                                         style="top: 10px; right: 10px;">
+                                        Category
+                                    </div>
+                                    <div class="p-4 rounded-bottom bg-white">
+                                        <h4>Giò heo phỉ thuý</h4>
+                                        <p>Cắt phỉ thuý ra làm giò heo. @@.</p>
+                                        <div class="d-flex justify-content-between flex-lg-wrap">
+                                            <p class="text-dark fs-5 fw-bold mb-0">$4.99</p>
+                                            <a href="#" class="btn btn-outline-primary"><i
+                                                    class="fas fa-location-arrow me-2"></i> Xem chi tiết</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-6 col-xl-4">
+                                <div class="border border-primary rounded position-relative vesitable-item">
+                                    <div class="vesitable-img">
+                                        <img src="/client/img/category/an-trua.webp" class="img-fluid w-100 rounded-top" alt="">
+                                    </div>
+                                    <div class="text-white bg-primary px-3 py-1 rounded position-absolute"
+                                         style="top: 10px; right: 10px;">
+                                        Category
+                                    </div>
+                                    <div class="p-4 rounded-bottom bg-white">
+                                        <h4>Giò heo phỉ thuý</h4>
+                                        <p>Cắt phỉ thuý ra làm giò heo. @@.</p>
+                                        <div class="d-flex justify-content-between flex-lg-wrap">
+                                            <p class="text-dark fs-5 fw-bold mb-0">$4.99</p>
+                                            <a href="#" class="btn btn-outline-primary"><i
+                                                    class="fas fa-location-arrow me-2"></i> Xem chi tiết</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-6 col-xl-4">
+                                <div class="border border-primary rounded position-relative vesitable-item">
+                                    <div class="vesitable-img">
+                                        <img src="/client/img/category/an-trua.webp" class="img-fluid w-100 rounded-top" alt="">
+                                    </div>
+                                    <div class="text-white bg-primary px-3 py-1 rounded position-absolute"
+                                         style="top: 10px; right: 10px;">
+                                        Category
+                                    </div>
+                                    <div class="p-4 rounded-bottom bg-white">
+                                        <h4>Giò heo phỉ thuý</h4>
+                                        <p>Cắt phỉ thuý ra làm giò heo. @@.</p>
+                                        <div class="d-flex justify-content-between flex-lg-wrap">
+                                            <p class="text-dark fs-5 fw-bold mb-0">$4.99</p>
+                                            <a href="#" class="btn btn-outline-primary"><i
+                                                    class="fas fa-location-arrow me-2"></i> Xem chi tiết</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-6 col-xl-4">
+                                <div class="border border-primary rounded position-relative vesitable-item">
+                                    <div class="vesitable-img">
+                                        <img src="/client/img/category/an-trua.webp" class="img-fluid w-100 rounded-top" alt="">
+                                    </div>
+                                    <div class="text-white bg-primary px-3 py-1 rounded position-absolute"
+                                         style="top: 10px; right: 10px;">
+                                        Category
+                                    </div>
+                                    <div class="p-4 rounded-bottom bg-white">
+                                        <h4>Giò heo phỉ thuý</h4>
+                                        <p>Cắt phỉ thuý ra làm giò heo. @@.</p>
+                                        <div class="d-flex justify-content-between flex-lg-wrap">
+                                            <p class="text-dark fs-5 fw-bold mb-0">$4.99</p>
+                                            <a href="#" class="btn btn-outline-primary"><i
+                                                    class="fas fa-location-arrow me-2"></i> Xem chi tiết</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="card w-100 my-3">
+                    <div class="card-body d-flex flex-column justify-content-between">
+                        <div class="card-title">
+                            <h3>Menu 1</h3>
+                        </div>
+                        <div class="row g-4">
+                            <div class="col-6 col-xl-4">
+                                <div class="border border-primary rounded position-relative vesitable-item">
+                                    <div class="vesitable-img">
+                                        <img src="/client/img/category/an-trua.webp" class="img-fluid w-100 rounded-top" alt="">
+                                    </div>
+                                    <div class="text-white bg-primary px-3 py-1 rounded position-absolute"
+                                         style="top: 10px; right: 10px;">
+                                        Category
+                                    </div>
+                                    <div class="p-4 rounded-bottom bg-white">
+                                        <h4>Giò heo phỉ thuý</h4>
+                                        <p>Cắt phỉ thuý ra làm giò heo. @@.</p>
+                                        <div class="d-flex justify-content-between flex-lg-wrap">
+                                            <p class="text-dark fs-5 fw-bold mb-0">$4.99</p>
+                                            <a href="#" class="btn btn-outline-primary"><i
+                                                    class="fas fa-location-arrow me-2"></i> Xem chi tiết</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-6 col-xl-4">
+                                <div class="border border-primary rounded position-relative vesitable-item">
+                                    <div class="vesitable-img">
+                                        <img src="/client/img/category/an-trua.webp" class="img-fluid w-100 rounded-top" alt="">
+                                    </div>
+                                    <div class="text-white bg-primary px-3 py-1 rounded position-absolute"
+                                         style="top: 10px; right: 10px;">
+                                        Category
+                                    </div>
+                                    <div class="p-4 rounded-bottom bg-white">
+                                        <h4>Giò heo phỉ thuý</h4>
+                                        <p>Cắt phỉ thuý ra làm giò heo. @@.</p>
+                                        <div class="d-flex justify-content-between flex-lg-wrap">
+                                            <p class="text-dark fs-5 fw-bold mb-0">$4.99</p>
+                                            <a href="#" class="btn btn-outline-primary"><i
+                                                    class="fas fa-location-arrow me-2"></i> Xem chi tiết</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-6 col-xl-4">
+                                <div class="border border-primary rounded position-relative vesitable-item">
+                                    <div class="vesitable-img">
+                                        <img src="/client/img/category/an-trua.webp" class="img-fluid w-100 rounded-top" alt="">
+                                    </div>
+                                    <div class="text-white bg-primary px-3 py-1 rounded position-absolute"
+                                         style="top: 10px; right: 10px;">
+                                        Category
+                                    </div>
+                                    <div class="p-4 rounded-bottom bg-white">
+                                        <h4>Giò heo phỉ thuý</h4>
+                                        <p>Cắt phỉ thuý ra làm giò heo. @@.</p>
+                                        <div class="d-flex justify-content-between flex-lg-wrap">
+                                            <p class="text-dark fs-5 fw-bold mb-0">$4.99</p>
+                                            <a href="#" class="btn btn-outline-primary"><i
+                                                    class="fas fa-location-arrow me-2"></i> Xem chi tiết</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-6 col-xl-4">
+                                <div class="border border-primary rounded position-relative vesitable-item">
+                                    <div class="vesitable-img">
+                                        <img src="/client/img/category/an-trua.webp" class="img-fluid w-100 rounded-top" alt="">
+                                    </div>
+                                    <div class="text-white bg-primary px-3 py-1 rounded position-absolute"
+                                         style="top: 10px; right: 10px;">
+                                        Category
+                                    </div>
+                                    <div class="p-4 rounded-bottom bg-white">
+                                        <h4>Giò heo phỉ thuý</h4>
+                                        <p>Cắt phỉ thuý ra làm giò heo. @@.</p>
+                                        <div class="d-flex justify-content-between flex-lg-wrap">
+                                            <p class="text-dark fs-5 fw-bold mb-0">$4.99</p>
+                                            <a href="#" class="btn btn-outline-primary"><i
+                                                    class="fas fa-location-arrow me-2"></i> Xem chi tiết</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-6 col-xl-4">
+                                <div class="border border-primary rounded position-relative vesitable-item">
+                                    <div class="vesitable-img">
+                                        <img src="/client/img/category/an-trua.webp" class="img-fluid w-100 rounded-top" alt="">
+                                    </div>
+                                    <div class="text-white bg-primary px-3 py-1 rounded position-absolute"
+                                         style="top: 10px; right: 10px;">
+                                        Category
+                                    </div>
+                                    <div class="p-4 rounded-bottom bg-white">
+                                        <h4>Giò heo phỉ thuý</h4>
+                                        <p>Cắt phỉ thuý ra làm giò heo. @@.</p>
+                                        <div class="d-flex justify-content-between flex-lg-wrap">
+                                            <p class="text-dark fs-5 fw-bold mb-0">$4.99</p>
+                                            <a href="#" class="btn btn-outline-primary"><i
+                                                    class="fas fa-location-arrow me-2"></i> Xem chi tiết</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-6 col-xl-4">
+                                <div class="border border-primary rounded position-relative vesitable-item">
+                                    <div class="vesitable-img">
+                                        <img src="/client/img/category/an-trua.webp" class="img-fluid w-100 rounded-top" alt="">
+                                    </div>
+                                    <div class="text-white bg-primary px-3 py-1 rounded position-absolute"
+                                         style="top: 10px; right: 10px;">
+                                        Category
+                                    </div>
+                                    <div class="p-4 rounded-bottom bg-white">
+                                        <h4>Giò heo phỉ thuý</h4>
+                                        <p>Cắt phỉ thuý ra làm giò heo. @@.</p>
+                                        <div class="d-flex justify-content-between flex-lg-wrap">
+                                            <p class="text-dark fs-5 fw-bold mb-0">$4.99</p>
+                                            <a href="#" class="btn btn-outline-primary"><i
+                                                    class="fas fa-location-arrow me-2"></i> Xem chi tiết</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="card w-100 my-3">
+                    <div class="card-body d-flex flex-column justify-content-between">
+                        <div class="card-title">
+                            <h3>Menu 1</h3>
+                        </div>
+                        <div class="row g-4">
+                            <div class="col-6 col-xl-4">
+                                <div class="border border-primary rounded position-relative vesitable-item">
+                                    <div class="vesitable-img">
+                                        <img src="/client/img/category/an-trua.webp" class="img-fluid w-100 rounded-top" alt="">
+                                    </div>
+                                    <div class="text-white bg-primary px-3 py-1 rounded position-absolute"
+                                         style="top: 10px; right: 10px;">
+                                        Category
+                                    </div>
+                                    <div class="p-4 rounded-bottom bg-white">
+                                        <h4>Giò heo phỉ thuý</h4>
+                                        <p>Cắt phỉ thuý ra làm giò heo. @@.</p>
+                                        <div class="d-flex justify-content-between flex-lg-wrap">
+                                            <p class="text-dark fs-5 fw-bold mb-0">$4.99</p>
+                                            <a href="#" class="btn btn-outline-primary"><i
+                                                    class="fas fa-location-arrow me-2"></i> Xem chi tiết</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-6 col-xl-4">
+                                <div class="border border-primary rounded position-relative vesitable-item">
+                                    <div class="vesitable-img">
+                                        <img src="/client/img/category/an-trua.webp" class="img-fluid w-100 rounded-top" alt="">
+                                    </div>
+                                    <div class="text-white bg-primary px-3 py-1 rounded position-absolute"
+                                         style="top: 10px; right: 10px;">
+                                        Category
+                                    </div>
+                                    <div class="p-4 rounded-bottom bg-white">
+                                        <h4>Giò heo phỉ thuý</h4>
+                                        <p>Cắt phỉ thuý ra làm giò heo. @@.</p>
+                                        <div class="d-flex justify-content-between flex-lg-wrap">
+                                            <p class="text-dark fs-5 fw-bold mb-0">$4.99</p>
+                                            <a href="#" class="btn btn-outline-primary"><i
+                                                    class="fas fa-location-arrow me-2"></i> Xem chi tiết</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-6 col-xl-4">
+                                <div class="border border-primary rounded position-relative vesitable-item">
+                                    <div class="vesitable-img">
+                                        <img src="/client/img/category/an-trua.webp" class="img-fluid w-100 rounded-top" alt="">
+                                    </div>
+                                    <div class="text-white bg-primary px-3 py-1 rounded position-absolute"
+                                         style="top: 10px; right: 10px;">
+                                        Category
+                                    </div>
+                                    <div class="p-4 rounded-bottom bg-white">
+                                        <h4>Giò heo phỉ thuý</h4>
+                                        <p>Cắt phỉ thuý ra làm giò heo. @@.</p>
+                                        <div class="d-flex justify-content-between flex-lg-wrap">
+                                            <p class="text-dark fs-5 fw-bold mb-0">$4.99</p>
+                                            <a href="#" class="btn btn-outline-primary"><i
+                                                    class="fas fa-location-arrow me-2"></i> Xem chi tiết</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-6 col-xl-4">
+                                <div class="border border-primary rounded position-relative vesitable-item">
+                                    <div class="vesitable-img">
+                                        <img src="/client/img/category/an-trua.webp" class="img-fluid w-100 rounded-top" alt="">
+                                    </div>
+                                    <div class="text-white bg-primary px-3 py-1 rounded position-absolute"
+                                         style="top: 10px; right: 10px;">
+                                        Category
+                                    </div>
+                                    <div class="p-4 rounded-bottom bg-white">
+                                        <h4>Giò heo phỉ thuý</h4>
+                                        <p>Cắt phỉ thuý ra làm giò heo. @@.</p>
+                                        <div class="d-flex justify-content-between flex-lg-wrap">
+                                            <p class="text-dark fs-5 fw-bold mb-0">$4.99</p>
+                                            <a href="#" class="btn btn-outline-primary"><i
+                                                    class="fas fa-location-arrow me-2"></i> Xem chi tiết</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-6 col-xl-4">
+                                <div class="border border-primary rounded position-relative vesitable-item">
+                                    <div class="vesitable-img">
+                                        <img src="/client/img/category/an-trua.webp" class="img-fluid w-100 rounded-top" alt="">
+                                    </div>
+                                    <div class="text-white bg-primary px-3 py-1 rounded position-absolute"
+                                         style="top: 10px; right: 10px;">
+                                        Category
+                                    </div>
+                                    <div class="p-4 rounded-bottom bg-white">
+                                        <h4>Giò heo phỉ thuý</h4>
+                                        <p>Cắt phỉ thuý ra làm giò heo. @@.</p>
+                                        <div class="d-flex justify-content-between flex-lg-wrap">
+                                            <p class="text-dark fs-5 fw-bold mb-0">$4.99</p>
+                                            <a href="#" class="btn btn-outline-primary"><i
+                                                    class="fas fa-location-arrow me-2"></i> Xem chi tiết</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-6 col-xl-4">
+                                <div class="border border-primary rounded position-relative vesitable-item">
+                                    <div class="vesitable-img">
+                                        <img src="/client/img/category/an-trua.webp" class="img-fluid w-100 rounded-top" alt="">
+                                    </div>
+                                    <div class="text-white bg-primary px-3 py-1 rounded position-absolute"
+                                         style="top: 10px; right: 10px;">
+                                        Category
+                                    </div>
+                                    <div class="p-4 rounded-bottom bg-white">
+                                        <h4>Giò heo phỉ thuý</h4>
+                                        <p>Cắt phỉ thuý ra làm giò heo. @@.</p>
+                                        <div class="d-flex justify-content-between flex-lg-wrap">
+                                            <p class="text-dark fs-5 fw-bold mb-0">$4.99</p>
+                                            <a href="#" class="btn btn-outline-primary"><i
+                                                    class="fas fa-location-arrow me-2"></i> Xem chi tiết</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Blog End -->
+
+<!-- Footer Start -->
+
+<div th:replace="~{client/fragments/footer::footer}"></div>
+<div th:replace="~{client/fragments/js::js-insert}"></div>
+</body>
+</html>

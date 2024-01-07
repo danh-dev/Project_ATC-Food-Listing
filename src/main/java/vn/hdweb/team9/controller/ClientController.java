@@ -12,9 +12,25 @@ public class ClientController {
     public String home() {
         return "client/index";
     }
-    @GetMapping("/contact")
-    public String contact() {
-        return "client/contact";
+
+    @GetMapping("/category_demo")
+    public String category_demo() {
+        return "client/category_page";
+    }
+
+    @GetMapping("/restaurant_demo")
+    public String restaurant_demo() {
+        return "client/restaurant_page";
+    }
+
+    @GetMapping("/food_demo")
+    public String food_demo() {
+        return "client/food_page";
+    }
+
+    @GetMapping("/post_demo")
+    public String post_demo() {
+        return "client/post_page";
     }
 
     @RequestMapping("/404")

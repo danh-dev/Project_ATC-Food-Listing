@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<div th:fragment="slider" class="container-fluid py-5 mb-5 hero-header">
+    <div class="container py-5">
+        <div class="row g-5 align-items-center">
+            <div class="col-md-12 col-lg-7">
+                <h4 class="mb-3 text-secondary">Đa dạng ẩm thực Việt</h4>
+                <h1 class="mb-5 display-3 text-primary">Đặt Đồ ăn và cùng thưởng thức...</h1>
+                <div class="position-relative mx-auto">
+                    <form th:action="@{/search}" method="get">
+                        <input class="form-control border-2 border-secondary w-75 py-3 px-4 rounded-pill" type="number"
+                               placeholder="Tìm kiếm món ăn, cửa hàng...">
+                        <button type="submit"
+                                class="btn btn-primary border-2 border-primary py-3 px-4 position-absolute rounded-pill text-white h-100"
+                                style="top: 0; right: 25%;">Tìm ngay
+                        </button>
+                    </form>
+                </div>
+            </div>
+            <div class="col-md-12 col-lg-5">
+                <div id="carouselId" class="carousel slide position-relative" data-bs-ride="carousel">
+                    <div class="carousel-inner" role="listbox">
+                        <div class="carousel-item active rounded">
+                            <img src="/client/img/sliders/1.webp" class="w-100 h-100 bg-secondary rounded"
+                                 alt="First slide">
+                            <a href="#" class="btn px-4 py-2 text-white rounded">First slide</a>
+                        </div>
+                        <div class="carousel-item  rounded">
+                            <img src="/client/img/sliders/2.webp" class="w-100 h-100 bg-secondary rounded"
+                                 alt="Two slide">
+                            <a href="#" class="btn px-4 py-2 text-white rounded">Two slide</a>
+                        </div>
+                        <div class="carousel-item  rounded">
+                            <img src="/client/img/sliders/3.webp" class="w-100 h-100 bg-secondary rounded"
+                                 alt="Three slide">
+                            <a href="#" class="btn px-4 py-2 text-white rounded">Three slide</a>
+                        </div>
+                        <div class="carousel-item  rounded">
+                            <img src="/client/img/sliders/4.webp" class="w-100 h-100 bg-secondary rounded"
+                                 alt="Four slide">
+                            <a href="#" class="btn px-4 py-2 text-white rounded">Four slide</a>
+                        </div>
+                        <div class="carousel-item  rounded">
+                            <img src="/client/img/sliders/5.webp" class="w-100 h-100 bg-secondary rounded"
+                                 alt="Five slide">
+                            <a href="#" class="btn px-4 py-2 text-white rounded">Five slide</a>
+                        </div>
+                        <div class="carousel-item  rounded">
+                            <img src="/client/img/sliders/6.webp" class="w-100 h-100 bg-secondary rounded"
+                                 alt="Six slide">
+                            <a href="#" class="btn px-4 py-2 text-white rounded">Six slide</a>
+                        </div>
+                    </div>
+                    <button class="carousel-control-prev" type="button" data-bs-target="#carouselId"
+                            data-bs-slide="prev">
+                        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                        <span class="visually-hidden">Previous</span>
+                    </button>
+                    <button class="carousel-control-next" type="button" data-bs-target="#carouselId"
+                            data-bs-slide="next">
+                        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                        <span class="visually-hidden">Next</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>

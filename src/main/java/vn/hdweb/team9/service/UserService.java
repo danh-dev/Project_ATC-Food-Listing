@@ -44,7 +44,7 @@ public class UserService implements IUserService {
     public UserDetails loadUserByEmail(String email) throws UsernameNotFoundException {
         User user = userRepository.findByEmail(email);
         if (user == null) {
-            throw new UsernameNotFoundException("User not found");
+            throw new UsernameNotFoundException("Không tìm thấy dữ liệu tài khoản");
         }
         GrantedAuthority authority = new SimpleGrantedAuthority(user.getRole().getRoleName());
         return new org.springframework.security.core.userdetails.User(user.getEmail(), user.getPassword(),
@@ -55,7 +55,7 @@ public class UserService implements IUserService {
     public User save(SignUpDto user) {
         try {
             if (userRepository.existsByEmail(user.getEmail())) {
-                throw new RuntimeException("Email already exists");
+                throw new RuntimeException("Email đã tồn tại");
             }
             User newUser = new User();
             newUser.setEmail(user.getEmail());
@@ -72,7 +72,7 @@ public class UserService implements IUserService {
     public UserDto findByEmail(String userEmail) {
         User user = userRepository.findByEmail(userEmail);
         if (user == null) {
-            throw new UsernameNotFoundException("User not found");
+            throw new UsernameNotFoundException("Không tìm thấy dữ liệu tài khoản");
         }
         UserDto userDto = new UserDto();
         userDto.setId(user.getId());
@@ -162,7 +162,6 @@ public class UserService implements IUserService {
         }
         return userDtos;
     }
-
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {

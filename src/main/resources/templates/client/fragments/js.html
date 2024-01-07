@@ -8,5 +8,17 @@
     <script src="/client/lib/owlcarousel/owl.carousel.min.js"></script>
 
     <!-- Template Javascript -->
+    <script src="/client/js/color-modes.js"></script>
     <script src="/client/js/main.js"></script>
+    <th:block th:if="${userInfo}">
+        <script th:inline="javascript">
+            let name = [[${userInfo.fullName}]];
+            console.log(name);
+            let nameArray = name.split(" ");
+            console.log(nameArray);
+            let initials = nameArray.map(word => word.charAt(0).toUpperCase()).join("");
+            document.getElementById("avatar-name").textContent = initials;
+            document.getElementById("year-ver").textContent = new Date().getFullYear().toString();
+        </script>
+    </th:block>
 </div>

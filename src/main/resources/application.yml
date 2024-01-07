@@ -4,9 +4,9 @@ server:
     max-http-form-post-size: -1
 spring:
   datasource:
-    url: jdbc:mysql://103.221.220.71:3306/fzztgyzv_project?useUnicode=true&characterEncoding=utf8
-    username: fzztgyzv_project
-    password: _7ifSA~&tboP
+    url: ${db_url}
+    username: ${db_username}
+    password: ${db_password}
     driver-class-name: com.mysql.cj.jdbc.Driver
   servlet:
     multipart:

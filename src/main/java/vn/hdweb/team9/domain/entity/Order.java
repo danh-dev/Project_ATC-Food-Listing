@@ -37,9 +37,6 @@ public class Order {
     @Column(name = "total_bill")
     private int totalBill;
 
-    @Column(name = "order_status")
-    private String orderStatus;
-
     @Column(name = "is_rating_restaurant")
     private boolean isRatingRestaurant;
 

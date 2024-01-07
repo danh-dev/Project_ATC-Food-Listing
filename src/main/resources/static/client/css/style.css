@@ -13,11 +13,11 @@
      opacity: 1;
  }
 
- .back-to-top {
+ .backToTop {
     position: fixed;
     right: 30px;
     bottom: 30px;
-    display: flex;
+    display: none;
     width: 45px;
     height: 45px;
     align-items: center;
@@ -177,7 +177,14 @@
 
 /*** Hero Header ***/
 .hero-header {
-    background: linear-gradient(rgba(248, 223, 173, 0.1), rgba(248, 223, 173, 0.1)), url(../img/hero-img.jpg);
+    background: url(../img/sliders/main-banner.jpg);
+    background-position: center center;
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+.hero-header2 {
+    background: rgba(51, 51, 51, 0.55) url(../img/sliders/main-banner2.jpg);
     background-position: center center;
     background-repeat: no-repeat;
     background-size: cover;
@@ -227,7 +234,7 @@
 @media (min-width: 992px) {
     .hero-header,
     .page-header {
-        margin-top: 152px !important;
+        margin-top: 145px !important;
     }
 }
 
@@ -265,8 +272,6 @@
 /*** service Start ***/
 .service .service-item .service-content {
     position: relative;
-    width: 250px; 
-    height: 130px; 
     top: -50%; 
     left: 50%; 
     transform: translate(-50%, -50%);
