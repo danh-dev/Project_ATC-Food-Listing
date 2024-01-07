@@ -12,6 +12,9 @@ spring:
       enabled: true
   codec:
     max-in-memory-size: 1MB
+  main:
+    banner-mode: off
+
   jpa:
     hibernate:
       ddl-auto: none # create , none
@@ -32,6 +35,7 @@ logging:
   level:
     org.hibernate.SQL: debug
     org.hibernate.type.descriptor.sql.BasicBinder: trace
+    root: warn
 
 server:
   tomcat:
