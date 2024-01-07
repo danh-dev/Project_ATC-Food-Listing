@@ -1,0 +1,95 @@
+<header th:fragment="header">
+    <!-- Spinner Start -->
+    <div id="spinner"
+         class="show w-100 vh-100 bg-white position-fixed translate-middle top-50 start-50  d-flex align-items-center justify-content-center">
+        <div class="spinner-grow text-primary" role="status"></div>
+    </div>
+    <!-- Spinner End -->
+
+    <!-- Navbar start -->
+    <div class="container-fluid fixed-top">
+        <div class="container topbar bg-primary d-none d-lg-block">
+            <div class="d-flex justify-content-between">
+                <div class="top-info ps-2">
+                    <span class="text-white">Project Restaurant food listing - Team 9_ATC</span>
+                </div>
+                <div class="top-link pe-2">
+                    <a href="#" class="text-white"><small class="text-white mx-2">About Us</small>/</a>
+                    <a th:href="@{/contact.html}" class="text-white"><small class="text-white ms-2">Contact</small></a>
+                </div>
+            </div>
+        </div>
+        <div class="container px-0">
+            <nav class="navbar navbar-light bg-white navbar-expand-xl">
+                <a th:href="@{/}" class="navbar-brand">
+                    <img src="/logo_gapfood.png" alt="Logo" width="200">
+                </a>
+                <button class="navbar-toggler py-2 px-3" type="button" data-bs-toggle="collapse"
+                        data-bs-target="#navbarCollapse">
+                    <span class="fa fa-bars text-primary"></span>
+                </button>
+                <div class="collapse navbar-collapse bg-white" id="navbarCollapse">
+                    <div class="navbar-nav mx-auto">
+                        <a th:href="@{/category_demo}" class="nav-item nav-link active">Demo Category</a>
+                        <a th:href="@{/restaurant_demo}" class="nav-item nav-link active">Demo Restaurant</a>
+                        <a th:href="@{/food_demo}" class="nav-item nav-link active">Demo Food</a>
+                        <a th:href="@{/post_demo}" class="nav-item nav-link active">Demo Post</a>
+                        <a th:href="@{/category_demo}" class="nav-item nav-link">Ăn Vặt</a>
+                        <a th:href="@{/category_demo}" class="nav-item nav-link">Cơm Trưa</a>
+                        <a th:href="@{/category_demo}" class="nav-item nav-link">Đồ Uống</a>
+                        <a th:href="@{/category_demo}" class="nav-item nav-link">Pizza</a>
+                    </div>
+                    <div class="d-flex m-3 me-0">
+                        <div class="header-end d-flex justify-content-end">
+                            <div class="h-col h-switch dropdown">
+                                <button class="theme-switch h-icon" id="bd-theme" type="button" aria-expanded="true"
+                                        data-bs-toggle="dropdown" data-bs-display="static"><span
+                                        class="bi theme-icon-active"><i class="bi-sun-fill"></i>
+                            </span></button>
+                                <ul class="dropdown-menu" aria-labelledby="bd-theme">
+                                    <li>
+                                        <button type="button" class="dropdown-item active"
+                                                data-bs-theme-value="light"><span>
+                                        <i class="bi-sun-fill"></i> </span>Light
+                                        </button>
+                                    </li>
+                                    <li>
+                                        <button type="button" class="dropdown-item" data-bs-theme-value="dark"><span
+                                                class="bi me-2 opacity-50 theme-icon"><i class="bi-moon-stars-fill"></i>
+                                    </span>Dark
+                                        </button>
+                                    </li>
+                                    <li>
+                                        <button type="button" class="dropdown-item" data-bs-theme-value="auto"><span
+                                                class="bi me-2 opacity-50 theme-icon"><i
+                                                class="bi-circle-half"></i> </span>Auto
+                                        </button>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                        <a th:href="@{/users}" class="my-auto">
+                            <th:block th:if="${userInfo != null}">
+                                <th:block th:if="${userInfo.avatar != null}">
+                                    <img th:src="@{'/' + ${userInfo.avatar}}" alt class="h-auto rounded-circle"
+                                         width="40px"/>
+                                </th:block>
+                                <th:block th:unless="${userInfo.avatar != null}">
+                                    <div class="avatar me-2">
+                                        <span class="avatar-initial rounded-circle bg-label-success">
+                                           <span id="avatar-name"></span>
+                                        </span>
+                                    </div>
+                                </th:block>
+                            </th:block>
+                            <th:block th:unless="${userInfo!= null}">
+                                <i class="fas fa-user fa-2x"></i>
+                            </th:block>
+                        </a>
+                    </div>
+                </div>
+            </nav>
+        </div>
+    </div>
+    <!-- Navbar End -->
+</header>
