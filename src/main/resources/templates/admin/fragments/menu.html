@@ -39,6 +39,7 @@
                 </li>
             </ul>
         </li>
+
         <!-- User -->
         <li class="menu-header small text-uppercase">
             <span class="menu-header-text">User</span>
@@ -61,5 +62,31 @@
                 </li>
             </ul>
         </li>
+        <!--/ User -->
+
+        <!-- Category -->
+        <li class="menu-header small text-uppercase">
+            <span class="menu-header-text">Category</span>
+        </li>
+        <li th:classappend="${value_menu.contains('categories')?'active open':''}" class="menu-item">
+            <a href="javascript:void(0)" class="menu-link menu-toggle">
+                <i class='menu-icon tf-icons bx bx-user' ></i>
+                <div>Category</div>
+            </a>
+            <ul class="menu-sub">
+                <li th:classappend="${value_menu.contains('categories_list')?'active':''}" class="menu-item">
+                    <a th:href="@{/admin/category/list}" class="menu-link">
+                        <div>List categories</div>
+                    </a>
+                </li>
+                <li th:classappend="${value_menu.contains('categories_create')?'active':''}" class="menu-item">
+                    <a th:href="@{/admin/category/new}" class="menu-link">
+                        <div>Create new category</div>
+                    </a>
+                </li>
+            </ul>
+        </li>
+        <!--/ Category -->
+
     </ul>
 </aside>
