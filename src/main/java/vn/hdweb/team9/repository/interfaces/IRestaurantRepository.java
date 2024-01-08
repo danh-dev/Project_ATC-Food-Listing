@@ -24,8 +24,6 @@ public interface IRestaurantRepository{
 
     List<Restaurant> findByRestaurantName(String restaurantName);
 
-    List<Restaurant> findExactByRestaurantName(String restaurantName);
-
     Restaurant findBySlug(String slug);
 
     //List<Restaurant> findAll();

@@ -2,6 +2,7 @@ package vn.hdweb.team9.repository;
 
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Test;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.transaction.annotation.Transactional;
 import vn.hdweb.team9.domain.entity.Restaurant;
@@ -13,8 +14,11 @@ import java.util.List;
 @SpringBootTest
 @Transactional
 class RestaurantRepositoryTest {
-    private RestaurantRepository restaurantRepository;
-    private RestaurantService restaurantService;
+
+    @Autowired
+    RestaurantRepository restaurantRepository;
+    @Autowired
+    RestaurantService restaurantService;
 
     @Test
     public void findExactByName() {
@@ -29,7 +33,7 @@ class RestaurantRepositoryTest {
         restaurantRepository.save(restaurant2);
 
         // when
-        List<Restaurant> restaurants = restaurantRepository.findExactByRestaurantName(restaurant1.getRestaurantName());
+        List<Restaurant> restaurants = restaurantRepository.findByRestaurantName(restaurant1.getRestaurantName());
 
         // then
         Assertions.assertThat(restaurants.get(0).getRestaurantName()).isNotEqualTo(restaurant1.getRestaurantName());
