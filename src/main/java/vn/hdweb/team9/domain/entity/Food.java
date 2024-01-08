@@ -49,7 +49,7 @@ public class Food {
     private LocalDateTime createdAt = LocalDateTime.now();
 
     @OneToMany(mappedBy = "food")
-    private List<RatingFood> listRatingFood = new ArrayList<>();
+    private List<RatingFood> listRatingFood = new ArrayList<>(); // on progress
     
     public Food() {
     }
@@ -62,4 +62,6 @@ public class Food {
         this.image = image;
         this.timeWait = timeWait;
     }
+    
+    
 }

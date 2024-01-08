@@ -1,0 +1,152 @@
+<!DOCTYPE html >
+<html
+        lang="en" xmlns:th="http://www.thymeleaf.org"
+        class="light-style layout-menu-fixed"
+        dir="ltr"
+        data-theme="theme-default"
+        data-assets-path="/admin/assets/"
+        data-template="vertical-menu-template-free"
+>
+<head th:replace="~{admin/fragments/head :: heads(pageTitle='Create Food')}">
+    <title></title>
+</head>
+
+<body>
+<!-- Layout wrapper -->
+<div class="layout-wrapper layout-content-navbar">
+    <div class="layout-container">
+        <!-- Menu -->
+        <aside th:replace="~{admin/fragments/menu :: drawer-menu(value_menu = 'foods,foods_create')}"></aside>
+        <!-- / Menu -->
+        <!-- Layout container -->
+        <div class="layout-page">
+            <!-- Navbar -->
+            <nav th:replace="~{admin/fragments/nav :: nav-bar(value_title = 'Create Food')}" />
+            <!-- / Navbar -->
+            <!-- Content wrapper -->
+            <div class="content-wrapper">
+                <!-- Content -->
+                <div class="container-xxl flex-grow-1 container-p-y">
+                    <h4 class="fw-bold py-3 mb-4"><span class="text-muted fw-light">Food/</span> Create New</h4>
+                    <!-- Basic Layout -->
+                    <div class="row">
+                        <div class="col-xl">
+                            <div class="card mb-4">
+<!--                                <div class="card-header d-flex justify-content-between align-items-center">-->
+<!--                                    <h5 class="mb-0">Basic Layout</h5>-->
+<!--                                    <small class="text-muted float-end">Default label</small>-->
+<!--                                </div>-->
+                                <div class="card-body">
+                                    <form th:action="@{/admin/food/processForm}" th:object="${foodDTO}" method="post"
+                                          class="needs-validation" novalidate enctype="multipart/form-data">
+                                        <div class="mb-3">
+                                            <label class="form-label" for="category-name">Category Name</label>
+                                            <input
+                                                    type="text"
+                                                    class="form-control"
+                                                    th:class="${#fields.hasErrors('foodName')} ? 'form-control is-invalid' : 'form-control'"
+                                                    id="category-name"
+                                                    placeholder="Your Category"
+                                                    th:field="*{foodName}"
+                                                    required/>
+                                            <div
+                                                 th:class="${#fields.hasErrors('foodName')}? 'invalid-feedback d-block' : 'invalid-feedback'"
+                                                 th:if="${#fields.hasErrors('categoryName')}" th:errors="*{foodName}">
+                                            </div>
+
+                                            <div th:if="${foodExist != null}" class="invalid-feedback d-block">
+                                                <p th:text="${foodExist}"></p>
+                                            </div>
+
+                                        </div>
+
+                                        <div class="mb-3">
+                                            <label for="formFile" class="form-label">Food Image</label>
+                                            <input class="form-control" type="file" id="formFile" name="imageFile"
+                                                   accept="image/*"
+                                                   onchange="loadFile(event)" required>
+                                            <div
+                                                th:class="${#fields.hasErrors('imageFile')}? 'invalid-feedback d-block' : 'invalid-feedback'"
+                                                th:if="${#fields.hasErrors('imageFile')}" th:errors="*{imageFile}">
+                                            </div>
+                                            <div th:if="${error != null}" th:class="${error} != null ? 'invalid-feedback d-block' : 'invalid-feedback'">
+                                                <p th:text="${error}"></p>
+                                            </div>
+                                        </div>
+
+                                        <div class="mb-3">
+                                            <img id="preview-image-before-upload" class="rounded mx-auto d-block" />
+                                        </div>
+
+                                        <!-- Add hidden form field to handle update -->
+                                        <input type="hidden" th:field="*{id}"/>
+
+                                        <button type="submit" class="btn btn-primary">Send</button>
+                                    </form>
+                                </div>
+                            </div>
+
+                            <!-- Previous Image -->
+                            <div class="row mb-4">
+                                <div class="col-sm-4">
+                                    <div class="card" th:if="${prevImageUrl} != null">
+                                        <img th:src="@{'/' + ${prevImageUrl}}">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- / Content -->
+                <!-- Footer -->
+                <footer th:replace="~{admin/fragments/footer :: footer}"></footer>
+                <!-- / Footer -->
+                <div class="content-backdrop fade"></div>
+            </div>
+            <!-- Content wrapper -->
+        </div>
+        <!-- / Layout page -->
+    </div>
+    <!-- Overlay -->
+    <div class="layout-overlay layout-menu-toggle"></div>
+</div>
+<!-- / Layout wrapper -->
+<div th:replace="~{admin/fragments/js :: js-insert}"></div>
+
+<!-- review image  -->
+<script type="text/javascript">
+    function loadFile(event) {
+        if (event.target.files.length > 0) {
+            var previewImage = document.getElementById('preview-image-before-upload');
+            previewImage.src = URL.createObjectURL(event.target.files[0]);
+        }
+    }
+</script>
+
+<!-- Boot Strap Validation-->
+<script type="text/javascript">
+    // Example starter JavaScript for disabling form submissions if there are invalid fields
+    (function () {
+        'use strict'
+
+        // Fetch all the forms we want to apply custom Bootstrap validation styles to
+        var forms = document.querySelectorAll('.needs-validation')
+
+        // Loop over them and prevent submission
+        Array.prototype.slice.call(forms)
+            .forEach(function (form) {
+                form.addEventListener('submit', function (event) {
+                    if (!form.checkValidity()) {
+                        event.preventDefault()
+                        event.stopPropagation()
+                        form.classList.remove('was-validated')
+                    }
+
+                    form.classList.add('was-validated')
+                }, false)
+            })
+    })()
+</script>
+
+</body>
+</html>

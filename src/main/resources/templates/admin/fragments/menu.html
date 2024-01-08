@@ -88,5 +88,29 @@
         </li>
         <!--/ Category -->
 
+        <!-- Foods -->
+        <li class="menu-header small text-uppercase">
+            <span class="menu-header-text">Foods</span>
+        </li>
+        <li th:classappend="${value_menu.contains('foods')?'active open':''}" class="menu-item">
+            <a href="javascript:void(0)" class="menu-link menu-toggle">
+                <i class='menu-icon tf-icons bx bx-user' ></i>
+                <div>Food</div>
+            </a>
+            <ul class="menu-sub">
+                <li th:classappend="${value_menu.contains('foods_list')?'active':''}" class="menu-item">
+                    <a th:href="@{/admin/food/list}" class="menu-link">
+                        <div>List foods</div>
+                    </a>
+                </li>
+                <li th:classappend="${value_menu.contains('foods_create')?'active':''}" class="menu-item">
+                    <a th:href="@{/admin/food/new}" class="menu-link">
+                        <div>Create new food</div>
+                    </a>
+                </li>
+            </ul>
+        </li>
+        <!--/ Category -->
+
     </ul>
 </aside>
