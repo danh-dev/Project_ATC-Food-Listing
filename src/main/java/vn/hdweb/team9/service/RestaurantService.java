@@ -8,6 +8,7 @@ import vn.hdweb.team9.controller.admin.UpdateRestaurantForm;
 import vn.hdweb.team9.domain.dto.respon.RestaurantDto;
 import vn.hdweb.team9.domain.entity.Restaurant;
 import vn.hdweb.team9.repository.interfaces.IRestaurantRepository;
+import vn.hdweb.team9.utility.TitleToSlug;
 import vn.hdweb.team9.utility.UploadFile;
 
 import java.util.List;
@@ -36,12 +37,22 @@ public class RestaurantService {
         res.setAddress(r.getAddress());
         res.setDescription(r.getDescription());
         res.setImage(UploadFile.uploadFile(r.getImage()));
-        res.setSlug(r.getSlug());
+        res.setSlug(createSlug(r.getRestaurantName()) );
         res.setOpenTime(r.getOpenTime());
         res.setCloseTime(r.getCloseTime());
 
         restaurantRepository.save(res);
         // return the id of member
+    }
+
+    private String createSlug(String restaurantName) {
+        while (true) {
+            String slug = TitleToSlug.toSlug(restaurantName);
+            if (restaurantRepository.findBySlug(slug) == null) {
+                return slug;
+            }
+            restaurantName = restaurantName + "1";
+        }
     }
 
     public void update(Long restaurantId, UpdateRestaurantForm updatedRestaurantForm) throws FileUploadException {
@@ -65,7 +76,7 @@ public class RestaurantService {
         existingRestaurant.setRestaurantName(updatedRestaurantForm.getRestaurantName());
         existingRestaurant.setAddress(updatedRestaurantForm.getAddress());
         existingRestaurant.setDescription(updatedRestaurantForm.getDescription());
-        existingRestaurant.setSlug(updatedRestaurantForm.getSlug());
+        existingRestaurant.setSlug(createSlug(updatedRestaurantForm.getRestaurantName()));
         existingRestaurant.setOpenTime(updatedRestaurantForm.getOpenTime());
         existingRestaurant.setCloseTime(updatedRestaurantForm.getCloseTime());
 
