@@ -1,11 +1,13 @@
 package vn.hdweb.team9.controller.client;
 
+import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 import jakarta.validation.Valid;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.web.savedrequest.SavedRequest;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -41,6 +43,19 @@ public class UserController {
             return "redirect:/users";
         }
         return "client/login";
+    }
+
+    @RequestMapping("/postLogin")
+    public String postLogin(HttpServletRequest request, RedirectAttributes redirectAttributes) {
+        HttpSession session = request.getSession(false);
+        if (session != null) {
+            SavedRequest savedRequest = (SavedRequest) session.getAttribute("SPRING_SECURITY_SAVED_REQUEST");
+            if (savedRequest != null) {
+                String targetUrl = savedRequest.getRedirectUrl();
+                return "redirect:" + targetUrl;
+            }
+        }
+        return "redirect:/";
     }
 
     @GetMapping("/register")
@@ -83,11 +98,10 @@ public class UserController {
     }
 
     @RequestMapping(value = {"/users","/users/"})
-    public String user(Model model, HttpSession session) {
+    public String user(Model model) {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         String userEmail = authentication.getName();
         UserDto user =  userService.findByEmail(userEmail);
-        session.setAttribute("cart", user);
         model.addAttribute("user", user);
         return "client/users";
     }

@@ -2,7 +2,9 @@ package vn.hdweb.team9.domain.entity;
 
 import jakarta.persistence.*;
 import lombok.Data;
+import vn.hdweb.team9.domain.dto.CouponDto;
 
+import java.io.IOException;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
@@ -40,6 +42,9 @@ public class Order {
     @Column(name = "is_rating_restaurant")
     private boolean isRatingRestaurant;
 
+    @Column(name = "coupon_value")
+    private String couponDto;
+
     //enum (PROCESSING, SHIPPING, DELIVERED, CANCEL)
     @Enumerated(EnumType.STRING)
     @Column(name = "status")
@@ -53,5 +58,25 @@ public class Order {
 
     public boolean getRatingRestaurant() {
         return isRatingRestaurant;
+    }
+
+    public void setCouponDto(CouponDto couponDto)  {
+        try{
+            this.couponDto = couponDto.toJson();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public CouponDto getCouponDto() {
+        try {
+            return CouponDto.fromJson(this.couponDto);
+        } catch (IOException e) {
+           return null;
+        }
+    }
+
+    public void cancelOrder() {
+        this.status = OrderStatus.CANCEL;
     }
 }

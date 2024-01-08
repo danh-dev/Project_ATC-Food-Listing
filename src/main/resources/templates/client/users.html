@@ -76,8 +76,8 @@
                             <div th:replace="~{client/fragments/elements/alert::success(message= ${success_upload} )}"></div>
                         </th:block>
 
-                        <th:block th:if="${error_upload}">
-                            <div th:replace="~{client/fragments/elements/alert::error(message= ${error_upload} )}"></div>
+                        <th:block th:if="${apply_error}">
+                            <div th:replace="~{client/fragments/elements/alert::error(message= ${apply_error} )}"></div>
                         </th:block>
 
                         <div class="d-flex">

@@ -30,9 +30,6 @@ public class Restaurant {
     @Column(name = "address")
     private String address;
 
-    @Column(name = "logo")
-    private String logo;
-
     @Column(name = "image")
     private String image;
 

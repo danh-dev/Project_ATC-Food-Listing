@@ -6,6 +6,5 @@ import vn.hdweb.team9.domain.entity.Order;
 
 @Repository
 public interface IOrderRepository extends JpaRepository<Order, Long> {
-
     Order findOrderById(Long id);
 }
