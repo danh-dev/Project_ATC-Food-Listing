@@ -1,6 +1,7 @@
 package vn.hdweb.team9.service;
 
 import jakarta.transaction.Transactional;
+import lombok.extern.slf4j.Slf4j;
 import org.apache.tomcat.util.http.fileupload.FileUploadException;
 import org.springframework.stereotype.Service;
 import vn.hdweb.team9.controller.admin.RestaurantForm;
@@ -16,6 +17,7 @@ import java.util.Optional;
 
 @Transactional
 @Service
+@Slf4j
 public class RestaurantService {
     private final IRestaurantRepository restaurantRepository;
 
@@ -25,7 +27,9 @@ public class RestaurantService {
 
     public void add(RestaurantForm r) throws FileUploadException {
         // Kiểm tra xem nhà hàng có tên tương tự đã tồn tại hay chưa
+        log.info("Input restaurant: " + r.getRestaurantName());
         List<Restaurant> existingRestaurants = restaurantRepository.findByRestaurantName(r.getRestaurantName());
+        log.info("Found restaurant: " + existingRestaurants.get(0).getRestaurantName());
         if (!existingRestaurants.isEmpty()) {
             // Nếu tồn tại, bạn có thể thực hiện xử lý khi có lỗi, ví dụ:
             throw new DuplicateRestaurantNameException("Restaurant with the same name already exists");
