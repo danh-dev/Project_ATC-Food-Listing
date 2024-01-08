@@ -2,7 +2,6 @@ package vn.hdweb.team9.domain.entity;
 
 import jakarta.persistence.*;
 import lombok.Data;
-import vn.hdweb.team9.domain.dto.respon.OrderListOfUserDto;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -27,7 +26,7 @@ public class User {
     private String phone;
     @Column(name = "address")
     private String address;
-    @Column(name="avatar")
+    @Column(name= "avatar")
     private String avatar;
     @Column(name="create_at")
     private LocalDateTime createdAt = LocalDateTime.now();
