@@ -36,7 +36,8 @@ public class Food {
     @Column(name = "time_wait")
     private int timeWait;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE,
+                          CascadeType.DETACH, CascadeType.REFRESH})
     @JoinColumn(name = "category_id")
     private Category category;
 
@@ -48,5 +49,19 @@ public class Food {
     private LocalDateTime createdAt = LocalDateTime.now();
 
     @OneToMany(mappedBy = "food")
-    private List<RatingFood> listRatingFood = new ArrayList<>();
+    private List<RatingFood> listRatingFood = new ArrayList<>(); // on progress
+    
+    public Food() {
+    }
+    
+    public Food(String foodName, String slug, String description, int price, String image, int timeWait) {
+        this.foodName = foodName;
+        this.slug = slug;
+        this.description = description;
+        this.price = price;
+        this.image = image;
+        this.timeWait = timeWait;
+    }
+    
+    
 }
