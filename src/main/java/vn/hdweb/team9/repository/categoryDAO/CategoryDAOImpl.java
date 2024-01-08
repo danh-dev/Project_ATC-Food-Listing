@@ -43,7 +43,7 @@ public class CategoryDAOImpl implements CategoryDAO{
     @Override
     public List<Category> findBySlug(String categorySlug) {
         TypedQuery<Category> query = entityManager
-                .createQuery("from Category c where c.categoryName = :data", Category.class)
+                .createQuery("from Category c where c.slug = :data", Category.class)
                 .setParameter("data", categorySlug);
         
         return query.getResultList();
