@@ -40,7 +40,7 @@ public class OrderService implements IOrderService  {
         }
         order.setOrderNote(note);
         CouponDto couponDto = new CouponDto();
-        Coupon coupon = couponService.findByCouponCode(cart.getCoupon());
+        Coupon coupon = couponService.findByCouponCode(cart.getCoupon()).get();
         couponDto.setCouponCode(coupon.getCouponCode());
         couponDto.setTypeCoupon(coupon.getTypeCoupon());
         couponDto.setCouponValue(coupon.getCouponValue());

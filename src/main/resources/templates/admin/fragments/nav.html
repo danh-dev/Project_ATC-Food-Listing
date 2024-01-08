@@ -56,12 +56,7 @@
                                     <th:block th:unless="${userInfo.avatar != null}">
                                         <div class="avatar me-2">
                                         <span class="avatar-initial rounded-circle bg-label-success">
-                                            <!--Run a javascript return Avatar by Name-->
-                                            <script th:inline="javascript">
-                                                let name = [[${userInfo.fullName}]];
-                                                let nameArray = name.split(" ");
-                                                document.write(nameArray.map(word => word.charAt(0).toUpperCase()).join(""));
-                                            </script>
+                                           <span class="avatar-name"></span>
                                         </span>
                                         </div>
                                     </th:block>

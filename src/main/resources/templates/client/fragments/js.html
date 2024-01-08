@@ -17,7 +17,9 @@
             let nameArray = name.split(" ");
             console.log(nameArray);
             let initials = nameArray.map(word => word.charAt(0).toUpperCase()).join("");
-            document.getElementById("avatar-name").textContent = initials;
+            document.querySelectorAll(".avatar-name").forEach(element => {
+                element.textContent = initials;
+            });
             document.getElementById("year-ver").textContent = new Date().getFullYear().toString();
         </script>
     </th:block>

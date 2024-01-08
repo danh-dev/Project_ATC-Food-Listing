@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org"
-      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity6">
+>
 <head th:replace="~{client/fragments/head :: heads(pageTitle='User Page')}"></head>
 <body>
 
@@ -8,7 +8,7 @@
 <!-- Single Page Header start -->
 <div class="container-fluid page-header py-5 d-flex align-items-center justify-content-center">
     <div class="title-blur">
-    <h1 class="text-center text-white display-2 fw-bold">User Infomation</h1>
+        <h1 class="text-center text-white display-2 fw-bold">User Infomation</h1>
     </div>
 </div>
 <!-- Single Page Header End -->
@@ -28,7 +28,7 @@
                             </th:block>
                             <th:block th:unless="${userInfo.avatar != null}">
                                <span class="avatar-initial rounded-circle bg-label-success">
-
+                                       <span class="avatar-name"></span>
                                </span>
                             </th:block>
                         </div>
