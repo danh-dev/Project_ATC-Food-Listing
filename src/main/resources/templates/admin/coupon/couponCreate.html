@@ -8,7 +8,7 @@
       data-assets-path="/admin/assets/"
       data-template="vertical-menu-template-free"
 >
-<head th:replace="~{admin/fragments/head :: heads(pageTitle='New Coupon')}">
+<head th:replace="~{admin/fragments/head :: heads(pageTitle='Coupon')}">
     <title></title>
 </head>
 <style>
@@ -20,6 +20,11 @@
         color: red !important;
         font-size: 12px;
     }
+
+    .item {
+        margin-left: 10px;
+        margin-right: 10px;
+      }
 </style>
 <body>
 <div class="layout-wrapper layout-content-navbar">
@@ -27,7 +32,7 @@
         <aside th:replace="~{admin/fragments/menu :: drawer-menu(value_menu = 'coupon,couponCreate')}"></aside>
         <div class="layout-page">
             <!-- Nav-bar -->
-            <nav th:replace="~{admin/fragments/nav :: nav-bar(value_title = 'New Coupon')}"></nav>
+            <nav th:replace="~{admin/fragments/nav :: nav-bar(value_title = 'Coupon / Tạo mới')}"></nav>
 
             <!-- / Navbar -->
 
@@ -37,54 +42,55 @@
                     <!-- Basic Layout -->
                     <div class="card">
                         <div class="card-body">
-                            <form th:object="${couponForm}" th:action="@{/admin/coupon/new}" method="post" id="couponForm">
+                            <h5 class="card-title">Tạo mã giảm giá</h5>
+                            <form th:object="${couponForm}" th:action="@{/admin/coupon/create}" method="post" id="couponForm">
                                 <div class="mb-3">
-                                    <label class="form-label" for="couponCode">Coupon Code</label>
+                                    <label class="form-label" for="couponCode">Mã giảm giá*</label>
                                     <input type="text"
                                            class="form-control"
                                            id="couponCode"
                                            th:field="${couponForm.couponCode}"
-                                           placeholder="Coupon Code"
+                                           placeholder="Mã giảm giá"
                                            th:class="${#fields.hasErrors('couponCode')}? 'form-control fieldError' : 'form-control'"
                                            maxlength="20"
                                            oninput="formatCouponCode(this)"/>
                                     <p th:if="${#fields.hasErrors('couponCode')}" th:errors="*{couponCode}" th:errorclass="errorMessage">
-                                        This entry is required
+                                        Đây là trường bắt buộc
                                     </p>
                                 </div>
 
                                 <div class="mb-3">
-                                    <label class="form-label" for="couponName">Coupon Name</label>
+                                    <label class="form-label" for="couponName">Tên mã*</label>
                                     <input type="text"
                                            class="form-control"
                                            id="couponName"
                                            th:field="${couponForm.couponName}"
-                                           placeholder="Coupon name"
+                                           placeholder="Tên mã"
                                            th:class="${#fields.hasErrors('couponName')}? 'form-control fieldError' : 'form-control'"
                                            maxlength="30"/>
                                     <p th:if="${#fields.hasErrors('couponName')}" th:errors="*{couponName}" th:errorclass="errorMessage">
-                                        This entry is required
+                                        Đây là trường bắt buộc
                                     </p>
                                 </div>
 
                                 <div class="mb-3">
-                                    <label class="form-label" for="couponDescription">Description</label>
+                                    <label class="form-label" for="couponDescription">Mô tả</label>
                                     <textarea
                                       class="form-control"
                                       id="couponDescription"
                                       th:field="${couponForm.couponDescription}"
-                                      placeholder="Coupon description"
+                                      placeholder="Mô tả"
                                       th:class="${#fields.hasErrors('couponDescription')}? 'form-control fieldError' : 'form-control'"
                                       style="height: 150px;"
                                       maxlength="100"></textarea>
                                     <p th:if="${#fields.hasErrors('couponDescription')}" th:errors="*{couponDescription}" th:errorclass="errorMessage">
-                                        This entry is required
+                                        Đây là trường bắt buộc
                                     </p>
                                 </div>
 
-                                <div class="d-flex justify-content-between">
+                                <div class="d-flex item justify-content-around">
                                     <div class="mb-3 mr-2">
-                                        <label class="form-label">Type Coupon</label>
+                                        <label class="form-label">Loại mã*</label>
                                         <select class="form-select" th:field="${couponForm.typeCoupon}" id="couponType">
                                             <option th:each="type : ${T(vn.hdweb.team9.domain.entity.TypeCoupon).values()}"
                                                     th:value="${type}"
@@ -93,35 +99,35 @@
                                         </select>
                                     </div>
                                     <div class="mb-3 flex-grow-1 mx-2">
-                                        <label class="form-label" for="couponValue">Coupon Value</label>
+                                        <label class="form-label" for="couponValue">Giá trị*</label>
                                         <input
                                             type="number"
                                             class="form-control"
                                             id="couponValue"
                                             th:field="${couponForm.couponValue}"
-                                            placeholder="Discount value"
+                                            placeholder="Giá trị"
                                             th:class="${#fields.hasErrors('couponValue')}? 'form-control fieldError' : 'form-control'"/>
                                         <p th:if="${#fields.hasErrors('couponValue')}" th:errors="*{couponValue}" th:errorclass="errorMessage">
-                                            This entry is required
+                                            Đây là trường bắt buộc
                                         </p>
                                     </div>
 
                                     <div class="mb-3 flex-grow-1 ml-2">
-                                        <label class="form-label" for="couponQuantity">Coupon Quantity</label>
+                                        <label class="form-label" for="couponQuantity">Số lượng*</label>
                                         <input type="number"
                                                class="form-control"
                                                id="couponQuantity"
                                                th:field="${couponForm.couponQuantity}"
-                                               placeholder="Coupon Quantity" th:class="${#fields.hasErrors('couponQuantity')}? 'form-control fieldError' : 'form-control'"/>
+                                               placeholder="Số lượng" th:class="${#fields.hasErrors('couponQuantity')}? 'form-control fieldError' : 'form-control'"/>
                                         <p th:if="${#fields.hasErrors('couponQuantity')}" th:errors="*{couponQuantity}" th:errorclass="errorMessage">
-                                            This entry is required
+                                            Đây là trường bắt buộc
                                         </p>
                                     </div>
 
                                 </div>
-                                <div class="d-flex justify-content-between">
+                                <div class="d-flex item justify-content-around">
                                     <div class="mb-3 flex-grow-1 mr-2 ">
-                                        <label class="form-label" for="datePicker-startDate">Start Date</label>
+                                        <label class="form-label" for="datePicker-startDate">Ngày bắt đầu*</label>
                                         <input type="date"
                                                class="form-control"
                                                id="datePicker-startDate"
@@ -129,7 +135,7 @@
                                                th:class="${#fields.hasErrors('startDate')}? 'form-control
                                                 fieldError' : 'form-control'"/>
                                         <p th:if="${#fields.hasErrors('startDate')}" th:errors="*{startDate}" th:errorclass="errorMessage">
-                                            This entry is required
+                                            Đây là trường bắt buộc
                                         </p>
                                         <script>
                                             <!--start date min is today-->
@@ -138,14 +144,14 @@
                                     </div>
 
                                     <div class="mb-3 flex-grow-1 mx-2">
-                                        <label class="form-label" for="datePicker-endDate">End Date</label>
+                                        <label class="form-label" for="datePicker-endDate">Ngày kết thúc*</label>
                                         <input type="date"
                                                class="form-control"
                                                id="datePicker-endDate"
                                                th:field="${couponForm.endDate}"
                                                th:class="${#fields.hasErrors('endDate')}? 'form-control fieldError' : 'form-control'"/>
                                         <p th:if="${#fields.hasErrors('endDate')}" th:errors="*{endDate}" th:errorclass="errorMessage">
-                                            This entry is required
+                                            Đây là trường bắt buộc
                                         </p>
                                         <script>
                                             <!--end date min is today-->
@@ -154,7 +160,7 @@
                                     </div>
 
                                 </div>
-                                <button type="submit" class="btn btn-primary">Send</button>
+                                <button type="submit" class="btn btn-primary">Tạo mã</button>
                             </form>
                         </div>
                     </div>

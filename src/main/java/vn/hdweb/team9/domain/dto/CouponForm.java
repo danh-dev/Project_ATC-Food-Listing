@@ -21,34 +21,34 @@ public class CouponForm {
 
     private Long id;
 
-    @Size(min = 5, message = "Name must contain at least 5 characters")
-    @NotEmpty(message = "This field is required")
+    @Size(min = 5, message = "Tên mã phải chứa ít nhất 5 kí tự")
+    @NotEmpty(message = "Đây là trường bắt buộc")
     private String couponName;
 
-    @Size(min = 5, message = "Code must contain at least 5 characters")
-    @NotEmpty(message = "This field is required")
+    @Size(min = 5, message = "Mã giảm giá phải chứa ít nhất 5 kí tự")
+    @NotEmpty(message = "Đây là trường bắt buộc")
     private String couponCode;
 
     private String couponDescription;
 
     //enum (DIRECT, PERCENT)
-    @NotNull(message = "This field is required")
+    @NotNull(message = "Đây là trường bắt buộc")
     @Enumerated(EnumType.STRING)
     private TypeCoupon typeCoupon;
 
-    @Min(value = 1, message = "Coupon value is required and greater than 0")
+    @Min(value = 1, message = "Giá trị mã phải lớn hơn 0")
     private int couponValue;
 
-    @Min(value = 1, message = "Coupon quantity is required and greater than 0")
-    @NotNull(message = "Coupon quantity is required")
+    @Min(value = 1, message = "Số lượng mã phải lớn hơn 0")
+    @NotNull(message = "Đây là trường bắt buộc")
     private int couponQuantity;
 
-    @NotNull(message = "Start date is required")
+    @NotNull(message = "Ngày bắt đầu là bắt buộc")
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     private LocalDate startDate;
 
 
-    @NotNull(message = "End date is required")
+    @NotNull(message = "Ngày kết thúc là bắt buộc")
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     private LocalDate endDate;
 

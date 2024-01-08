@@ -27,7 +27,7 @@ public class CouponController {
     @Autowired
     public CouponController(CouponService couponService) { this.couponService = couponService; }
 
-    @GetMapping("/new")
+    @GetMapping("/create")
     public String createCoupon(Model model) {
         CouponForm couponForm = new CouponForm();
         model.addAttribute("couponForm", couponForm);
@@ -35,7 +35,7 @@ public class CouponController {
     }
 
 
-    @PostMapping("/new")
+    @PostMapping("/create")
     public String createCoupon(@Valid CouponForm couponForm,
                                BindingResult result,
                                RedirectAttributes redirectAttributes) {
@@ -50,12 +50,12 @@ public class CouponController {
             return "redirect:/admin/coupon/list";
         } catch (IllegalStateException e) {
             // Handle the exception for duplicate coupon code
-            result.rejectValue("couponCode", "duplicate.couponCode", "This coupon code has already existed!");
+            result.rejectValue("couponCode", "duplicate.couponCode", "Mã giảm giá đã tồn tại!");
             redirectAttributes.addFlashAttribute("couponForm", couponForm);
             return "admin/coupon/couponCreate";
         } catch (DateTimeException e) {
             // Handle the exception for invalid start and end dates
-            result.rejectValue("startDate", "invalid.dateRange", "Start date cannot be after or equal to end date");
+            result.rejectValue("startDate", "invalid.dateRange", "Ngày bắt đầu không được lớn hơn ngày kết thúc");
             redirectAttributes.addFlashAttribute("couponForm", couponForm);
             return "admin/coupon/couponCreate";
         }

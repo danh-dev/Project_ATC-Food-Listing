@@ -1,13 +1,16 @@
 package vn.hdweb.team9.domain.entity;
 
 import jakarta.persistence.*;
+import jakarta.validation.ValidationException;
 import lombok.Getter;
 import lombok.Setter;
 import org.hibernate.validator.constraints.br.CPF;
 import org.springframework.format.annotation.DateTimeFormat;
 import vn.hdweb.team9.domain.dto.CouponForm;
+import vn.hdweb.team9.exception.NotEnoughException;
 
 import java.awt.*;
+import java.time.DateTimeException;
 import java.time.LocalDate;
 import java.util.Optional;
 
@@ -101,18 +104,41 @@ public class Coupon {
     }
 
     /**
-     * Get discount price
+     * Increase Stock Quantity
      */
-    public int getDiscount(int totalPrice) {
-        if (couponStatus != CouponStatus.AVAILABLE) {
-            return 0;
+    public void increaseCouponQuantity() {
+        couponQuantity += 1;
+    }
+
+    /**
+     * Decrease Stock Quantity
+     */
+    public void decreaseCouponQuantity() {
+        if (couponQuantity == 0) {
+            throw new NotEnoughException("We need more coupon.");
+        }
+        couponQuantity -= 1;
+    }
+
+    /**
+     * Get order discount
+     **/
+    public int getOrderDiscount(int totalPrice) {
+        updateStatus();
+        if (couponStatus == CouponStatus.PAST) {
+            throw new DateTimeException("Coupon has expired");
+        } else if (couponStatus == CouponStatus.UPCOMING) {
+            throw new DateTimeException("Coupon is not applicable at the moment");
         } else {
             if (typeCoupon == TypeCoupon.PERCENT) {
-                return couponValue * totalPrice;
+                float discountValue = couponValue * totalPrice / 100;
+                decreaseCouponQuantity();
+                return (int) discountValue;
             } else if (typeCoupon == TypeCoupon.DIRECT) {
+                decreaseCouponQuantity();
                 return couponValue;
             }
         }
-        return 0;
+        throw new ValidationException("Error occur while validating coupon discount");
     }
 }

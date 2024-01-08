@@ -73,7 +73,7 @@ public class CouponService {
         Optional<Coupon> getCoupon = couponRepository.findOne(couponForm.getId());
 
         if (getCoupon.isEmpty()) {
-            throw new IllegalStateException("This coupon is not available");
+            throw new IllegalStateException("Mã giảm giá không tồn tại");
         }
 
         Coupon coupon = getCoupon(couponForm, getCoupon);
@@ -99,7 +99,7 @@ public class CouponService {
     public void validateDuplicateCouponCode(Coupon coupon) {
         Optional<Coupon> getCoupon = couponRepository.findByCouponCode(coupon.getCouponCode());
         if (!getCoupon.isEmpty()) {
-            throw new IllegalStateException("This coupon code has already existed!");
+            throw new IllegalStateException("Mã giảm giá đã tồn tại!");
         }
     }
 
@@ -107,8 +107,8 @@ public class CouponService {
     public void validateStartEndDate(Coupon coupon) {
         LocalDate startDate = coupon.getStartDate();
         LocalDate endDate = coupon.getEndDate();
-        if (startDate.isAfter(endDate) || startDate.isEqual(endDate)) {
-            throw new DateTimeException("Start date cannot after or equal to end date");
+        if (startDate.isAfter(endDate)) {
+            throw new DateTimeException("Ngày bắt đầu không được lớn hơn ngày kết thúc");
         }
     }
 
@@ -121,12 +121,4 @@ public class CouponService {
         couponRepository.deleteOne(id);
     }
 
-
-    //==Business logic==//
-    /**
-     * Get discount  value
-     */
-    public int getDiscount(int totalPrice, Coupon coupon) {
-        return coupon.getDiscount(totalPrice);
-    }
 }

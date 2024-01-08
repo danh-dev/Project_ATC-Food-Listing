@@ -16,21 +16,11 @@ import java.util.function.Predicate;
 @Getter @Setter
 public class CouponSearch {
 
-    private String couponName;
-
-    private String couponCode;
+    private String couponNameCode;
 
     //enum (DIRECT, PERCENT)
     @Enumerated(EnumType.STRING)
     private String typeCoupon;
-
-    private int couponValue;
-
-    private int couponQuantity;
-
-    // enum(UPCOMING, AVAILABLE, PAST)
-    @Enumerated(EnumType.STRING)
-    private CouponStatus couponStatus;
 
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     private LocalDate startDate;

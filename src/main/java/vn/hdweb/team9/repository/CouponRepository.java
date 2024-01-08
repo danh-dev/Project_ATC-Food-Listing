@@ -9,6 +9,7 @@ import jakarta.persistence.criteria.CriteriaQuery;
 import jakarta.persistence.criteria.Predicate;
 import jakarta.persistence.criteria.Root;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import vn.hdweb.team9.domain.dto.CouponSearch;
@@ -25,6 +26,7 @@ import java.util.stream.Stream;
 
 @Repository
 @RequiredArgsConstructor
+@Slf4j
 public class CouponRepository implements ICouponRepository {
 
     private final EntityManager em;
@@ -71,52 +73,29 @@ public class CouponRepository implements ICouponRepository {
         Root<Coupon> root = cq.from(Coupon.class);
         List<Predicate> predicates = new ArrayList<>();
 
-        if (couponSearch.getCouponName() != null) {
+        if (couponSearch.getCouponNameCode() != null) {
             Predicate name = cb.like(
-                    root.get("couponName"), "%" + couponSearch.getCouponName() + "%"
+                    root.get("couponName"), "%" + couponSearch.getCouponNameCode() + "%"
             );
-            predicates.add(name);
-        }
 
-        if (couponSearch.getCouponCode() != null) {
             Predicate code = cb.like(
-                    root.get("couponCode"), "%" + couponSearch.getCouponCode() + "%"
+                    root.get("couponCode"), "%" + couponSearch.getCouponNameCode() + "%"
             );
-            predicates.add(code);
+            Predicate combinedPredicate = cb.or(name, code);
+            predicates.add(combinedPredicate);
         }
 
-        if (couponSearch.getCouponStatus() != null &&
-                Arrays.stream(CouponStatus.values()).
-                anyMatch(couponSearch.getCouponStatus()::equals)) {
-            Predicate status = cb.equal(
-                    root.get("couponStatus"), couponSearch.getCouponStatus()
-            );
-            predicates.add(status);
-        }
-
-        if (couponSearch.getTypeCoupon() != null &&
-                Arrays.stream(TypeCoupon.values()).
-                anyMatch(couponSearch.getTypeCoupon()::equals)) {
+        if ( couponSearch.getTypeCoupon() != null &&
+                (!couponSearch.getTypeCoupon().isEmpty() ||
+                couponSearch.getTypeCoupon().toLowerCase().equals("direct") ||
+                couponSearch.getTypeCoupon().toLowerCase().equals("percent"))
+        ){
+            log.info("Run type coupon");
             Predicate type = cb.equal(
                     root.get("typeCoupon"), couponSearch.getTypeCoupon()
             );
             predicates.add(type);
         }
-
-        if (couponSearch.getCouponValue() > 0) {
-            Predicate value = cb.equal(
-                    root.get("couponValue"), couponSearch.getCouponValue()
-            );
-            predicates.add(value);
-        }
-
-        if (couponSearch.getCouponQuantity() > 0) {
-            Predicate quantity = cb.equal(
-                    root.get("couponQuantity"), couponSearch.getCouponQuantity()
-            );
-            predicates.add(quantity);
-        }
-
 
 
         if (couponSearch.getStartDate() != null) {
@@ -150,7 +129,7 @@ public class CouponRepository implements ICouponRepository {
         if (!getCoupon.isEmpty()) {
             em.remove(getCoupon.get());
         } else {
-            throw new EntityNotFoundException("Coupon with id ["+ id + "] does not exist");
+            throw new EntityNotFoundException("Mã giảm giá với id ["+ id + "] không tồn tại");
         }
     }
 }
