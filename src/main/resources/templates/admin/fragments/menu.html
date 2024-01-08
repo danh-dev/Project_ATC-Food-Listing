@@ -61,5 +61,27 @@
                 </li>
             </ul>
         </li>
+        <!-- Coupon -->
+        <li class="menu-header small text-uppercase">
+            <span class="menu-header-text">Coupon</span>
+        </li>
+        <li th:classappend="${value_menu.contains('coupon')?'active open':''}" class="menu-item">
+            <a href="javascript:void(0)" class="menu-link menu-toggle">
+                <i class='menu-icon tf-icons bx bxs-coupon' ></i>
+                <div>Coupon</div>
+            </a>
+            <ul class="menu-sub">
+                <li th:classappend="${value_menu.contains('couponList')?'active':''}" class="menu-item">
+                    <a th:href="@{/admin/coupon/list}" class="menu-link">
+                        <div>List coupon</div>
+                    </a>
+                </li>
+                <li th:classappend="${value_menu.contains('couponCreate')?'active':''}" class="menu-item">
+                    <a th:href="@{/admin/coupon/create}" class="menu-link">
+                        <div>Create new coupon</div>
+                    </a>
+                </li>
+            </ul>
+        </li>
     </ul>
 </aside>
