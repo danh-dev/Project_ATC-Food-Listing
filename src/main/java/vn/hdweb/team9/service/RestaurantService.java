@@ -1,6 +1,7 @@
 package vn.hdweb.team9.service;
 
 import jakarta.transaction.Transactional;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.tomcat.util.http.fileupload.FileUploadException;
 import org.springframework.stereotype.Service;
@@ -8,6 +9,7 @@ import vn.hdweb.team9.controller.admin.RestaurantForm;
 import vn.hdweb.team9.controller.admin.UpdateRestaurantForm;
 import vn.hdweb.team9.domain.dto.respon.RestaurantDto;
 import vn.hdweb.team9.domain.entity.Restaurant;
+import vn.hdweb.team9.repository.RestaurantRepository;
 import vn.hdweb.team9.repository.interfaces.IRestaurantRepository;
 import vn.hdweb.team9.utility.TitleToSlug;
 import vn.hdweb.team9.utility.UploadFile;
@@ -17,13 +19,10 @@ import java.util.Optional;
 
 @Transactional
 @Service
+@RequiredArgsConstructor
 @Slf4j
 public class RestaurantService {
-    private final IRestaurantRepository restaurantRepository;
-
-    public RestaurantService(IRestaurantRepository restaurantRepository) {
-        this.restaurantRepository = restaurantRepository;
-    }
+    private final RestaurantRepository restaurantRepository;
 
     public void add(RestaurantForm r) throws FileUploadException {
         // Kiểm tra xem nhà hàng có tên tương tự đã tồn tại hay chưa

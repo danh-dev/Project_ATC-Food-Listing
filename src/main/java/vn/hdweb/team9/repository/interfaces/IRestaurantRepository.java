@@ -17,7 +17,11 @@ import java.util.Optional;
 public interface IRestaurantRepository{
 
     void save(Restaurant restaurant);
-    //Optional<Restaurant> findById(Long id);
+
+    Optional<Restaurant> findById(Long id);
+
+    List<Restaurant> findAll();
+
     List<Restaurant> findByRestaurantName(String restaurantName);
 
     List<Restaurant> findExactByRestaurantName(String restaurantName);

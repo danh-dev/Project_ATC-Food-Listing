@@ -7,6 +7,7 @@ import vn.hdweb.team9.domain.entity.Restaurant;
 import vn.hdweb.team9.repository.interfaces.IRestaurantRepository;
 
 import java.util.List;
+import java.util.Optional;
 
 @Transactional
 public class RestaurantRepository implements IRestaurantRepository {
@@ -14,10 +15,23 @@ public class RestaurantRepository implements IRestaurantRepository {
 
     @Override
     public void save(Restaurant restaurant) {
-
-        em.persist(restaurant);
+        if (restaurant.getId() == null) {
+            em.persist(restaurant);
+        } else {
+            em.merge(restaurant);
+        }
     }
 
+    @Override
+    public Optional<Restaurant> findById(Long id) {
+        return Optional.ofNullable(em.find(Restaurant.class, id));
+    }
+
+
+    @Override
+    public List<Restaurant> findAll() {
+        return em.createQuery("select * r from RESTAURANT r").getResultList();
+    }
     @Override
     public List<Restaurant> findByRestaurantName(String restaurantName) {
         return em.createQuery("select * r from RESTAURANT r where r.restaurant_name = :name", Restaurant.class).
