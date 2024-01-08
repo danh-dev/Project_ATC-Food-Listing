@@ -28,7 +28,9 @@
     <div class="layout-container">
         <!-- Menu -->
 
-        <aside id="layout-menu" th:replace="admin/fragments/layout :: sidebar" class="layout-menu menu-vertical menu bg-menu-theme"></aside>
+        <aside id="layout-menu"
+               th:replace="~{admin/fragments/menu :: drawer-menu(value_menu = 'restaurants,restaurants_list')}"
+               class="layout-menu menu-vertical menu bg-menu-theme"></aside>
         <!-- / Menu -->
 
         <!-- Layout container -->

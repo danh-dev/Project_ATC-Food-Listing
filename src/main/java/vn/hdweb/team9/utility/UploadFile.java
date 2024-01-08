@@ -1,5 +1,6 @@
 package vn.hdweb.team9.utility;
 
+import org.apache.tomcat.util.http.fileupload.FileUploadException;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.nio.file.Files;
@@ -9,7 +10,7 @@ import java.time.LocalDateTime;
 import java.time.ZoneOffset;
 
 public class UploadFile {
-    public static String uploadFile(MultipartFile file) throws Exception {
+    public static String uploadFile(MultipartFile file) throws FileUploadException {
         try {
             if(file.isEmpty()) {
                 throw new Exception("Failed to store empty file");
@@ -33,8 +34,9 @@ public class UploadFile {
                     filePath);
             // Trả về đường dẫn file
             return filePath.toString();
-        } catch (Exception e) {
-            throw new Exception("Could not store file " + file.getOriginalFilename()
+        }
+        catch (Exception e) {
+            throw new FileUploadException("Could not store file " + file.getOriginalFilename()
                     + ". Please try again!", e);
         }
     }

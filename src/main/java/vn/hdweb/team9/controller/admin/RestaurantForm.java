@@ -2,6 +2,7 @@ package vn.hdweb.team9.controller.admin;
 
 import lombok.Getter;
 import lombok.Setter;
+import org.springframework.web.multipart.MultipartFile;
 import vn.hdweb.team9.domain.entity.Food;
 import vn.hdweb.team9.domain.entity.Order;
 import vn.hdweb.team9.domain.entity.RatingRestaurant;
@@ -16,13 +17,8 @@ public class RestaurantForm {
     private String slug;
     private String description;
     private String address;
-    private String logo;
-    private String image;
+    private MultipartFile image;
     private String openTime;
     private String closeTime;
-    private boolean isActive;
-    private LocalDateTime createdAt = LocalDateTime.now();
-    private List<Food> listFood = new ArrayList<>();
-    private List<RatingRestaurant> listRatingRestaurant = new ArrayList<>();
-    private List<Order> listOrder = new ArrayList<>();
+    //private boolean isActive = true;
 }
