@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+
+<!-- =========================================================
+* Sneat - Bootstrap 5 HTML Admin Template - Pro | v1.0.0
+==============================================================
+
+* Product Page: https://themeselection.com/products/sneat-bootstrap-html-admin-template/
+* Created by: ThemeSelection
+* License: You must have a valid license purchased in order to legally use the theme for your project.
+* Copyright ThemeSelection (https://themeselection.com)
+
+=========================================================
+ -->
+<!-- beautify ignore:start -->
+<html
+        lang="en" xmlns:th="http://www.thymeleaf.org"
+        class="light-style layout-menu-fixed"
+        dir="ltr"
+        data-theme="theme-default"
+        data-assets-path="../../admin/assets/"
+        data-template="vertical-menu-template-free"
+>
+<head th:replace="admin/fragments/layout :: head" />
+
+<body>
+<!-- Layout wrapper -->
+<div class="layout-wrapper layout-content-navbar">
+    <div class="layout-container">
+        <!-- Menu -->
+
+        <aside id="layout-menu" th:replace="admin/fragments/layout :: sidebar" class="layout-menu menu-vertical menu bg-menu-theme"></aside>
+        <!-- / Menu -->
+
+        <!-- Layout container -->
+        <div class="layout-page">
+            <!-- Navbar -->
+
+            <nav th:replace="admin/fragments/layout :: navbar" />
+
+            <!-- / Navbar -->
+
+            <!-- Content wrapper -->
+            <div class="content-wrapper">
+                <!-- Content -->
+
+                <div class="container-xxl flex-grow-1 container-p-y">
+                    <h4 class="fw-bold py-3 mb-4"><span class="text-muted fw-light">Restaurant/</span> Create New</h4>
+
+                    <!-- Basic Layout -->
+                    <div class="row">
+                        <div class="col-xl">
+                            <div class="card mb-4">
+                                <div class="card-header d-flex justify-content-between align-items-center">
+                                    <h5 class="mb-0">Basic Layout</h5>
+                                    <small class="text-muted float-end">Default label</small>
+                                </div>
+                                <div class="card-body">
+                                    <form action="/admin/restaurant/new" method="post">
+                                        <div class="mb-3">
+                                            <label class="form-label" for="basic-default-name">Name</label>
+                                            <input type="text" class="form-control" id="basic-default-name" name="restaurant_name" placeholder="Input name" />
+                                        </div>
+                                        <div class="mb-3">
+                                            <label class="form-label" for="basic-default-address">Address</label>
+                                            <input type="text" class="form-control" id="basic-default-address" name="address" placeholder="Input address" />
+                                        </div>
+                                        <div class="mb-3">
+                                            <label class="form-label" for="basic-default-slug">Slug</label>
+                                            <input type="text" class="form-control" id="basic-default-slug" name="slug" placeholder="Input address" />
+                                        </div>
+                                        <div class="mb-3">
+                                            <label class="form-label" for="basic-default-description">Description</label>
+                                            <textarea
+                                                    id="basic-default-description"
+                                                    class="form-control"
+                                                    name="description"
+                                                    placeholder="Describe about this restaurant"
+                                            ></textarea>
+                                        </div>
+                                        <div class="mb-3">
+                                            <label class="form-label" for="formFileLogo">Logo</label>
+                                            <input class="form-control" type="file" id="formFileLogo" name="logo">
+                                        </div>
+                                        <div class="mb-3">
+                                            <label class="form-label" for="formFileImage">Image</label>
+                                            <input class="form-control" type="file" id="formFileImage" name="image">
+                                        </div>
+                                        <div class="mb-3">
+                                            <label class="form-label" for="html5-open_time-input">Open time</label>
+                                            <input class="form-control" type="time" value="12:30:00" id="html5-open_time-input" name="open_time">
+                                        </div>
+                                        <div class="mb-3">
+                                            <label class="form-label" for="html5-close_time-input">Close time</label>
+                                            <input class="form-control" type="time" value="12:30:00" id="html5-close_time-input" name="close_time">
+                                        </div>
+                                        <div class="form-check form-switch mb-3">
+                                            <input class="form-check-input" type="checkbox" id="flexSwitchCheckChecked" checked="" name="is_active">
+                                            <label class="form-check-label" for="flexSwitchCheckChecked">Is active</label>
+                                        </div>
+                                        <button type="submit" class="btn btn-primary">Send</button>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- / Content -->
+
+                <!-- Footer -->
+                <footer th:replace="admin/fragments/layout :: footer"></footer>
+                <!-- / Footer -->
+
+                <div class="content-backdrop fade"></div>
+            </div>
+            <!-- Content wrapper -->
+        </div>
+        <!-- / Layout page -->
+    </div>
+
+    <!-- Overlay -->
+    <div class="layout-overlay layout-menu-toggle"></div>
+</div>
+<!-- / Layout wrapper -->
+
+<div th:replace="admin/fragments/layout :: script"></div>
+
+</body>
+</html>
