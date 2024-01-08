@@ -2,6 +2,7 @@ package vn.hdweb.team9.controller.admin;
 
 
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -18,6 +19,7 @@ import java.util.List;
 @Controller
 @RequestMapping("/admin/blogs")
 @RequiredArgsConstructor
+@Slf4j
 public class BlogAdminController {
     private final BlogService blogService;
     private final IBlogRepository blogRepository;
@@ -31,8 +33,12 @@ public class BlogAdminController {
     @GetMapping(value = "/edit/{blogId}")
     public String editBlog (@PathVariable Long blogId, Model model){
         Blog blog = blogRepository.findBlogById(blogId);
-        model.addAttribute("blog",blog);
-        model.addAttribute("blogUpdate",new BlogRepuestDto());
+        BlogRepuestDto blogRepuestDto = new BlogRepuestDto();
+        blogRepuestDto.setBlogId(blog.getId());
+        blogRepuestDto.setBlog_title(blog.getBlogTitle());
+        blogRepuestDto.setBlog_content(blog.getBlogContent());
+        model.addAttribute("blog",blogRepuestDto);
+        model.addAttribute("current_img", blog.getBlog_img());
         return "admin/edit_blog";
     }
     @GetMapping (value = "/create")
@@ -64,7 +70,6 @@ public class BlogAdminController {
     public String updateBlog (@ModelAttribute BlogRepuestDto blogRepuestDto,
                  RedirectAttributes ra)
     {
-
         if(blogRepuestDto.getBlog_img() != null && !blogRepuestDto.getBlog_img().isEmpty()) {
             List<String> validContentTypes = Arrays.asList("image/jpeg", "image/png");
             if(!validContentTypes.contains(blogRepuestDto.getBlog_img().getContentType())){

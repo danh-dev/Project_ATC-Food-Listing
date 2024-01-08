@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity6">
+<head th:replace="~{client/fragments/head :: heads(pageTitle='Blogs...')}">
+    <title>Blogs</title>
+</head>
+<body>
+
+<div th:replace="~{client/fragments/header :: header}"></div>
+
+
+<!-- Page Header Title Start -->
+<div th:replace="~{client/fragments/header_page :: header_page(headerTitle='Blog review')}"></div>
+<!-- Page Header Title End -->
+
+<!-- Blog Start -->
+
+<div class="container-fluid py-5">
+    <div class="container py-2">
+        <div class="row justify-content-center">
+            <div class="col-lg-10"> <!-- Tăng kích thước cột chứa card -->
+                <div class="card p-3">
+                    <div class="card-content">
+                        <div class="row">
+                            <div class="col-lg-6"> <!-- Tăng kích thước cột chứa hình ảnh -->
+                                <div class="card h-100">
+                                    <img class="card-img-top" th:src="@{'/' + ${blog.getBlog_img()}}" th:alt="${blog.getBlog_title()}"/>
+                                </div>
+                            </div>
+                            <div class="col-lg-6"> <!-- Tăng kích thước cột chứa title và content -->
+                                <div class="card-body">
+                                    <h3 th:text="${blog.getBlog_title()}" class="card-title"></h3>
+                                    <p th:text="${blog.getBlog_content()}" class="card-text"></p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <a th:href="@{/blog_demo}" class="btn"><< Quay lại</a>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<!-- Blog End -->
+
+<!-- Footer Start -->
+
+<div th:replace="~{client/fragments/footer::footer}"></div>
+<div th:replace="~{client/fragments/js::js-insert}"></div>
+</body>
+</html>

@@ -1,15 +1,27 @@
 package vn.hdweb.team9.controller;
 
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import vn.hdweb.team9.domain.dto.respon.BlogResponDto;
+import vn.hdweb.team9.service.BlogService;
+
+import java.util.List;
 
 @Controller
 @RequestMapping("/")
 public class ClientController {
+    private final BlogService blogService;
+
+    public ClientController(BlogService blogService) {
+        this.blogService = blogService;
+    }
 
     @GetMapping(value = {"", "/","/home","/index","/trang-chu","index.html","home.html","trang-chu.html"})
-    public String home() {
+    public String home(Model model) {
+        List<BlogResponDto> blogs = blogService.findLimitOrderDate();
+        model.addAttribute("blogs",blogs);
         return "client/index";
     }
 
@@ -31,6 +43,13 @@ public class ClientController {
     @GetMapping("/post_demo")
     public String post_demo() {
         return "client/post_page";
+    }
+
+    @GetMapping("/blog_demo")
+    public String blog_demo (Model model) {
+        List<BlogResponDto> blogs = blogService.findAll();
+        model.addAttribute("blogs",blogs);
+        return "client/blogs";
     }
 
     @RequestMapping("/404")

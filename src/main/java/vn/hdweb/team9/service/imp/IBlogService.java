@@ -10,8 +10,12 @@ public interface IBlogService {
 
     List<BlogResponDto> findAll();
 
-    BlogResponDto findBySlug();
+    List<BlogResponDto> findLimitOrderDate();
+
     void blogUpdate (BlogRepuestDto blogRepuestDto);
 
     boolean checkExistBlogTitle (String blog_title);
+    String createSlug (String blog_title);
+
+    BlogResponDto getBlogBySlug(String slug);
 }

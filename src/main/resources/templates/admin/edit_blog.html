@@ -39,17 +39,15 @@
                                     </th:block>
                                         <form class="mb-3" th:action="@{/admin/blogs/update}" method="post" th:object="${blog}"
                                               enctype="multipart/form-data">
-                                            <input type="hidden" th:name="blogId" th:value="${blog.id}" />
+                                            <input type="hidden" th:field="*{blogId}" />
                                             <div class="mb-3">
                                                 <label for="blog_title" class="form-label">Title</label>
                                                 <input type="text" class="form-control" id="blog_title"
                                                        placeholder="Enter your title for blog..."
                                                        name="blog_title"
                                                        required autofocus="autofocus"
-                                                       th:value="${blog.getBlogTitle()}"
-                                                       th:field="*{blogTitle}"
+                                                       th:field="*{blog_title}"
                                                 >
-
                                             </div>
 
                                             <div class="mb-3">
@@ -58,15 +56,14 @@
                                                           class="form-control" id="blog_content"
                                                           name="blog_content"
                                                           required
-                                                          th:text="${blog.getBlogContent()}"
-                                                          th:field="*{blogContent}"
+                                                          th:field="*{blog_content}"
                                                 >
 
                                                 </textarea>
                                             </div>
                                             <div class="md-3">
                                                 <p>Image old</p>
-                                                <img th:src="@{'/' + ${blog.getBlog_img()}}" alt class="h-auto rounded-circle"
+                                                <img th:src="@{'/' + ${current_img}}" alt class="h-auto rounded-circle"
                                                      width="40px"/>
                                             </div>
                                             <div class="mb-3">
