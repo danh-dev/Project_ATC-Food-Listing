@@ -9,6 +9,7 @@ import vn.hdweb.team9.domain.dto.CouponDto;
 import vn.hdweb.team9.domain.entity.*;
 import vn.hdweb.team9.repository.interfaces.IOrderDetailRepository;
 import vn.hdweb.team9.repository.interfaces.IOrderRepository;
+import vn.hdweb.team9.repository.interfaces.IRestaurantRepository;
 import vn.hdweb.team9.repository.interfaces.IUserRepository;
 import vn.hdweb.team9.service.imp.IOrderService;
 
@@ -19,6 +20,7 @@ public class OrderService implements IOrderService  {
     private final IOrderRepository orderRepository;
     private final IOrderDetailRepository orderDetailRepository;
     private final IUserRepository userRepository;
+    private final IRestaurantRepository restaurantRepository;
     private final CouponService couponService;
     private final CartService cartService;
 
@@ -28,7 +30,7 @@ public class OrderService implements IOrderService  {
         Order order = new Order();
         User user = getUser(session);
         user.getListOrder().add(order);
-        Restaurant restaurant = restaurantService.findByRestaurantName(cart.getRestaurant());
+        Restaurant restaurant = restaurantRepository.findByRestaurantName(cart.getRestaurant()).get();
         restaurant.getListOrder().add(order);
         order.setDeliveryAddress(address);
         if(paymentMethod.equalsIgnoreCase("vnpay")) {
