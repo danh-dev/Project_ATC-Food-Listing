@@ -4,8 +4,7 @@ import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.transaction.annotation.Transactional;
 import vn.hdweb.team9.domain.entity.Restaurant;
-
-import static org.junit.jupiter.api.Assertions.*;
+import vn.hdweb.team9.repository.RestaurantRepository;
 
 @SpringBootTest
 @Transactional

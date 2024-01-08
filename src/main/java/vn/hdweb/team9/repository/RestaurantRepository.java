@@ -1,9 +1,10 @@
-package vn.hdweb.team9.repository.interfaces;
+package vn.hdweb.team9.repository;
 
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.TypedQuery;
 import org.springframework.transaction.annotation.Transactional;
 import vn.hdweb.team9.domain.entity.Restaurant;
+import vn.hdweb.team9.repository.interfaces.IRestaurantRepository;
 
 import java.util.List;
 
