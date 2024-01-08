@@ -4,6 +4,7 @@ import jakarta.transaction.Transactional;
 import org.apache.tomcat.util.http.fileupload.FileUploadException;
 import org.springframework.stereotype.Service;
 import vn.hdweb.team9.controller.admin.RestaurantForm;
+import vn.hdweb.team9.controller.admin.UpdateRestaurantForm;
 import vn.hdweb.team9.domain.dto.respon.RestaurantDto;
 import vn.hdweb.team9.domain.entity.Restaurant;
 import vn.hdweb.team9.repository.interfaces.IRestaurantRepository;
@@ -22,10 +23,15 @@ public class RestaurantService {
     }
 
     public void add(RestaurantForm r) throws FileUploadException {
+        // Kiểm tra xem nhà hàng có tên tương tự đã tồn tại hay chưa
+        List<Restaurant> existingRestaurants = restaurantRepository.findByRestaurantName(r.getRestaurantName());
+        if (!existingRestaurants.isEmpty()) {
+            // Nếu tồn tại, bạn có thể thực hiện xử lý khi có lỗi, ví dụ:
+            throw new DuplicateRestaurantNameException("Restaurant with the same name already exists");
+        }
+
+        // Nếu không có lỗi, tiếp tục thêm nhà hàng mới
         Restaurant res = new Restaurant();
-//        if (restaurantRepository.findByName(r.getRestaurantName())){
-//
-//        }
         res.setRestaurantName(r.getRestaurantName());
         res.setAddress(r.getAddress());
         res.setDescription(r.getDescription());
@@ -33,17 +39,44 @@ public class RestaurantService {
         res.setSlug(r.getSlug());
         res.setOpenTime(r.getOpenTime());
         res.setCloseTime(r.getCloseTime());
-        //res.setActive(r.isActive());
-        // if not duplication, saving member
 
         restaurantRepository.save(res);
         // return the id of member
     }
 
-//    public boolean validateDuplicateMember(String restaurantName) {
-//        return restaurantRepository.findByRestaurantName(restaurantName);
-//    }
+    public void update(Long restaurantId, UpdateRestaurantForm updatedRestaurantForm) throws FileUploadException {
+        // Kiểm tra xem nhà hàng có tồn tại hay không
+        Optional<Restaurant> existingRestaurantOptional = restaurantRepository.findById(restaurantId);
+        if (existingRestaurantOptional.isEmpty()) {
+            throw new RestaurantNotFoundException("Restaurant not found with id: " + restaurantId);
+        }
 
+        Restaurant existingRestaurant = existingRestaurantOptional.get();
+
+        // Kiểm tra xem tên đã tồn tại cho những nhà hàng khác hay không
+        if (!existingRestaurant.getRestaurantName().equals(updatedRestaurantForm.getRestaurantName())) {
+            List<Restaurant> existingRestaurantsWithNewName = restaurantRepository.findByRestaurantName(updatedRestaurantForm.getRestaurantName());
+            if (!existingRestaurantsWithNewName.isEmpty()) {
+                throw new DuplicateRestaurantNameException("Restaurant with the updated name already exists");
+            }
+        }
+
+        // Cập nhật thông tin của nhà hàng
+        existingRestaurant.setRestaurantName(updatedRestaurantForm.getRestaurantName());
+        existingRestaurant.setAddress(updatedRestaurantForm.getAddress());
+        existingRestaurant.setDescription(updatedRestaurantForm.getDescription());
+        existingRestaurant.setSlug(updatedRestaurantForm.getSlug());
+        existingRestaurant.setOpenTime(updatedRestaurantForm.getOpenTime());
+        existingRestaurant.setCloseTime(updatedRestaurantForm.getCloseTime());
+
+        // Cập nhật hình ảnh nếu có
+        if (updatedRestaurantForm.getImage() != null) {
+            existingRestaurant.setImage(UploadFile.uploadFile(updatedRestaurantForm.getImage()));
+        }
+
+        // Lưu những thay đổi vào cơ sở dữ liệu
+        restaurantRepository.save(existingRestaurant);
+    }
 
     public List<Restaurant> findRestaurants() {
         return restaurantRepository.findAll();
@@ -51,5 +84,17 @@ public class RestaurantService {
 
     public Optional<Restaurant> findOne(Long restaurantId) {
         return restaurantRepository.findById(restaurantId);
+    }
+
+    public static class DuplicateRestaurantNameException extends RuntimeException {
+        public DuplicateRestaurantNameException(String message) {
+            super(message);
+        }
+    }
+
+    public static class RestaurantNotFoundException extends RuntimeException {
+        public RestaurantNotFoundException(String message) {
+            super(message);
+        }
     }
 }
