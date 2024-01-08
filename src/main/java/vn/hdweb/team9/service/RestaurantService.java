@@ -1,39 +1,49 @@
 package vn.hdweb.team9.service;
 
 import jakarta.transaction.Transactional;
-import lombok.Getter;
+import org.apache.tomcat.util.http.fileupload.FileUploadException;
+import org.springframework.stereotype.Service;
+import vn.hdweb.team9.controller.admin.RestaurantForm;
+import vn.hdweb.team9.domain.dto.respon.RestaurantDto;
 import vn.hdweb.team9.domain.entity.Restaurant;
-import vn.hdweb.team9.repository.RestaurantRepository;
+import vn.hdweb.team9.repository.interfaces.IRestaurantRepository;
+import vn.hdweb.team9.utility.UploadFile;
 
 import java.util.List;
 import java.util.Optional;
 
 @Transactional
+@Service
 public class RestaurantService {
-    private final RestaurantRepository restaurantRepository;
+    private final IRestaurantRepository restaurantRepository;
 
-    public RestaurantService(RestaurantRepository restaurantRepository) {
+    public RestaurantService(IRestaurantRepository restaurantRepository) {
         this.restaurantRepository = restaurantRepository;
     }
 
-    public Long add(Restaurant restaurant) {
-        restaurant = new Restaurant();
-
-        // check duplicate name user
-        validateDuplicateMember(restaurant);
-
+    public void add(RestaurantForm r) throws FileUploadException {
+        Restaurant res = new Restaurant();
+//        if (restaurantRepository.findByName(r.getRestaurantName())){
+//
+//        }
+        res.setRestaurantName(r.getRestaurantName());
+        res.setAddress(r.getAddress());
+        res.setDescription(r.getDescription());
+        res.setImage(UploadFile.uploadFile(r.getImage()));
+        res.setSlug(r.getSlug());
+        res.setOpenTime(r.getOpenTime());
+        res.setCloseTime(r.getCloseTime());
+        //res.setActive(r.isActive());
         // if not duplication, saving member
-        restaurantRepository.save(restaurant);
 
+        restaurantRepository.save(res);
         // return the id of member
-        return restaurant.getId();
     }
 
-    private void validateDuplicateMember(Restaurant restaurant) {
-        restaurantRepository.findByName(restaurant.getRestaurantName()).ifPresent(m -> {
-            throw new IllegalStateException("This restaurant already exists.");
-        });
-    }
+//    public boolean validateDuplicateMember(String restaurantName) {
+//        return restaurantRepository.findByRestaurantName(restaurantName);
+//    }
+
 
     public List<Restaurant> findRestaurants() {
         return restaurantRepository.findAll();

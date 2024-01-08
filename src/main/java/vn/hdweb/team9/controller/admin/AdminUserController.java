@@ -19,8 +19,6 @@ public class AdminUserController {
 
     private final IUserService userService;
 
-
-
     @RequestMapping(value = {"", "/","/list"})
     public String usersList(Model model) {
 
