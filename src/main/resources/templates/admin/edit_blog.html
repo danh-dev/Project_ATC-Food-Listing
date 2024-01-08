@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity6"
+      class="light-style layout-menu-fixed layout-navbar-fixed"
+      dir="ltr"
+      data-theme="theme-default"
+      data-assets-path="../../admin/assets/"
+      data-template="vertical-menu-template-free"
+>
+<head th:replace="~{admin/fragments/head :: heads(pageTitle='Dashboard')}">
+    <title></title>
+</head>
+<body>
+<div class="layout-wrapper layout-content-navbar">
+    <div class="layout-container">
+        <!--đưa giá trị value_menu để so sánh với menu kích hoạt active-->
+        <aside th:replace="~{admin/fragments/menu :: drawer-menu(value_menu = 'dashboard')}"></aside>
+        <div class="layout-page">
+            <nav th:replace="~{admin/fragments/nav :: nav-bar(value_title='Dashboard')}"></nav>
+            <div class="content-wrapper">
+                <div class="container-xxl flex-grow-1 container-p-y">
+                    <!--Content-->
+                    <div class="card">
+                        <div class="card-body">
+                            <div class="card-content ">
+                                <div class="card">
+                                    <h5 class="card-header">Edit blog</h5>
+
+                                    <th:block th:if="${error_upload}">
+                                        <div th:replace="~{client/fragments/elements/alert::error(message= ${error_upload} )}">
+
+                                        </div>
+                                    </th:block>
+                                    <th:block th:if="${error_title_exist}">
+                                        <div th:replace="~{client/fragments/elements/alert::error(message= ${error_title_exist} )}">
+
+                                        </div>
+                                    </th:block>
+                                        <form class="mb-3" th:action="@{/admin/blogs/update}" method="post" th:object="${blog}"
+                                              enctype="multipart/form-data">
+                                            <input type="hidden" th:name="blogId" th:value="${blog.id}" />
+                                            <div class="mb-3">
+                                                <label for="blog_title" class="form-label">Title</label>
+                                                <input type="text" class="form-control" id="blog_title"
+                                                       placeholder="Enter your title for blog..."
+                                                       name="blog_title"
+                                                       required autofocus="autofocus"
+                                                       th:value="${blog.getBlogTitle()}"
+                                                       th:field="*{blogTitle}"
+                                                >
+
+                                            </div>
+
+                                            <div class="mb-3">
+                                                <label for="blog_content" class="form-label">Content</label>
+                                                <textarea type="text"
+                                                          class="form-control" id="blog_content"
+                                                          name="blog_content"
+                                                          required
+                                                          th:text="${blog.getBlogContent()}"
+                                                          th:field="*{blogContent}"
+                                                >
+
+                                                </textarea>
+                                            </div>
+                                            <div class="md-3">
+                                                <p>Image old</p>
+                                                <img th:src="@{'/' + ${blog.getBlog_img()}}" alt class="h-auto rounded-circle"
+                                                     width="40px"/>
+                                            </div>
+                                            <div class="mb-3">
+                                                <label for="blog_img" class="form-label">Upload image</label>
+                                                <input type="file" class="form-control" id="blog_img" name="blog_img"
+                                                       th:field="*{blog_img}"
+                                                >
+                                            </div>
+
+                                            <div class="mb-3">
+                                                <button class="btn btn-primary d-grid w-100" type="submit">Edit Now</button>
+                                            </div>
+                                        </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!--End Content-->
+                </div>
+                <footer th:replace="~{admin/fragments/footer :: footer}"></footer>
+                <div class="content-backdrop fade"></div>
+            </div>
+        </div>
+    </div>
+    <div class="layout-overlay layout-menu-toggle"></div>
+</div>
+<div th:replace="~{admin/fragments/js :: js-insert}"></div>
+
+</body>
+</html>

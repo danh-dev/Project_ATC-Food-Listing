@@ -45,4 +45,6 @@ public class User {
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
     private List<RatingRestaurant> listRatingRestaurant = new ArrayList<>();
 
+
+
 }
