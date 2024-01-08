@@ -1,0 +1,265 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity6"
+      class="light-style layout-menu-fixed layout-navbar-fixed"
+      dir="ltr"
+      data-theme="theme-default"
+      data-assets-path="/admin/assets/"
+      data-template="vertical-menu-template-free"
+>
+<head th:replace="~{admin/fragments/head :: heads(pageTitle='Coupon')}">
+    <title></title>
+</head>
+
+<style>
+    body {
+        font-size: 14px;
+    }
+
+    h1, h2, h3, h4, h5, h6 {
+        font-size: 1.5em;
+    }
+
+    .fit {
+        padding: 10px;
+        width: fit-content;
+    }
+</style>
+
+<body>
+<div class="layout-wrapper layout-content-navbar">
+    <div class="layout-container">
+        <!--đưa giá trị value_menu để so sánh với menu kích hoạt active-->
+        <aside th:replace="~{admin/fragments/menu :: drawer-menu(value_menu = 'coupon,couponList')}"></aside>
+        <div class="layout-page">
+            <!-- Nav-bar -->
+            <nav th:replace="~{admin/fragments/nav :: nav-bar(value_title = 'Coupon')}"></nav>
+
+            <!-- Content wrapper -->
+            <div class="content-wrapper">
+                <!-- Content -->
+
+                <div class="container-xxl container-p-y d-flex flex-column">
+
+                    <div class="card mb-2">
+                        <div class="card-body">
+                            <!-- Coupon search -->
+                            <div class="flex-grow-1 mb-3 d-flex justify-content-start">
+                                <button type="submit" class="btn btn-primary mr-2" onclick="searchCoupon()">Tìm kiếm</button>
+                                <button type="submit" class="btn btn-info mx-2" onclick="searchDefault()">Mặc định</button>
+                            </div>
+
+                            <!-- Search Entries -->
+                            <form id="couponSearch" th:object="${couponSearch}" class="d-flex justify-content-around">
+                                <div class="mb-2 pr-2 ">
+                                    <label class="form-label" for="couponNameCode">Tên/Mã</label>
+                                    <input type="text"
+                                           class="form-control"
+                                           id="couponNameCode"
+                                           th:field="*{couponNameCode}"
+                                           placeholder="Tên mã hoặc mã giảm giá"
+                                           th:class="${#fields.hasErrors('couponNameCode')}? 'form-control fieldError' : 'form-control'"
+                                           maxlength="20"/>
+                                    <p th:if="${#fields.hasErrors('couponNameCode')}" th:errors="*{couponNameCode}" th:errorclass="errorMessage"></p>
+                                </div>
+
+                                <div class="d-flex">
+                                    <div class="pr-2">
+                                        <label class="form-label">Loại mã</label>
+                                        <select class="form-select" th:field="*{typeCoupon}" id="typeCoupon">
+                                            <option value="" selected></option>
+                                            <option th:each="type : ${T(vn.hdweb.team9.domain.entity.TypeCoupon).values()}"
+                                                    th:value="${type}"
+                                                    th:text="${type}">option
+                                            </option>
+                                        </select>
+                                    </div>
+                                </div>
+
+                                <div class="mb-2 pr-2">
+                                    <label class="form-label" for="datePicker-startDate">Ngày bắt đầu</label>
+                                    <input type="date"
+                                           class="form-control"
+                                           id="datePicker-startDate"
+                                           th:field="*{startDate}"
+                                           th:class="${#fields.hasErrors('startDate')}? 'form-control
+                                                        fieldError' : 'form-control'"/>
+                                    <p th:if="${#fields.hasErrors('startDate')}" th:errors="*{startDate}" th:errorclass="errorMessage"></p>
+                                    <script>
+                                        <!--start date min is today-->
+                                        document.getElementById("datePicker-startDate").min = new Date().toISOString().slice(0, 16);
+                                    </script>
+                                </div>
+
+                                <div class="mb-2 pr-2">
+                                    <label class="form-label" for="datePicker-endDate">Ngày kết thúc</label>
+                                    <input type="date"
+                                           class="form-control"
+                                           id="datePicker-endDate"
+                                           th:field="*{endDate}"
+                                           th:class="${#fields.hasErrors('endDate')}? 'form-control fieldError' : 'form-control'"/>
+                                    <p th:if="${#fields.hasErrors('endDate')}" th:errors="*{endDate}" th:errorclass="errorMessage"></p>
+                                    <script>
+                                        <!--end date min is today-->
+                                        document.getElementById("datePicker-endDate").min = new Date().toISOString().slice(0, 16);
+                                    </script>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+
+                    <!-- Coupon Table -->
+                    <div class="card">
+                        <div class="card-body">
+                            <div class="card-content">
+                                <div class="card">
+                                    <h5 class="card-header">Coupons</h5>
+                                    <div class="table-responsive text-nowrap">
+                                        <table class="table table-striped" >
+                                            <thead>
+                                            <!-- Coupon ltable header -->
+                                            <tr>
+                                                <th>Mã</th>
+                                                <th>Tên</th>
+                                                <th>Loại mã</th>
+                                                <th>Giá trị</th>
+                                                <th>Số lượng</th>
+                                                <th>Ngày bắt đầu</th>
+                                                <th>Ngày kết thúc</th>
+                                                <th>Hành động</th>
+                                            </tr>
+                                            </thead>
+                                            <tbody class="table-border-bottom-0">
+                                            <!-- Coupon list -->
+                                            <tr th:each="coupon : ${coupons}">
+                                                <td>
+                                                    <i class="fab fa-bootstrap fa-lg text-primary me-1"></i>
+                                                    <strong>[[${coupon.couponCode}]]</strong>
+                                                </td>
+                                                <td>
+                                                    <i class="fab fa-bootstrap fa-lg text-primary me-1"></i>
+                                                    <strong>[[${coupon.couponName}]]</strong>
+                                                </td>
+                                                <td>
+                                                    <span class="badge me-1" th:classappend="${coupon.typeCoupon == T(vn.hdweb.team9.domain.entity.TypeCoupon).DIRECT ? 'bg-label-success' : 'bg-label-warning'}">
+                                                        [[${coupon.typeCoupon}]]
+                                                    </span></td>
+                                                </td>
+                                                <td>
+                                                    <i class="fab fa-bootstrap fa-lg text-primary me-1"></i>
+                                                    [[${coupon.typeCoupon == T(vn.hdweb.team9.domain.entity.TypeCoupon).DIRECT ? coupon.couponValue + '$' : coupon.couponValue + '%'}]]
+                                                </td>
+                                                <td>
+                                                    <i class="fab fa-bootstrap fa-lg text-primary me-1"></i>
+                                                    [[${coupon.couponQuantity}]]
+                                                </td>
+                                                <td>
+                                                    <i class="fab fa-bootstrap fa-lg text-primary me-1"></i>
+                                                    [[${coupon.startDate}]]
+                                                </td>
+                                                <td>
+                                                    <i class="fab fa-bootstrap fa-lg text-primary me-1"></i>
+                                                    [[${coupon.endDate}]]
+                                                </td>
+                                                <td>
+                                                    <div style="display: flex; ">
+                                                        <form th:action="@{'/admin/coupon/edit/' + ${coupon.id}}" method="get" id="editCouponForm" style="margin-right: 10px;">
+                                                            <button type="submit" class="btn btn-outline-primary btn-sm">
+                                                                <i class="bx bx-edit-alt me-1"></i>
+                                                            </button>
+                                                        </form>
+                                                        <!--Hidden form for delete coupon-->
+                                                        <form th:action="@{'/admin/coupon/delete/' + ${coupon.id}}" method="post" id="deleteCouponForm"></form>
+                                                        <button type="submit" class="btn btn-outline-danger btn-sm" onclick="confirmDelete()">
+                                                            <i class="bx bx-trash me-1"></i>
+                                                        </button>
+                                                    </div>
+                                                </td>
+                                            </tr>
+
+                                            <!-- Delete Confirmation Modal -->
+                                            <div class="modal fade" id="deleteConfirmationModal" tabindex="-1" aria-labelledby="deleteConfirmationModalLabel" aria-hidden="true">
+                                                <div class="modal-dialog">
+                                                    <div class="modal-content">
+                                                        <div class="modal-header">
+                                                            <h5 class="modal-title" id="deleteConfirmationModalLabel">Xác nhận</h5>
+                                                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                                        </div>
+                                                        <div class="modal-body">
+                                                            Bạn có muốn xóa mã giảm giá này? Lưu ý: Hành động này không thể hoàn tác.
+                                                        </div>
+                                                        <div class="modal-footer">
+                                                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Hủy</button>
+                                                            <button type="submit" class="btn btn-danger" onclick="submitDeleteForm()">Xóa</button>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!--/ Basic Bootstrap Table -->
+                </div>
+                <!-- / Content -->
+
+                <!-- Footer -->
+                <div class="content-backdrop fade"></div>
+            </div>
+            <!-- Content wrapper -->
+            <footer th:replace="~{admin/fragments/footer :: footer}"></footer>
+        </div>
+    </div>
+    <div class="layout-overlay layout-menu-toggle"></div>
+</div>
+<div th:replace="~{admin/fragments/js :: js-insert}"></div>
+</body>
+
+<script>
+    function confirmDelete() {
+        $('#deleteConfirmationModal').modal('show');
+    }
+
+    function submitDeleteForm() {
+        $('#deleteCouponForm').submit();
+    }
+
+    function handleKeyPress(event) {
+        event = event || window.event;
+        var keycode = event.keyCode || event.which;
+        if (keycode === 13) { // 13 is the key code for Enter
+            searchCoupon();
+        }
+    }
+
+    function searchCoupon() {
+        $('#couponSearch').submit();
+    }
+
+
+    function searchDefault() {
+        // Clear all search fields
+        document.getElementById("couponNameCode").value = "",
+        document.getElementById("typeCoupon").value = "",
+        document.getElementById("datePicker-startDate").value = "",
+        document.getElementById("datePicker-endDate").value = "",
+        // Trigger the search function after clearing
+        searchCoupon();
+    }
+
+    function handleCouponNumberInput(input) {
+        // Set value to 0 if the input is cleared
+        if (input.value.trim() === '') {
+            input.value = 0;
+        }
+    }
+
+</script>
+
+</html>
+
+
