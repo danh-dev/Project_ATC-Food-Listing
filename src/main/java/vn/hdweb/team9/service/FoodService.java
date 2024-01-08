@@ -5,7 +5,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import vn.hdweb.team9.domain.entity.Food;
 import vn.hdweb.team9.domain.entity.RatingFood;
-import vn.hdweb.team9.exception.CategoryException;
+import vn.hdweb.team9.exception.FoodException;
 import vn.hdweb.team9.repository.foodDAO.FoodDAO;
 import vn.hdweb.team9.utility.StringToSlugUtil;
 
@@ -56,34 +56,34 @@ public class FoodService {
     private void validateDuplicateFood(Food food) {
         List<Food> categories = foodDAO.findByName(food.getFoodName());
         if (!categories.isEmpty()) {
-            throw new CategoryException(404, "Category already exist!");
+            throw new FoodException(404, "Food already exist!");
         }
     }
     
     // get all categories
-    public List<Food> getAllCategories() {
+    public List<Food> getAllFoods() {
         return foodDAO.findAll();
     }
     
-    // get category by id
-    public Food getCategoryById(Long categoryId) {
-        Optional<Food> theResult = Optional.ofNullable(foodDAO.finById(categoryId));
+    // get food by id
+    public Food getFoodById(Long foodId) {
+        Optional<Food> theResult = Optional.ofNullable(foodDAO.finById(foodId));
         
         Food food = null;
         
         if (theResult.isPresent()) {
             food = theResult.get();
         } else {
-            // we didn't find the category
-            throw new RuntimeException("Did not find category id - " + categoryId);
+            // we didn't find the food
+            throw new RuntimeException("Did not find food id - " + foodId);
         }
         
         return food;
     }
     
-    // update category
+    // update food
     @Transactional
-    public Long updateCategory(Food food) {
+    public Long updateFood(Food food) {
         // convert string to slug
         String resultSlug = StringToSlugUtil.toSlug(food.getFoodName());
         
@@ -100,11 +100,11 @@ public class FoodService {
         return food.getId();
     }
     
-    // delete category
+    // delete food
     @Transactional
-    public Integer deleteCategoryById(Integer categoryId) {
-        foodDAO.deleteById(categoryId);
-        return categoryId;
+    public Integer deleteFoodById(Integer foodId) {
+        foodDAO.deleteById(foodId);
+        return foodId;
     }
     
     //=== Functional Section  ===/
@@ -114,7 +114,7 @@ public class FoodService {
     }
     
     // get food by slug
-    public List<Food> getCategoryBySlug(Food food) {
+    public List<Food> getFoodBySlug(Food food) {
         return foodDAO.findBySlug(food.getSlug());
     }
     

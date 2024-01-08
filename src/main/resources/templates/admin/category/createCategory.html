@@ -39,7 +39,7 @@
                                 <div class="card-body">
                                     <form th:action="@{/admin/category/processForm}" th:object="${categoryDTO}" method="post"
                                           class="needs-validation" novalidate enctype="multipart/form-data">
-                                        <div class="mb-3">
+                                        <div class="mb-3 form-group">
                                             <label class="form-label" for="category-name">Category Name</label>
                                             <input
                                                     type="text"
@@ -110,8 +110,6 @@
     <!-- Overlay -->
     <div class="layout-overlay layout-menu-toggle"></div>
 </div>
-<!-- / Layout wrapper -->
-<div th:replace="~{admin/fragments/js :: js-insert}"></div>
 
 <!-- review image  -->
 <script type="text/javascript">
@@ -147,6 +145,9 @@
             })
     })()
 </script>
+
+<!-- / Layout wrapper -->
+<div th:replace="~{admin/fragments/js :: js-insert}"></div>
 
 </body>
 </html>

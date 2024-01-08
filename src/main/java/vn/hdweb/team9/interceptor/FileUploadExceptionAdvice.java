@@ -6,6 +6,7 @@ import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.multipart.MaxUploadSizeExceededException;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+import org.springframework.web.servlet.resource.NoResourceFoundException;
 import org.springframework.web.servlet.view.RedirectView;
 
 import java.nio.file.NoSuchFileException;
@@ -28,6 +29,13 @@ public class FileUploadExceptionAdvice {
     
     @ExceptionHandler(HttpRequestMethodNotSupportedException.class)
     public RedirectView handleRequestMethodNotSupportedException(RedirectAttributes redirectAttributes, HttpServletRequest request) {
+        redirectAttributes.addFlashAttribute("error", "Error upload!");
+        String referer = request.getHeader("Referer");
+        return new RedirectView(referer);
+    }
+    
+    @ExceptionHandler(NoResourceFoundException.class)
+    public RedirectView handleRequestNoResourceFoundException(RedirectAttributes redirectAttributes, HttpServletRequest request) {
         redirectAttributes.addFlashAttribute("error", "Error upload!");
         String referer = request.getHeader("Referer");
         return new RedirectView(referer);

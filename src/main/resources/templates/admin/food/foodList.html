@@ -41,6 +41,9 @@
                                     <th>#</th>
                                     <th>Name</th>
                                     <th>Slug</th>
+                                    <th>Description</th>
+                                    <th>Price</th>
+                                    <th>Time Wait</th>
                                     <th>Avatar</th>
                                     <th>Actions</th>
                                 </tr>
@@ -50,9 +53,12 @@
                                     <td><i class="fab fa-angular fa-lg text-danger me-3"></i> <strong th:text="${food.id} + 1"></strong></td>
                                     <td th:text="${food.foodName}" />
                                     <td th:text="${food.slug}" />
+                                    <td th:text="${food.description}" />
+                                    <td th:text="${food.price}" />
+                                    <td th:text="${food.timeWait}" />
                                     <td>
                                         <img th:src="@{'~/' + ${food.image}}"
-                                             th:alt="${food.categoryName}"
+                                             th:alt="${food.foodName}"
                                              class="img-fluid"
                                              style="width: auto; height: 50px;"
                                         />
@@ -63,7 +69,7 @@
                                                 <i class="bx bx-dots-vertical-rounded"></i>
                                             </button>
                                             <div class="dropdown-menu">
-                                                <a class="dropdown-item" th:href="@{/admin/food/update(categoryId=${food.id})}"
+                                                <a class="dropdown-item" th:href="@{/admin/food/update(foodId=${food.id})}"
                                                 ><i class="bx bx-edit-alt me-1"></i> Edit</a
                                                 >
                                                 <a class="dropdown-item"

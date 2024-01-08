@@ -39,28 +39,75 @@
                                 <div class="card-body">
                                     <form th:action="@{/admin/food/processForm}" th:object="${foodDTO}" method="post"
                                           class="needs-validation" novalidate enctype="multipart/form-data">
-                                        <div class="mb-3">
-                                            <label class="form-label" for="category-name">Category Name</label>
+                                        <div class="mb-3 form-group">
+                                            <label class="form-label" for="food-name">Food Name</label>
                                             <input
                                                     type="text"
                                                     class="form-control"
                                                     th:class="${#fields.hasErrors('foodName')} ? 'form-control is-invalid' : 'form-control'"
-                                                    id="category-name"
-                                                    placeholder="Your Category"
+                                                    id="food-name"
+                                                    placeholder="Your food"
                                                     th:field="*{foodName}"
                                                     required/>
                                             <div
                                                  th:class="${#fields.hasErrors('foodName')}? 'invalid-feedback d-block' : 'invalid-feedback'"
-                                                 th:if="${#fields.hasErrors('categoryName')}" th:errors="*{foodName}">
+                                                 th:if="${#fields.hasErrors('foodName')}" th:errors="*{foodName}">
                                             </div>
 
                                             <div th:if="${foodExist != null}" class="invalid-feedback d-block">
                                                 <p th:text="${foodExist}"></p>
                                             </div>
-
                                         </div>
 
-                                        <div class="mb-3">
+                                        <div class="mb-3 form-group">
+                                            <label class="form-label" for="food-description">Description</label>
+                                            <input
+                                                    type="text"
+                                                    class="form-control"
+                                                    th:class="${#fields.hasErrors('description')} ? 'form-control is-invalid' : 'form-control'"
+                                                    id="food-description"
+                                                    placeholder="Your description"
+                                                    th:field="*{description}"
+                                                    required/>
+                                            <div
+                                                    th:class="${#fields.hasErrors('description')}? 'invalid-feedback d-block' : 'invalid-feedback'"
+                                                    th:if="${#fields.hasErrors('description')}" th:errors="*{description}">
+                                            </div>
+                                        </div>
+
+                                        <div class="mb-3 form-group">
+                                            <label class="form-label" for="food-price">Price</label>
+                                            <input
+                                                    type="number"
+                                                    class="form-control"
+                                                    th:class="${#fields.hasErrors('price')} ? 'form-control is-invalid' : 'form-control'"
+                                                    id="food-price"
+                                                    placeholder="Your price"
+                                                    th:field="*{price}"
+                                                    required/>
+                                            <div
+                                                    th:class="${#fields.hasErrors('price')}? 'invalid-feedback d-block' : 'invalid-feedback'"
+                                                    th:if="${#fields.hasErrors('price')}" th:errors="*{price}">
+                                            </div>
+                                        </div>
+
+                                        <div class="mb-3 form-group">
+                                            <label class="form-label" for="food-timeWait">Time Wait</label>
+                                            <input
+                                                    type="number"
+                                                    class="form-control"
+                                                    th:class="${#fields.hasErrors('timeWait')} ? 'form-control is-invalid' : 'form-control'"
+                                                    id="food-timeWait"
+                                                    placeholder="Your price"
+                                                    th:field="*{timeWait}"
+                                                    required/>
+                                            <div
+                                                    th:class="${#fields.hasErrors('timeWait')}? 'invalid-feedback d-block' : 'invalid-feedback'"
+                                                    th:if="${#fields.hasErrors('timeWait')}" th:errors="*{timeWait}">
+                                            </div>
+                                        </div>
+
+                                        <div class="mb-3 form-group">
                                             <label for="formFile" class="form-label">Food Image</label>
                                             <input class="form-control" type="file" id="formFile" name="imageFile"
                                                    accept="image/*"
@@ -110,8 +157,6 @@
     <!-- Overlay -->
     <div class="layout-overlay layout-menu-toggle"></div>
 </div>
-<!-- / Layout wrapper -->
-<div th:replace="~{admin/fragments/js :: js-insert}"></div>
 
 <!-- review image  -->
 <script type="text/javascript">
@@ -147,6 +192,9 @@
             })
     })()
 </script>
+
+<!-- / Layout wrapper -->
+<div th:replace="~{admin/fragments/js :: js-insert}"></div>
 
 </body>
 </html>
