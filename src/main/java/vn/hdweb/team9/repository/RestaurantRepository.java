@@ -2,6 +2,7 @@ package vn.hdweb.team9.repository;
 
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.TypedQuery;
+import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 import vn.hdweb.team9.domain.entity.Restaurant;
 import vn.hdweb.team9.repository.interfaces.IRestaurantRepository;
@@ -9,6 +10,7 @@ import vn.hdweb.team9.repository.interfaces.IRestaurantRepository;
 import java.util.List;
 import java.util.Optional;
 
+@Repository
 @Transactional
 public class RestaurantRepository implements IRestaurantRepository {
     private EntityManager em;

@@ -22,7 +22,7 @@ import java.util.Optional;
 @RequiredArgsConstructor
 @Slf4j
 public class RestaurantService {
-    private final RestaurantRepository restaurantRepository;
+    private final IRestaurantRepository restaurantRepository;
 
     public void add(RestaurantForm r) throws FileUploadException {
         // Kiểm tra xem nhà hàng có tên tương tự đã tồn tại hay chưa

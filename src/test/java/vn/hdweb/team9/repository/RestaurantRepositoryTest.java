@@ -6,27 +6,30 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.transaction.annotation.Transactional;
 import vn.hdweb.team9.domain.entity.Restaurant;
 import vn.hdweb.team9.repository.RestaurantRepository;
+import vn.hdweb.team9.service.RestaurantService;
 
 import java.util.List;
 
 @SpringBootTest
+@Transactional
 class RestaurantRepositoryTest {
-    private RestaurantRepository res;
+    private RestaurantRepository restaurantRepository;
+    private RestaurantService restaurantService;
 
     @Test
     public void findExactByName() {
         // given
         Restaurant restaurant1 = new Restaurant();
         restaurant1.setRestaurantName("Phở Mỹ");
-        res.save(restaurant1);
+        restaurantRepository.save(restaurant1);
         
 
         Restaurant restaurant2 = new Restaurant();
         restaurant2.setRestaurantName("Phở My");
-        res.save(restaurant2);
+        restaurantRepository.save(restaurant2);
 
         // when
-        List<Restaurant> restaurants = res.findExactByRestaurantName(restaurant1.getRestaurantName());
+        List<Restaurant> restaurants = restaurantRepository.findExactByRestaurantName(restaurant1.getRestaurantName());
 
         // then
         Assertions.assertThat(restaurants.get(0).getRestaurantName()).isNotEqualTo(restaurant1.getRestaurantName());
