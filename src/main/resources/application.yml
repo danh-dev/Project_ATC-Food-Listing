@@ -41,4 +41,4 @@ server:
   tomcat:
     max-http-form-post-size: -1
     max-swallow-size: -1
-  port: 8082
+  port: 8080

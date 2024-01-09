@@ -174,191 +174,32 @@
     <div class="container py-5">
         <h2 class="my-3 alert-link">Oh món lạ ...</h2>
         <div class="owl-carousel vegetable-carousel justify-content-center">
-            <div class="border border-primary rounded position-relative vesitable-item">
+            <!-- Loop through the list of foods -->
+            <div th:each="food : ${foods}" class="border border-primary rounded position-relative vesitable-item">
                 <div class="vesitable-img">
-                    <img src="/client/img/category/an-trua.webp" class="img-fluid w-100 rounded-top" alt="">
+                    <img th:src="@{'/' + ${food.getImage()} }" class="img-fluid w-100 rounded-top" alt="">
                 </div>
-                <div class="text-white bg-primary px-3 py-1 rounded position-absolute"
-                     style="top: 10px; right: 10px;">
-                    Category
+                <div th:text="${food.getCategory().getCategoryName()}" class="text-white bg-primary px-3 py-1 rounded position-absolute"
+                     style="top: 10px; right: 10px;">Category
                 </div>
                 <div class="p-4 rounded-bottom bg-white">
-                    <h4>Giò heo phỉ thuý</h4>
-                    <p>Cắt phỉ thuý ra làm giò heo. @@.</p>
+                    <h4 th:text="${food.getFoodName}">Giò heo phỉ thuý</h4>
+                    <p th:text="${food.getDescription}">Cắt phỉ thuý ra làm giò heo. @@.</p>
                     <div class="d-flex justify-content-between flex-lg-wrap">
-                        <p class="text-dark fs-5 fw-bold mb-0">$4.99</p>
-                        <a href="#" class="btn btn-outline-primary"><i
-                                class="fas fa-location-arrow me-2"></i> Xem chi tiết</a>
-                    </div>
-                </div>
-            </div>
-            <div class="border border-primary rounded position-relative vesitable-item">
-                <div class="vesitable-img">
-                    <img src="/client/img/category/an-trua.webp" class="img-fluid w-100 rounded-top" alt="">
-                </div>
-                <div class="text-white bg-primary px-3 py-1 rounded position-absolute"
-                     style="top: 10px; right: 10px;">
-                    Category
-                </div>
-                <div class="p-4 rounded-bottom bg-white">
-                    <h4>Giò heo phỉ thuý</h4>
-                    <p>Cắt phỉ thuý ra làm giò heo. @@.</p>
-                    <div class="d-flex justify-content-between flex-lg-wrap">
-                        <p class="text-dark fs-5 fw-bold mb-0">$4.99</p>
-                        <a href="#" class="btn btn-outline-primary"><i
-                                class="fas fa-location-arrow me-2"></i> Xem chi tiết</a>
-                    </div>
-                </div>
-            </div>
-            <div class="border border-primary rounded position-relative vesitable-item">
-                <div class="vesitable-img">
-                    <img src="/client/img/category/an-trua.webp" class="img-fluid w-100 rounded-top" alt="">
-                </div>
-                <div class="text-white bg-primary px-3 py-1 rounded position-absolute"
-                     style="top: 10px; right: 10px;">
-                    Category
-                </div>
-                <div class="p-4 rounded-bottom bg-white">
-                    <h4>Giò heo phỉ thuý</h4>
-                    <p>Cắt phỉ thuý ra làm giò heo. @@.</p>
-                    <div class="d-flex justify-content-between flex-lg-wrap">
-                        <p class="text-dark fs-5 fw-bold mb-0">$4.99</p>
-                        <a href="#" class="btn btn-outline-primary"><i
-                                class="fas fa-location-arrow me-2"></i> Xem chi tiết</a>
-                    </div>
-                </div>
-            </div>
-            <div class="border border-primary rounded position-relative vesitable-item">
-                <div class="vesitable-img">
-                    <img src="/client/img/category/an-trua.webp" class="img-fluid w-100 rounded-top" alt="">
-                </div>
-                <div class="text-white bg-primary px-3 py-1 rounded position-absolute"
-                     style="top: 10px; right: 10px;">
-                    Category
-                </div>
-                <div class="p-4 rounded-bottom bg-white">
-                    <h4>Giò heo phỉ thuý</h4>
-                    <p>Cắt phỉ thuý ra làm giò heo. @@.</p>
-                    <div class="d-flex justify-content-between flex-lg-wrap">
-                        <p class="text-dark fs-5 fw-bold mb-0">$4.99</p>
-                        <a href="#" class="btn btn-outline-primary"><i
-                                class="fas fa-location-arrow me-2"></i> Xem chi tiết</a>
-                    </div>
-                </div>
-            </div>
-            <div class="border border-primary rounded position-relative vesitable-item">
-                <div class="vesitable-img">
-                    <img src="/client/img/category/an-trua.webp" class="img-fluid w-100 rounded-top" alt="">
-                </div>
-                <div class="text-white bg-primary px-3 py-1 rounded position-absolute"
-                     style="top: 10px; right: 10px;">
-                    Category
-                </div>
-                <div class="p-4 rounded-bottom bg-white">
-                    <h4>Giò heo phỉ thuý</h4>
-                    <p>Cắt phỉ thuý ra làm giò heo. @@.</p>
-                    <div class="d-flex justify-content-between flex-lg-wrap">
-                        <p class="text-dark fs-5 fw-bold mb-0">$4.99</p>
-                        <a href="#" class="btn btn-outline-primary"><i
-                                class="fas fa-location-arrow me-2"></i> Xem chi tiết</a>
-                    </div>
-                </div>
-            </div>
-            <div class="border border-primary rounded position-relative vesitable-item">
-                <div class="vesitable-img">
-                    <img src="/client/img/category/an-trua.webp" class="img-fluid w-100 rounded-top" alt="">
-                </div>
-                <div class="text-white bg-primary px-3 py-1 rounded position-absolute"
-                     style="top: 10px; right: 10px;">
-                    Category
-                </div>
-                <div class="p-4 rounded-bottom bg-white">
-                    <h4>Giò heo phỉ thuý</h4>
-                    <p>Cắt phỉ thuý ra làm giò heo. @@.</p>
-                    <div class="d-flex justify-content-between flex-lg-wrap">
-                        <p class="text-dark fs-5 fw-bold mb-0">$4.99</p>
-                        <a href="#" class="btn btn-outline-primary"><i
-                                class="fas fa-location-arrow me-2"></i> Xem chi tiết</a>
-                    </div>
-                </div>
-            </div>
-            <div class="border border-primary rounded position-relative vesitable-item">
-                <div class="vesitable-img">
-                    <img src="/client/img/category/an-trua.webp" class="img-fluid w-100 rounded-top" alt="">
-                </div>
-                <div class="text-white bg-primary px-3 py-1 rounded position-absolute"
-                     style="top: 10px; right: 10px;">
-                    Category
-                </div>
-                <div class="p-4 rounded-bottom bg-white">
-                    <h4>Giò heo phỉ thuý</h4>
-                    <p>Cắt phỉ thuý ra làm giò heo. @@.</p>
-                    <div class="d-flex justify-content-between flex-lg-wrap">
-                        <p class="text-dark fs-5 fw-bold mb-0">$4.99</p>
-                        <a href="#" class="btn btn-outline-primary"><i
-                                class="fas fa-location-arrow me-2"></i> Xem chi tiết</a>
-                    </div>
-                </div>
-            </div>
-            <div class="border border-primary rounded position-relative vesitable-item">
-                <div class="vesitable-img">
-                    <img src="/client/img/category/an-trua.webp" class="img-fluid w-100 rounded-top" alt="">
-                </div>
-                <div class="text-white bg-primary px-3 py-1 rounded position-absolute"
-                     style="top: 10px; right: 10px;">
-                    Category
-                </div>
-                <div class="p-4 rounded-bottom bg-white">
-                    <h4>Giò heo phỉ thuý</h4>
-                    <p>Cắt phỉ thuý ra làm giò heo. @@.</p>
-                    <div class="d-flex justify-content-between flex-lg-wrap">
-                        <p class="text-dark fs-5 fw-bold mb-0">$4.99</p>
-                        <a href="#" class="btn btn-outline-primary"><i
-                                class="fas fa-location-arrow me-2"></i> Xem chi tiết</a>
-                    </div>
-                </div>
-            </div>
-            <div class="border border-primary rounded position-relative vesitable-item">
-                <div class="vesitable-img">
-                    <img src="/client/img/category/an-trua.webp" class="img-fluid w-100 rounded-top" alt="">
-                </div>
-                <div class="text-white bg-primary px-3 py-1 rounded position-absolute"
-                     style="top: 10px; right: 10px;">
-                    Category
-                </div>
-                <div class="p-4 rounded-bottom bg-white">
-                    <h4>Giò heo phỉ thuý</h4>
-                    <p>Cắt phỉ thuý ra làm giò heo. @@.</p>
-                    <div class="d-flex justify-content-between flex-lg-wrap">
-                        <p class="text-dark fs-5 fw-bold mb-0">$4.99</p>
-                        <a href="#" class="btn btn-outline-primary"><i
-                                class="fas fa-location-arrow me-2"></i> Xem chi tiết</a>
-                    </div>
-                </div>
-            </div>
-            <div class="border border-primary rounded position-relative vesitable-item">
-                <div class="vesitable-img">
-                    <img src="/client/img/category/an-trua.webp" class="img-fluid w-100 rounded-top" alt="">
-                </div>
-                <div class="text-white bg-primary px-3 py-1 rounded position-absolute"
-                     style="top: 10px; right: 10px;">
-                    Category
-                </div>
-                <div class="p-4 rounded-bottom bg-white">
-                    <h4>Giò heo phỉ thuý</h4>
-                    <p>Cắt phỉ thuý ra làm giò heo. @@.</p>
-                    <div class="d-flex justify-content-between flex-lg-wrap">
-                        <p class="text-dark fs-5 fw-bold mb-0">$4.99</p>
-                        <a href="#" class="btn btn-outline-primary">
+                        <p th:text="${food.getPrice + ' đồng'}" class="text-dark fs-5 fw-bold mb-0">$4.99</p>
+                        <a th:href="@{'/food/' + ${food.getSlug()}}" class="btn btn-outline-primary">
                             <i class="fas fa-location-arrow me-2"></i> Xem chi tiết
                         </a>
                     </div>
                 </div>
             </div>
+            <!-- End of food loop -->
         </div>
     </div>
 </div>
 <!-- Foods End -->
+
+
 
 
 <!-- One Product Start-->

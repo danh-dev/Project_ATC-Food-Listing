@@ -4,6 +4,7 @@ import vn.hdweb.team9.domain.entity.Food;
 import vn.hdweb.team9.domain.entity.RatingFood;
 
 import java.util.List;
+import java.util.Optional;
 
 public interface FoodDAO {
     // save food and return saved Id
@@ -22,7 +23,7 @@ public interface FoodDAO {
     List<Food> findByNameExceptId(String fooName, Long currentFoodId);
     
     // find food by slug
-    List<Food> findBySlug(String foodSlug);
+    Optional<Food> findBySlug(String foodSlug);
     
     // find ratings by food id
     List<RatingFood> findRatingsByFoodId(Long foodId);

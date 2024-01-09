@@ -8,6 +8,7 @@ import vn.hdweb.team9.domain.entity.Food;
 import vn.hdweb.team9.domain.entity.RatingFood;
 
 import java.util.List;
+import java.util.Optional;
 
 @Repository
 @RequiredArgsConstructor
@@ -54,12 +55,12 @@ public class FoodDAOImpl implements FoodDAO {
     }
     
     @Override
-    public List<Food> findBySlug(String foodSlug) {
+    public Optional<Food> findBySlug(String foodSlug) {
         TypedQuery<Food> query = entityManager
                 .createQuery("select f from Food f where f.slug = :data", Food.class)
                 .setParameter("data", foodSlug);
-        
-        return query.getResultList();
+
+        return Optional.ofNullable(query.getResultList().stream().findFirst().orElse(null));
     }
     
     /**
