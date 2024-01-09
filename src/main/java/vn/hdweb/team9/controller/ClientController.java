@@ -1,13 +1,15 @@
 package vn.hdweb.team9.controller;
 
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.stereotype.Repository;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import vn.hdweb.team9.domain.entity.Coupon;
 import vn.hdweb.team9.domain.entity.Restaurant;
+import vn.hdweb.team9.service.CouponService;
 import vn.hdweb.team9.service.RestaurantService;
 
 import java.util.List;
@@ -17,13 +19,22 @@ import java.util.Optional;
 @RequestMapping("/")
 @Slf4j
 public class ClientController {
+
     private final RestaurantService restaurantService;
-    public ClientController(RestaurantService restaurantService) {
+    private final CouponService couponService;
+
+    public ClientController(RestaurantService restaurantService, CouponService couponService) {
         this.restaurantService = restaurantService;
+        this.couponService = couponService;
     }
+
 
     @GetMapping(value = {"", "/","/home","/index","/trang-chu","index.html","home.html","trang-chu.html"})
     public String home(Model model) {
+        // coupons
+        List<Coupon> coupons = couponService.findAll();
+        model.addAttribute("coupons", coupons);
+        // restaurants
         List<Restaurant> restaurants = restaurantService.findRestaurants();
         model.addAttribute("restaurants",restaurants);
         return "client/index";

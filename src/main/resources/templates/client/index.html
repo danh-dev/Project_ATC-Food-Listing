@@ -2,6 +2,51 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org"
       xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity6">
 <head th:replace="~{client/fragments/head :: heads(pageTitle='Project Index')}"></head>
+
+<style>
+
+    .coupon-card {
+      width: 350px;
+      padding: 10px;
+      border-radius: 20px;
+      background: orange;
+      border: none;
+      color: #fff;
+      height: 350px;
+      display: flex;
+      position: relative;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .coupon-container {
+      height: 100vh;
+    }
+
+    .coupon-card h1 {
+      font-size: 48px;
+      margin-bottom: 0px;
+    }
+
+    .coupon-card span {
+      font-size: 28px;
+    }
+
+    .coupon-image {
+      position: absolute;
+      opacity: .1;
+      left: 0;
+      top: 0;
+    }
+
+    .coupon-image2 {
+      position: absolute;
+      bottom: 0;
+      right: 0;
+      opacity: .1;
+    }
+</style>
+
 <body>
 
 <div th:replace="~{client/fragments/header :: header}"></div>
@@ -129,40 +174,57 @@
 <div class="container-fluid service py-5">
     <div class="container py-5">
         <div class="row g-4 justify-content-center">
-            <div class="col-md-6 col-lg-4">
+            <!-- Iterate over the list of coupons -->
+            <div th:each="coupon, iterStat : ${coupons}" class="col-md-6 col-lg-4" th:if="${iterStat.index lt 3}">
                 <div class="service-item bg-dark rounded border border-secondary">
                     <div class="px-4 rounded-bottom">
                         <div class="service-content bg-primary text-center p-4 rounded">
-                            <h5 class="text-white">Tết sum vầy ăn no say</h5>
-                            <h3 class="text-white alert-link">20OFF</h3>
-                            <p class="text-center text-white">Giảm ngay 20% giá trị đơn hàng</p>
+                            <h5 class="text-white" th:text="${coupon.couponName}">Coupon Name</h5>
+                            <h3 class="text-white alert-link" th:text="${coupon.couponCode}">Coupon Code</h3>
+                            <p class="text-center text-white" th:text="${coupon.couponDescription}">Coupon Description</p>
                         </div>
                     </div>
                 </div>
             </div>
+            <!-- End iteration -->
 
-            <div class="col-md-6 col-lg-4">
-                <div class="service-item bg-primary rounded border border-secondary">
-                    <div class="px-4 rounded-bottom">
-                        <div class="service-content bg-white text-center p-4 rounded">
-                            <h5 class="text-primary">Tết sum vầy ăn no say</h5>
-                            <h3 class="text-primary alert-link">20OFF</h3>
-                            <p class="text-primary text-center">Giảm ngay 20% giá trị đơn hàng</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-6 col-lg-4">
-                <div class="service-item bg-dark rounded border border-secondary">
-                    <div class="px-4 rounded-bottom">
-                        <div class="service-content bg-primary text-center p-4 rounded">
-                            <h5 class="text-white">Tết sum vầy ăn no say</h5>
-                            <h3 class="text-white alert-link">20OFF</h3>
-                            <p class="text-center text-white">Giảm ngay 20% giá trị đơn hàng</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
+
+<!--            <div class="col-md-6 col-lg-4">-->
+<!--                <div class="service-item bg-dark rounded border border-secondary">-->
+<!--                    <div class="px-4 rounded-bottom">-->
+<!--                        <div class="service-content bg-primary text-center p-4 rounded">-->
+<!--                            <h5 class="text-white">Tết sum vầy ăn no say</h5>-->
+<!--                            <h3 class="text-white alert-link">20OFF</h3>-->
+<!--                            <p class="text-center text-white">Giảm ngay 20% giá trị đơn hàng</p>-->
+<!--                        </div>-->
+<!--                    </div>-->
+<!--                </div>-->
+<!--            </div>-->
+
+<!--            <div class="col-md-6 col-lg-4">-->
+<!--                <div class="service-item bg-dark rounded border border-secondary">-->
+<!--                    <div class="px-4 rounded-bottom">-->
+<!--                        <div class="service-content bg-primary text-center p-4 rounded">-->
+<!--                            <h5 class="text-white">Tết sum vầy ăn no say</h5>-->
+<!--                            <h3 class="text-white alert-link">20OFF</h3>-->
+<!--                            <p class="text-center text-white">Giảm ngay 20% giá trị đơn hàng</p>-->
+<!--                        </div>-->
+<!--                    </div>-->
+<!--                </div>-->
+<!--            </div>-->
+
+<!--            <div class="col-md-6 col-lg-4">-->
+<!--                <div class="service-item bg-primary rounded border border-secondary">-->
+<!--                    <div class="px-4 rounded-bottom">-->
+<!--                        <div class="service-content bg-white text-center p-4 rounded">-->
+<!--                            <h5 class="text-primary">Tết sum vầy ăn no say</h5>-->
+<!--                            <h3 class="text-primary alert-link">20OFF</h3>-->
+<!--                            <p class="text-primary text-center">Giảm ngay 20% giá trị đơn hàng</p>-->
+<!--                        </div>-->
+<!--                    </div>-->
+<!--                </div>-->
+<!--            </div>-->
+
         </div>
     </div>
 </div>
@@ -180,7 +242,7 @@
                 </div>
                 <div class="text-white bg-primary px-3 py-1 rounded position-absolute"
                      style="top: 10px; right: 10px;">
-                    Category
+                    Categoryn
                 </div>
                 <div class="p-4 rounded-bottom bg-white">
                     <h4>Giò heo phỉ thuý</h4>
