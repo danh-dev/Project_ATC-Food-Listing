@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+>
+<head th:replace="~{client/fragments/head :: heads(pageTitle='User Page')}"></head>
+<body>
+
+<div th:replace="~{client/fragments/header.html :: header}"></div>
+<!-- Single Page Header start -->
+<div class="container-fluid page-header py-5">
+    <h1 class="text-center text-white display-6">User Infomation</h1>
+</div>
+<!-- Single Page Header End -->
+<!-- Contact Start -->
+<div class="container-fluid contact py-5">
+    <div class="container py-5">
+        <div class="row d-flex justify-content-around">
+            <div class="col-lg-3 col-12 card m-3 p-3">
+                <div class="d-flex flex-lg-column ">
+                    <div class="d-lg-flex d-none justify-content-center">
+                        <div class="avatar avatar-xl me-2">
+                            <th:block th:if="${userInfo.avatar != null}">
+                                <img th:src="@{'/' + ${userInfo.avatar}}" alt class="h-auto rounded-circle"
+                                     width="40px"/>
+                            </th:block>
+                            <th:block th:unless="${userInfo.avatar != null}">
+                               <span class="avatar-initial rounded-circle bg-label-success">
+                                       <span class="avatar-name"></span>
+                               </span>
+                            </th:block>
+                        </div>
+                    </div>
+                    <div class="d-lg-flex d-none justify-content-center">
+                        <h3 class="text-center" th:text="${userInfo.fullName}"></h3>
+                    </div>
+                    <div class="d-lg-flex d-none justify-content-center">
+                        <h5 class="text-center text-lowercase" th:text="${userInfo.role}"></h5>
+                    </div>
+                    <div class="container">
+                        <div th:if="${userInfo.role== 'ADMIN'}" class="d-flex justify-content-center py-3">
+                            <a th:href="@{/admin}" class="btn btn-outline-primary w-75">
+                                <i class="fas fa-user-shield mx-1"></i>Admin CP</a>
+                        </div>
+                        <ul class="nav flex-lg-column flex-row justify-content-center align-content-center">
+                            <li class="nav-item">
+                                <a class="nav-link" th:href="@{/users}"><i class="fas fa-user mx-1"></i> Cập nhật
+                                    tài khoản</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" th:href="@{/users/orders}"><i class="fas fa-history mx-1"></i> Lịch
+                                    sử đặt hàng</a>
+                            </li>
+                        </ul>
+                        <form th:action="@{/logout}" method="post" class="d-none d-lg-flex pt-5 justify-content-center">
+                            <button type="submit" class="btn btn-danger w-75">
+                                <i class="fas fa-sign-out-alt mx-1"></i> Logout
+                            </button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-8 col-12 card m-3 p-3">
+                <div class="card">
+                    <h5 class="card-header">Chi tiết đơn hàng: #[[${order.getId()}]]</h5>
+                    <span class="card-header">Bạn được phép huỷ đơn trước: #[[${order.getCreatedAt().plusMinutes(3)}]]</span>
+                    <div class="card-content">
+                        <!--Hiển thị thông tin khách hàng-->
+                        <div class="ps-4">
+                            <strong>Trạng thái đơn hàng:</strong>
+                            <span th:if="${order.getStatus().toString().equalsIgnoreCase('PROCESSING')}"
+                                  class="badge bg-label-warning me-2 ms-2">Đang xử lý </span>
+                            <span th:if="${order.getStatus().toString().equalsIgnoreCase('WAITING')}"
+                                  class="badge bg-label-warning me-2 ms-2">Đợi thanh toán</span>
+                            <span th:if="${order.getStatus().toString().equalsIgnoreCase('SHIPPING')}"
+                                  class="badge bg-label-success me-2 ms-2">Đang giao</span>
+                            <span th:if="${order.getStatus().toString().equalsIgnoreCase('DELIVERED')}"
+                                  class="badge bg-label-info me-2 ms-2">Đã giao</span>
+                            <span th:if="${order.getStatus().toString().equalsIgnoreCase('CANCEL')}"
+                                  class="badge bg-label-danger me-2 ms-2">Đã huỷ</span>
+                        </div>
+                    </div>
+                    <div class="card-content">
+                        <div class="ps-4">
+                            <strong>Thông tin khách hàng:</strong>
+                            <span class="fw-bold" th:text="${order.getUser().getFullName()}"></span>
+                            -
+                            <span class="fw-bold" th:text="${order.getUser().getPhone()}"></span>
+                            -
+                            <span class="fw-bold" th:text="${order.getDeliveryAddress()}"></span>
+                        </div>
+                    </div>
+                    <div class="card-content">
+                        <div class="card-body">
+                            <div class="table-responsive">
+                                <table class="table table-striped mb-0">
+                                    <thead>
+                                    <tr>
+                                        <th>STT</th>
+                                        <th>Tên sản phẩm</th>
+                                        <th>Số lượng</th>
+                                        <th>Giá</th>
+                                        <th>Thành tiền</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    <tr th:each="orderDetail, iStat : ${order.getOrderItems()}">
+                                        <td th:text="${iStat.count}"></td>
+                                        <td>
+                                            <a th:href="@{/food/{slug}(slug=${orderDetail.getFood().getSlug()})}">
+                                                <img th:src="@{'/' + ${orderDetail.getFood().getImage()}}"
+                                                     alt="food image" width="30px" height="30px">
+                                                <span class="fw-bold"
+                                                      th:text="${orderDetail.getFood().getFoodName()}"></span>
+                                            </a>
+                                        </td>
+                                        <td th:text="${orderDetail.getQuantity()}"></td>
+                                        <td th:text="${orderDetail.getUnitPrice()}"></td>
+                                        <td th:text="${orderDetail.getQuantity() * orderDetail.getUnitPrice()}"></td>
+                                    </tr>
+                                    </tbody>
+                                </table>
+                                <div class="d-flex justify-content-end">
+                                    <h5 class="text-end">Tổng tiền: <span
+                                            th:text="${order.getTotalBill()}"></span></h5>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Contact End -->
+<div th:replace="client/fragments/footer::footer"></div>
+<div th:replace="client/fragments/js::js-insert"></div>
+</body>
+
+</html>
+

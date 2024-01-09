@@ -88,6 +88,11 @@ public class OrderService implements IOrderService {
         return orderRepository.findAllByUser(user);
     }
 
+    @Override
+    public Order findById(Long orderId) {
+        return orderRepository.findById(orderId).orElseThrow(() -> new RuntimeException("Order not found"));
+    }
+
 
     private User getUser() {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();

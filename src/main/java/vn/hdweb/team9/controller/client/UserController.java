@@ -181,4 +181,18 @@ public class UserController {
         return "client/user_orders";
     }
 
+    @GetMapping("/users/orders/{orderId}")
+    public String orderDetail(@PathVariable("orderId") Long orderId, Model model, RedirectAttributes ra) {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        String userEmail = authentication.getName();
+        User user =  userService.findByEmail(userEmail);
+        Order order = orderService.findById(orderId);
+        if(!order.getUser().getId().equals(user.getId())){
+            ra.addFlashAttribute("error_order", "Bạn không có quyền xem đơn hàng này.");
+            return "redirect:/users/orders";
+        }
+        model.addAttribute("order", order);
+        return "client/detail_order";
+    }
+
 }

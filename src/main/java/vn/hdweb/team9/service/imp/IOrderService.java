@@ -11,4 +11,6 @@ public interface IOrderService {
         Order createOrder(HttpSession session, String address, String note, String paymentMethod);
 
         List<Order> orderOfUser(User user);
+
+        Order findById(Long orderId);
 }

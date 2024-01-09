@@ -63,11 +63,14 @@
             <div class="col-lg-8 col-12 card m-3 p-3">
                 <div class="card">
                     <h5 class="card-header">Lịch sử đơn hàng:</h5>
+                    <th:block th:if="${error_order}">
+                        <div th:replace="~{client/fragments/elements/alert::error(message= ${error_order} )}"></div>
+                    </th:block>
                     <div class="card-body">
                         <table class="table table-striped table-hover">
                             <thead>
                             <tr>
-                                <th scope="col">Mã đơn hàng</th>
+                                <th scope="col" title="Mã đơn hàng">MDH</th>
                                 <th scope="col">Ngày đặt</th>
                                 <th scope="col">Nhà hàng</th>
                                 <th scope="col">Tổng tiền</th>
