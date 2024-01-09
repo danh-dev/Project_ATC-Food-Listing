@@ -2,6 +2,10 @@ package vn.hdweb.team9.service;
 
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import vn.hdweb.team9.domain.dto.request.BlogRepuestDto;
@@ -14,6 +18,7 @@ import vn.hdweb.team9.utility.UploadFile;
 
 import java.lang.module.FindException;
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
 
 
@@ -48,12 +53,15 @@ public class BlogService implements IBlogService {
     @Override
     public List<BlogResponDto> findAll() {
         List<Blog> blogs = blogRepository.findAll();
-        return getBlogResponDtos(blogs);
+        List<Blog> sortedBlogs = blogs.stream()
+                .sorted(Comparator.comparing(Blog::getCreatedAt).reversed())
+                .toList();
+        return getBlogResponDtos(sortedBlogs);
     }
 
     @Override
     public List<BlogResponDto> findLimitOrderDate() {
-        List<Blog> blogs = blogRepository.findTop2ByOrderByCreatedAtDesc();
+        List<Blog> blogs = blogRepository.findTop6ByOrderByCreatedAtDesc();
         return getBlogResponDtos(blogs);
     }
 
@@ -89,6 +97,7 @@ public class BlogService implements IBlogService {
                 String uploadedImage = UploadFile.uploadFile(blogRepuestDto.getBlog_img());
                 blog.setBlog_img(uploadedImage);
             }
+            blog.setSlug(createSlug(blogRepuestDto.getBlog_title()));
 
             blogRepository.save(blog);
         } catch (Exception e) {
@@ -104,11 +113,7 @@ public class BlogService implements IBlogService {
 
     @Override
     public String createSlug(String blog_title) {
-        String slug = TitleToSlug.toSlug(blog_title);
-        if(checkExistBlogTitle(blog_title)){
-            return slug+"1";
-        }
-        return slug;
+        return TitleToSlug.toSlug(blog_title);
     }
     @Override
     public BlogResponDto getBlogBySlug (String slug) {
@@ -123,6 +128,23 @@ public class BlogService implements IBlogService {
             throw new FindException("Blog with "+ slug + " not found");
         }
 
+    }
+
+    @Override
+    public Page<BlogResponDto> findPaginatedBlogs(int page, int size) {
+        Pageable pageable = PageRequest.of(page, size, Sort.by("createdAt").descending());
+        Page<Blog> blogPage = blogRepository.findAll(pageable);
+        return blogPage.map(this::convertToDto);
+    }
+
+    private BlogResponDto convertToDto(Blog blog) {
+        BlogResponDto blogResponDto = new BlogResponDto();
+        blogResponDto.setId(blog.getId());
+        blogResponDto.setBlog_title(blog.getBlogTitle());
+        blogResponDto.setBlog_content(blog.getBlogContent());
+        blogResponDto.setBlog_img(blog.getBlog_img());
+        blogResponDto.setSlug(blog.getSlug());
+        return blogResponDto;
     }
 
 }

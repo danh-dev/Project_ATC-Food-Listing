@@ -40,17 +40,12 @@ public class ClientController {
         return "client/food_page";
     }
 
-    @GetMapping("/post_demo")
-    public String post_demo() {
-        return "client/post_page";
-    }
-
-    @GetMapping("/blog_demo")
-    public String blog_demo (Model model) {
-        List<BlogResponDto> blogs = blogService.findAll();
-        model.addAttribute("blogs",blogs);
-        return "client/blogs";
-    }
+//    @GetMapping("/blog_demo")
+//    public String blog_demo (Model model) {
+//        List<BlogResponDto> blogs = blogService.findAll();
+//        model.addAttribute("blogs",blogs);
+//        return "client/blogs";
+//    }
 
     @RequestMapping("/404")
     public String notFound() {
