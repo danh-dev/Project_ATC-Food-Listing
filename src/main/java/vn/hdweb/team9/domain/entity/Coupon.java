@@ -107,17 +107,17 @@ public class Coupon {
      * Increase Stock Quantity
      */
     public void increaseCouponQuantity() {
-        couponQuantity += 1;
+        this.couponQuantity = this.couponQuantity + 1;
     }
 
     /**
      * Decrease Stock Quantity
      */
     public void decreaseCouponQuantity() {
-        if (couponQuantity == 0) {
+        if (this.couponQuantity == 0) {
             throw new NotEnoughException("We need more coupon.");
         }
-        couponQuantity -= 1;
+        this.couponQuantity = this.couponQuantity - 1;
     }
 
     /**

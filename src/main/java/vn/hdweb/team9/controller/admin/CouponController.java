@@ -68,7 +68,8 @@ public class CouponController {
         return "admin/coupon/couponList";
     }
 
-    @PostMapping("/delete/{id}")
+
+    @GetMapping("/delete/{id}")
     public String deleteCoupon(@PathVariable("id") Long id) {
         couponService.deleteOne(id);
         return "redirect:/admin/coupon/list";

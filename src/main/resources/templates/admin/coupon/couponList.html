@@ -164,7 +164,7 @@
                                                         <!--Hidden form for delete coupon-->
                                                         <form th:action="@{'/admin/coupon/delete/' + ${coupon.id}}" method="post" id="deleteCouponForm">
                                                         </form>
-                                                        <button type="submit" class="btn btn-outline-danger btn-sm" onclick="confirmDelete(${coupon.id})">
+                                                        <button type="submit" class="btn btn-outline-danger btn-sm" th:onclick="confirmDelete([[${coupon.id}]])">
                                                             <i class="bx bx-trash me-1"></i>
                                                         </button>
 
@@ -191,7 +191,6 @@
                                                 </td>
                                             </tr>
 
-
                                             </tbody>
                                         </table>
                                     </div>
@@ -216,12 +215,17 @@
 </body>
 
 <script>
+    var globalId;
+
     function confirmDelete(id) {
+        console.log(id);
+        globalId = id;
         $('#deleteConfirmationModal').modal('show');
     }
 
     function submitDeleteForm() {
-        $('#deleteCouponForm').submit();
+<!--        $('#deleteCouponForm').submit();-->
+            window.location = '/admin/coupon/delete/' + globalId;
     }
 
     function handleKeyPress(event) {

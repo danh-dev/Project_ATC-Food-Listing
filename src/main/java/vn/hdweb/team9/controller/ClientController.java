@@ -1,6 +1,7 @@
 package vn.hdweb.team9.controller;
 
 import lombok.extern.slf4j.Slf4j;
+import org.hibernate.sql.ast.tree.expression.Collation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -12,6 +13,7 @@ import vn.hdweb.team9.domain.entity.Restaurant;
 import vn.hdweb.team9.service.CouponService;
 import vn.hdweb.team9.service.RestaurantService;
 
+import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 
@@ -33,6 +35,7 @@ public class ClientController {
     public String home(Model model) {
         // coupons
         List<Coupon> coupons = couponService.findAll();
+        Collections.shuffle(coupons);
         model.addAttribute("coupons", coupons);
         // restaurants
         List<Restaurant> restaurants = restaurantService.findRestaurants();

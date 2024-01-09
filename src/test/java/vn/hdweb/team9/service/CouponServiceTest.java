@@ -129,12 +129,29 @@ class CouponServiceTest {
         couponService.create(coupon2);
 
         // when
-        couponRepository.delete(coupon1);
+        couponRepository.deleteOne(coupon1.getId());
         List<Coupon> results = couponRepository.findAll();
 
         // then
         assertThat(results.toArray().length).isEqualTo(1);
 
+    }
+
+    @Test
+    void decreaseCouponQuantity() {
+        // given
+        Coupon coupon1 = new Coupon();
+        coupon1.setCouponName("Coupon 1");
+        coupon1.setCouponQuantity(100);
+        couponService.create(coupon1);
+
+        // when
+        coupon1.decreaseCouponQuantity();
+        Coupon getCoupon = couponService.findOne(coupon1.getId()).get();
+
+        // then
+        assertThat(getCoupon.getCouponQuantity()).isEqualTo(99);
 
     }
+
 }
