@@ -1,16 +1,14 @@
 package vn.hdweb.team9.repository.interfaces;
 
-import jakarta.persistence.EntityManager;
-import jakarta.persistence.NoResultException;
-import jakarta.persistence.TypedQuery;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
-import vn.hdweb.team9.domain.dto.respon.RestaurantDto;
 import vn.hdweb.team9.domain.entity.Restaurant;
 
 import java.util.List;
-import java.util.Optional;
+import java.util.Set;
 
 @Repository
 @Transactional
@@ -26,4 +24,8 @@ public interface IRestaurantRepository extends JpaRepository<Restaurant, Long> {
     Restaurant findBySlug(String slug);
 
     //List<Restaurant> findAll();
+    
+    // find all restaurants by food name
+    @Query("SELECT r FROM Restaurant r LEFT JOIN Food f ON r.id = f.restaurant.id WHERE f.foodName LIKE %:foodName%")
+    public Set<Restaurant> FindAllWithFoodNameQuery(@Param("foodName") String foodName);
 }

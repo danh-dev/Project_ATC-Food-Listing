@@ -34,4 +34,7 @@ public class FoodDTO {
     
     @NotNull(message = "Choose category !")
     private Long categoryId;
+    
+    @NotNull(message = "Choose restaurant !")
+    private Long restaurantId;
 }

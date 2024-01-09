@@ -48,7 +48,10 @@ public class Restaurant {
     @Column(name = "create_at")
     private LocalDateTime createdAt = LocalDateTime.now();
 
-    @OneToMany(mappedBy = "restaurant", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "restaurant",
+               cascade = {CascadeType.PERSIST, CascadeType.MERGE,
+                           CascadeType.DETACH, CascadeType.REFRESH},
+               fetch = FetchType.LAZY)
     private List<Food> listFood = new ArrayList<>();
 
     @OneToMany(mappedBy = "restaurant", cascade = CascadeType.ALL)
@@ -56,5 +59,37 @@ public class Restaurant {
 
     @OneToMany(mappedBy = "restaurant", cascade = CascadeType.ALL)
     private List<Order> listOrder = new ArrayList<>();
-
+    
+    public Restaurant() {
+    }
+    
+    public Restaurant(String restaurantName,
+                      String slug,
+                      String description,
+                      String address,
+                      String logo,
+                      String image,
+                      String openTime,
+                      String closeTime,
+                      boolean isActive
+                     ) {
+        this.restaurantName = restaurantName;
+        this.slug = slug;
+        this.description = description;
+        this.address = address;
+        this.logo = logo;
+        this.image = image;
+        this.openTime = openTime;
+        this.closeTime = closeTime;
+        this.isActive = isActive;
+    }
+    
+    // add convenience methods for bi-directional relationship
+    public void add(Food food) {
+        if (listFood == null) {
+            this.listFood = new ArrayList<>();
+        }
+        food.setRestaurant(this);
+        this.listFood.add(food);
+    }
 }

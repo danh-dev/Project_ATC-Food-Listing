@@ -69,6 +69,20 @@
                                                 th:if="${#fields.hasErrors('categoryId')}" th:errors="*{categoryId}">
                                             </div>
                                         </div>
+                                        <!-- Restaurant selection -->
+                                        <div class="mb-3 form-group">
+                                            <label class="form-label" for="restaurant">Restaurants</label>
+                                            <select name="restaurantId" id="restaurant" class="form-control">
+                                                <option value="">Select restaurant</option>
+                                                <option th:each="item : ${restaurants}"
+                                                        th:value="${item.id}"
+                                                        th:text="${item.restaurantName}" />
+                                            </select>
+                                            <div
+                                                th:class="${#fields.hasErrors('restaurantId')}? 'invalid-feedback d-block' : 'invalid-feedback'"
+                                                th:if="${#fields.hasErrors('restaurantId')}" th:errors="*{restaurantId}">
+                                            </div>
+                                        </div>
                                         <!-- Desc -->
                                         <div class="mb-3 form-group">
                                             <label class="form-label" for="food-description">Description</label>

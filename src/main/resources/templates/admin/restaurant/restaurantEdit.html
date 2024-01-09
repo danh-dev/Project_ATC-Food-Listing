@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en"
       xmlns:th="http://www.thymeleaf.org"
-      class="light-style layout-menu-fixed layout-navbar-fixed"
+      class="light-style layout-menu-fixed"
       dir="ltr"
       data-theme="theme-default"
       data-assets-path="/admin/assets/"
@@ -32,8 +32,7 @@
         <!-- Menu -->
 
         <aside id="layout-menu"
-               th:replace="~{admin/fragments/menu :: drawer-menu(value_menu = 'restaurants,restaurants_update')}"
-               class="layout-menu menu-vertical menu bg-menu-theme"></aside>
+               th:replace="~{admin/fragments/menu :: drawer-menu(value_menu = 'restaurants,restaurants_update')}"></aside>
         <!-- / Menu -->
 
         <!-- Layout container -->
@@ -146,7 +145,6 @@
                                         <button type="submit" class="btn btn-primary">Cập nhật</button>
                                     </form>
                                 </div>
-
                             </div>
                         </div>
                     </div>

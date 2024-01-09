@@ -14,8 +14,10 @@ import org.springframework.web.multipart.MultipartFile;
 import vn.hdweb.team9.domain.dto.FoodDTO;
 import vn.hdweb.team9.domain.entity.Category;
 import vn.hdweb.team9.domain.entity.Food;
+import vn.hdweb.team9.domain.entity.Restaurant;
 import vn.hdweb.team9.service.CategoryService;
 import vn.hdweb.team9.service.FoodService;
+import vn.hdweb.team9.service.RestaurantService;
 import vn.hdweb.team9.utility.UploadFileUtil;
 
 import java.util.Arrays;
@@ -29,10 +31,13 @@ public class FoodController {
     
     private CategoryService categoryService;
     
+    private final RestaurantService restaurantService;
+    
     @Autowired
-    public FoodController(FoodService foodService, CategoryService categoryService) {
+    public FoodController(FoodService foodService, CategoryService categoryService, RestaurantService restaurantService) {
         this.foodService = foodService;
         this.categoryService = categoryService;
+        this.restaurantService = restaurantService;
     }
     
     @GetMapping("/list")
@@ -53,7 +58,11 @@ public class FoodController {
     @GetMapping("/new")
     public String showForm(Model model) {
         List<Category> categories = categoryService.getAllCategories();
+        
+        List<Restaurant> restaurants = restaurantService.findRestaurants();
+        
         model.addAttribute("categories", categories);
+        model.addAttribute("restaurants", restaurants);
         model.addAttribute("foodDTO", new FoodDTO());
         return "admin/food/createFood";
     }
@@ -63,9 +72,13 @@ public class FoodController {
                               BindingResult bindingResult,
                               Model model) {
         List<Category> categories = categoryService.getAllCategories();
+        List<Restaurant> restaurants = restaurantService.findRestaurants();
+        
         // Check for validation errors
         if (bindingResult.hasErrors()) {
             model.addAttribute("categories", categories);
+            model.addAttribute("restaurants", restaurants);
+            
             return "admin/food/createFood";
         } else {
             // Validate image file
@@ -105,8 +118,15 @@ public class FoodController {
                     food.setPrice(foodDTO.getPrice());
                     food.setTimeWait(foodDTO.getTimeWait());
                     food.setId(foodDTO.getId());
+                    
+                    // add category
                     Category findCategory = categoryService.getCategoryById(foodDTO.getCategoryId());
                     food.setCategory(findCategory);
+                    
+                    // add restaurant
+                    Restaurant findRestaurant = restaurantService.findOne(foodDTO.getRestaurantId()).get();
+                    food.setRestaurant(findRestaurant);
+                    
                     
                     // get image url
                     String imageUrl = UploadFileUtil.uploadFile(foodDTO.getImageFile());
@@ -134,6 +154,7 @@ public class FoodController {
         Food food = foodService.getFoodById(foodId);
         Category category = food.getCategory();
         List<Category> categories = categoryService.getAllCategories();
+        List<Restaurant> restaurants = restaurantService.findRestaurants();
         
         
         // entity -> dto
@@ -150,6 +171,7 @@ public class FoodController {
         model.addAttribute("prevImageUrl", food.getImage());
         model.addAttribute("categories", categories);
         model.addAttribute("category", category);
+        model.addAttribute("restaurants", restaurants);
         
         return "admin/food/createFood";
     }

@@ -14,6 +14,7 @@ import vn.hdweb.team9.utility.UploadFile;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.Set;
 
 @Transactional
 @Service
@@ -111,5 +112,10 @@ public class RestaurantService {
     }
     public Optional<Restaurant> findBySlug (String slug) {
         return Optional.ofNullable(restaurantRepository.findBySlug(slug));
+    }
+    
+    // get all restaurants by food name
+    public Set<Restaurant> findAllRestaurantsWithFoodName(String foodName) {
+        return restaurantRepository.FindAllWithFoodNameQuery(foodName);
     }
 }
