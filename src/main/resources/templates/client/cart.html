@@ -1,143 +1,205 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org"
 >
-<head th:replace="~{client/fragments/head :: heads(pageTitle='Login')}"></head>
+<head th:replace="~{client/fragments/head :: heads(pageTitle='Login')}">
+</head>
 <body>
-
 <div th:replace="~{client/fragments/header :: header}"></div>
 <!-- Content Start -->
 <div class="container-fluid py-5 mt-5">
     <div class="container py-5 mt-5 d-flex justify-content-center">
-        <div class="card w-100">
-            <div class="card-title">
-                <h3 class="text-center py-3">Cart order</h3>
-            </div>
-            <div class="card-content">
-                <div class="row">
-                    <div class="col-12 col-lg-8">
-                        <div class="card m-4 p-3">
-                            <div class="card-header d-flex justify-content-between align-items-center">
-                                <h5 class="card-title m-0">Danh sách món ăn</h5>
-                            </div>
-                            <div class="card-datatable">
-                                <div class="dataTables_wrapper dt-bootstrap5 no-footer" id="DataTables_Table_0_wrapper">
-                                    <table class="datatables-order-details table dataTable no-footer dtr-column"
-                                           id="DataTables_Table_0">
-                                        <thead>
-                                        <tr>
-                                            <th aria-label="products" class="w-50 sorting_disabled" colspan="1"
-                                                rowspan="1" style="width: 354px;">Món ăn
-                                            </th>
-                                            <th aria-label="price" class="w-25 sorting_disabled" colspan="1"
-                                                rowspan="1" style="width: 154px;">Giá
-                                            </th>
-                                            <th aria-label="qty" class="w-25 sorting_disabled" colspan="1"
-                                                rowspan="1" style="width: 144px;">Số lượng
-                                            </th>
-                                            <th aria-label="total" class="sorting_disabled" colspan="1" rowspan="1"
-                                                style="width: 53px;">Tổng
-                                            </th>
-                                        </tr>
-                                        </thead>
-                                        <tbody>
-                                        <!--/*@thymesVar id="cart" type="session"*/-->
-                                        <tr th:each="item, iterStat : ${cart.items}">
-                                            <td class="sorting_1">
-                                                <div class="d-flex justify-content-start align-items-center text-nowrap">
-                                                    <div class="avatar-wrapper">
-                                                        <div class="avatar me-2">
-                                                            <img
-                                                                    alt="product-Wooden Chair"
-                                                                    class="rounded-2"
-                                                                    th:src="@{'/'+${item.food.image}}">
-                                                        </div>
-                                                    </div>
-                                                    <div class="d-flex flex-column">
-                                                        <h6 class="text-body mb-0" th:text="${item.food.foodName}">Món
-                                                            ăn</h6>
+        <th:block th:unless="${cart.getTotalBill() == 0}">
+            <div class="row d-flex justify-content-around w-100 align-items-stretch">
+                <div class="col-12 col-lg-8 d-flex">
+                    <div class="card m-4 p-3 d-flex w-100">
+                        <div class="card-header d-flex justify-content-between align-items-center">
+                            <h5 class="card-title m-0">Danh sách món ăn</h5>
+                        </div>
+                        <div class="card-datatable">
+                            <div class="dataTables_wrapper dt-bootstrap5 no-footer"
+                                 id="DataTables_Table_0_wrapper">
+                                <table class="datatables-order-details table dataTable no-footer dtr-column"
+                                       id="DataTables_Table_0">
+                                    <thead>
+                                    <tr>
+                                        <th aria-label="products" class="w-50 sorting_disabled" colspan="1"
+                                            rowspan="1" style="width: 354px;">Món ăn
+                                        </th>
+                                        <th aria-label="price" class="w-25 sorting_disabled" colspan="1"
+                                            rowspan="1" style="width: 154px;">Giá
+                                        </th>
+                                        <th aria-label="qty" class="w-25 sorting_disabled" colspan="1"
+                                            rowspan="1" style="width: 144px;">Số lượng
+                                        </th>
+                                        <th aria-label="total" class="sorting_disabled" colspan="1" rowspan="1"
+                                            style="width: 53px;">Tổng
+                                        </th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    <!--/*@thymesVar id="cart" type="session"*/-->
+                                    <tr th:each="item, iterStat : ${cart.items}">
+                                        <td class="sorting_1">
+                                            <div class="d-flex justify-content-start align-items-center text-nowrap">
+                                                <div class="avatar-wrapper">
+                                                    <div class="avatar me-2">
+                                                        <img
+                                                                alt="product-Wooden Chair"
+                                                                class="rounded-2"
+                                                                th:src="@{'/'+${item.food.image}}">
                                                     </div>
                                                 </div>
-                                            </td>
-                                            <td><span th:text="${item.food.price}"></span>vnđ</td>
-                                            <td>
-                                                <form th:action="@{/cart/update/{id}(id=${item.food.id})}" method="post"
-                                                      id="update-cart-form"
-                                                      th:id="'update-form-' + ${iterStat.index}">
-                                                    <input type="number" name="quantity" th:value="${item.quantity}"
-                                                           min="1"
-                                                           onchange="submitFormAfterDelay(this.form.id)"/>
-                                                    <button type="submit" hidden>Cập Nhật</button>
-                                                </form>
-                                            </td>
-                                            <td><h6 class="mb-0" th:text="${item.food.price * item.quantity}">$1682</h6>
-                                            </td>
-                                        </tr>
-                                        </tbody>
-                                    </table>
-                                </div>
-                                <div class="m-3 mb-2 p-1">
-                                    <div class="row">
-                                        <div class="col-12 col-lg-8 d-flex flex-column">
-                                            <th:block th:if="${apply_success}">
-                                                <div th:replace="~{client/fragments/elements/alert::success(message= ${apply_success} )}"></div>
-                                            </th:block>
-                                            <th:block th:if="${apply_error}">
-                                                <div th:replace="~{client/fragments/elements/alert::error(message= ${apply_error} )}"></div>
-                                            </th:block>
-                                            <th:block th:if="${cart.coupon}">
-                                                <form class="d-flex align-items-center" th:action="@{/cart/remove-coupon}" method="post">
-                                                    <input class="form-control me-2" type="text" placeholder="Coupon code" name="coupon" th:value="${cart.coupon}" disabled>
+                                                <div class="d-flex flex-column">
+                                                    <h6 class="text-body mb-0" th:text="${item.food.foodName}">
+                                                        Món
+                                                        ăn</h6>
+                                                </div>
+                                            </div>
+                                        </td>
+                                        <td><span th:text="${item.food.price}"></span>vnđ</td>
+                                        <td>
+                                            <form th:action="@{/cart/update/{id}(id=${item.food.id})}"
+                                                  method="post"
+                                                  id="update-cart-form"
+                                                  th:id="'update-form-' + ${iterStat.index}">
+                                                <input type="number" name="quantity" th:value="${item.quantity}"
+                                                       min="1"
+                                                       onchange="submitFormAfterDelay(this.form.id)"
+                                                       style="width: 50px; border: none;"
+                                                       class="quantity-input text-center"
+                                                />
+                                                <button type="submit" hidden>Cập Nhật</button>
+                                            </form>
+                                        </td>
+                                        <td><h6 class="mb-0" th:text="${item.food.price * item.quantity}"></h6>
+                                        </td>
+                                    </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                            <div class="m-3 mb-2 p-1">
+                                <div class="row">
+                                    <div class="col-12 col-lg-8 d-flex flex-column">
+                                        <th:block th:if="${apply_success}">
+                                            <div th:replace="~{client/fragments/elements/alert::success(message= ${apply_success} )}"></div>
+                                        </th:block>
+                                        <th:block th:if="${apply_error}">
+                                            <div th:replace="~{client/fragments/elements/alert::error(message= ${apply_error} )}"></div>
+                                        </th:block>
+                                        <th:block th:if="${cart.coupon}">
+                                            <div class="alert alert-success d-flex justify-content-between"
+                                                 role="alert">
+                                                <div class="d-flex">
+                                                        <span
+                                                                class="badge badge-center rounded-pill bg-warning p-3 me-2">
+                                                        <i class="fas fa-percent"></i>
+                                                    </span>
+                                                    <div class="d-flex flex-column ps-1">
+                                                        <h6 class="alert-heading d-flex align-items-center mb-1"
+                                                            th:text="${cart.coupon.getCouponName() +' - '+ cart.coupon.getCouponCode()}"></h6>
+                                                        <span th:text="${cart.coupon.getCouponDescription()}"></span>
+                                                    </div>
+                                                </div>
+                                                <form class="d-flex align-items-center"
+                                                      th:action="@{/cart/remove-coupon}" method="post">
                                                     <button class="btn btn-danger" type="submit">Remove</button>
                                                 </form>
-                                            </th:block>
-                                            <th:block th:unless="${cart.coupon}">
-                                                <form class="d-flex align-items-center" th:action="@{/cart/apply-coupon}" method="post">
-                                                    <input class="form-control me-2" type="text" placeholder="Coupon code" th:value="${cart.coupon}">
-                                                    <button class="btn btn-primary" type="submit">Apply</button>
-                                                </form>
-                                            </th:block>
+                                            </div>
+                                        </th:block>
+                                        <th:block th:unless="${cart.coupon}">
+                                            <form class="d-flex align-items-center"
+                                                  th:action="@{/cart/apply-coupon}" method="post">
+                                                <input class="form-control me-2" type="text"
+                                                       placeholder="Coupon code" name="coupon">
+                                                <button class="btn btn-primary" type="submit">Apply</button>
+                                            </form>
+                                        </th:block>
+                                    </div>
+                                    <div class="order-calculations col-12 col-lg-4">
+                                        <div class="d-flex justify-content-between mb-2">
+                                            <span class="w-px-100">Tạm tính:</span>
+                                            <span class="text-heading" th:text="${cart.getTotalBill()}"></span>
                                         </div>
-                                        <div class="order-calculations col-12 col-lg-4">
-                                            <div class="d-flex justify-content-between mb-2">
-                                                <span class="w-px-100">Tạm tính:</span>
-                                                <span class="text-heading" th:text="${cart.getTotalBill()}"></span>
-                                            </div>
-                                            <div class="d-flex justify-content-between mb-2">
-                                                <span class="w-px-100">Discount:</span>
-                                                <span class="text-heading mb-0">$22</span>
-                                            </div>
-                                            <div class="d-flex justify-content-between mb-2">
-                                                <span class="w-px-100">Tax:</span>
-                                                <span class="text-heading">$30</span>
-                                            </div>
-                                            <div class="d-flex justify-content-between">
-                                                <h6 class="w-px-100 mb-0">Total:</h6>
-                                                <h6 class="mb-0">$6450</h6>
-                                            </div>
+                                        <div th:if="${cart.coupon}" class="d-flex justify-content-between mb-2">
+                                            <span class="w-px-100">Giảm:</span>
+                                            <span class="text-heading mb-0" th:if="${cart.coupon != null}"
+                                                  th:text="${cart.coupon.getOrderDiscount(cart.getTotalBill())}"></span>
+                                            <span class="text-heading mb-0"
+                                                  th:if="${cart.coupon == null}">0</span>
+                                        </div>
+                                        <div class="d-flex justify-content-between">
+                                            <h6 class="w-px-100 mb-0">Tổng:</h6>
+                                            <h6 class="mb-0" th:if="${cart.coupon != null}"
+                                                th:text="${cart.getTotalBill()- cart.coupon.getOrderDiscount(cart.getTotalBill())}"></h6>
+                                            <h6 class="mb-0" th:if="${cart.coupon == null}"
+                                                th:text="${cart.getTotalBill()}"></h6>
                                         </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </div>
-
-                    <div class="col-12 col-lg-4">
-                        <div class="card m-4 p-3">
-                            <div class="card-header d-flex justify-content-between align-items-center">
-                                <h5 class="card-title m-0">Thông tin đơn hàng</h5>
-                            </div>
-                            <div class="card-content">
-
-                            </div>
-                        </div>
-                    </div>
-
                 </div>
 
+                <div class="col-12 col-lg-4 d-flex">
+                    <div class="card m-4 p-3 d-flex justify-content-between w-100">
+                        <div class="card-header d-flex justify-content-between align-items-center">
+                            <h5 class="card-title m-0">Thông tin đơn hàng</h5>
+                        </div>
+                        <div class="card-body">
+                            <form th:action="@{/order/create}" method="POST">
+                                <div class="form-check mb-3">
+                                    <input name="addressUse" class="form-check-input" type="radio" value="user"
+                                           id="address-user" checked>
+                                    <label class="form-check-label" for="address-user">
+                                        Sử dụng địa chỉ của tôi
+                                    </label>
+                                </div>
+                                <div class="form-check mb-3">
+                                    <input name="addressUse" class="form-check-input" type="radio"
+                                           value="input" id="address-input">
+                                    <label class="form-check-label" for="address-input">
+                                        Sử dụng địa chỉ khác
+                                    </label>
+                                </div>
+                                <div class="mb-3">
+                                    <label for="address" class="form-label" hidden="">Địa chỉ giao hàng</label>
+                                    <input type="text" class="form-control" id="address" placeholder="Địa chỉ"
+                                           value="" name="address">
+                                </div>
+                                <div>
+                                    <label for="note" class="form-label">Thêm ghi chú</label>
+                                    <textarea class="form-control" id="note" rows="2" name="note"></textarea>
+                                </div>
+                                <div class="form-check mb-3">
+                                    <input name="paymentMethod" class="form-check-input" type="radio" value="vnpay"
+                                           id="vnpay" checked>
+                                    <label class="form-check-label" for="vnpay">
+                                       VnPay
+                                    </label>
+                                </div>
+                                <div class="form-check mb-3">
+                                    <input name="paymentMethod" class="form-check-input" type="radio"
+                                           value="cod" id="cod">
+                                    <label class="form-check-label" for="cod">
+                                        COD
+                                    </label>
+                                </div>
+
+                                <button type="submit" class="btn btn-primary mt-3 w-100">Đặt hàng</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
             </div>
-
-        </div>
-
+        </th:block>
+        <th:block th:if="${cart.getTotalBill() == 0}">
+            <div class="d-flex flex-column">
+                <img src="/cart-empty.png" width="500" alt="cart empty">
+                <h3 class="text-center">Giỏ hàng trống</h3>
+                <a href="/" class="btn btn-primary mt-3">Tiếp tục mua hàng</a>
+            </div>
+        </th:block>
     </div>
 </div>
 <!-- Content End -->
@@ -147,6 +209,27 @@
             document.getElementById(formId).submit();
         }, 1500); // Thời gian chờ là 1.5 giây
     }
+
+    document.addEventListener('DOMContentLoaded', function () {
+        const userRadio = document.getElementById('address-user');
+        const inputRadio = document.getElementById('address-input');
+        const addressInput = document.getElementById('address');
+
+        // Function to update the state of the address input
+        function updateAddressInput() {
+            if (userRadio.checked) {
+                addressInput.value = [[${userInfo.address}]];
+                addressInput.hidden = true;
+            } else if (inputRadio.checked) {
+                addressInput.value = "";
+                addressInput.hidden = false;
+            }
+        }
+
+        userRadio.addEventListener('change', updateAddressInput);
+        inputRadio.addEventListener('change', updateAddressInput);
+        updateAddressInput();
+    });
 </script>
 <div th:replace="~{client/fragments/footer::footer}"></div>
 <div th:replace="~{client/fragments/js::js-insert}"></div>

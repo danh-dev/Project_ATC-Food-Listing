@@ -15,68 +15,88 @@
 <!-- Contact Start -->
 <div class="container-fluid contact py-5">
     <div class="container py-5">
-        <div class="bg-light rounded">
-            <div class="row d-flex justify-content-around">
-                <div class="col-lg-3 col-12  bg-body m-3 p-3">
-                    <div class="d-flex flex-lg-column ">
-                        <div class="d-lg-flex d-none justify-content-center">
-                            <img th:src="@{'/' + ${user.avatar}}" alt="avatar"
-                                 class="rounded-circle border border-3 border-white m-3" width="100px" height="100px">
-                        </div>
-                        <div class="d-lg-flex d-none justify-content-center">
-                            <h3 class="text-center" th:text="${user.fullName}"></h3>
-                        </div>
-                        <div class="d-lg-flex  d-none justify-content-center">
-                            <h5 class="text-center text-lowercase" th:text="${user.role}"></h5>
-                        </div>
-                        <div class="container">
-                            <ul class="nav flex-lg-column flex-row justify-content-center align-content-center">
-                                <li class="nav-item">
-                                    <a class="nav-link" th:href="@{/users}"><i class="fas fa-user mx-1"></i> Cập nhật
-                                        tài khoản</a>
-                                </li>
-                                <li class="nav-item">
-                                    <a class="nav-link" th:href="@{/users/orders}"><i class="fas fa-history mx-1"></i> Lịch sử đặt hàng</a>
-                                </li>
-                            </ul>
-
-                            <form th:action="@{/logout}" method="post" class="d-none d-lg-flex pt-5 justify-content-center">
-                                <button type="submit" class="btn btn-danger w-75">
-                                    <i class="fas fa-sign-out-alt mx-1"></i> Logout
-                                </button>
-                            </form>
+        <div class="row d-flex justify-content-around">
+            <div class="col-lg-3 col-12 card m-3 p-3">
+                <div class="d-flex flex-lg-column ">
+                    <div class="d-lg-flex d-none justify-content-center">
+                        <div class="avatar avatar-xl me-2">
+                            <th:block th:if="${userInfo.avatar != null}">
+                                <img th:src="@{'/' + ${userInfo.avatar}}" alt class="h-auto rounded-circle"
+                                     width="40px"/>
+                            </th:block>
+                            <th:block th:unless="${userInfo.avatar != null}">
+                               <span class="avatar-initial rounded-circle bg-label-success">
+                                       <span class="avatar-name"></span>
+                               </span>
+                            </th:block>
                         </div>
                     </div>
-                </div>
-                <div class="col-lg-8 col-12 bg-body m-3 p-3">
-                    <div class="card">
-                        <h5 class="card-header">Lịch sử đơn hàng:</h5>
-                        <div class="card-body">
-                            <table class="table table-striped table-hover">
-                                <thead>
-                                <tr>
-                                    <th scope="col">Mã đơn hàng</th>
-                                    <th scope="col">Ngày đặt</th>
-                                    <th scope="col">Tổng tiền</th>
-                                    <th scope="col">Trạng thái</th>
-                                    <th scope="col">Chi tiết</th>
-                                </tr>
-                                </thead>
-                                <tbody>
-                                <tr th:if="${orders.size()>0}" th:each="order : ${orders}">
-                                    <td th:text="${order.id}"></td>
-                                    <td th:text="${order.orderDate}"></td>
-                                    <td th:text="${order.total}"></td>
-                                    <td th:text="${order.status}"></td>
-                                    <td>
-                                        <a th:href="@{/users/orders/{id}(id=${order.id})}" class="btn btn-primary">Chi tiết</a>
-                                    </td>
-                                </tr>
-                                <tr th:unless="${orders.size()>0}">
-                                    <td colspan="5" class="text-center">Không có đơn hàng nào</td>
-                                </tbody>
-                            </table>
+                    <div class="d-lg-flex d-none justify-content-center">
+                        <h3 class="text-center" th:text="${userInfo.fullName}"></h3>
+                    </div>
+                    <div class="d-lg-flex d-none justify-content-center">
+                        <h5 class="text-center text-lowercase" th:text="${userInfo.role}"></h5>
+                    </div>
+                    <div class="container">
+                        <div th:if="${userInfo.role== 'ADMIN'}" class="d-flex justify-content-center py-3">
+                            <a th:href="@{/admin}" class="btn btn-outline-primary w-75">
+                                <i class="fas fa-user-shield mx-1"></i>Admin CP</a>
                         </div>
+                        <ul class="nav flex-lg-column flex-row justify-content-center align-content-center">
+                            <li class="nav-item">
+                                <a class="nav-link" th:href="@{/users}"><i class="fas fa-user mx-1"></i> Cập nhật
+                                    tài khoản</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" th:href="@{/users/orders}"><i class="fas fa-history mx-1"></i> Lịch
+                                    sử đặt hàng</a>
+                            </li>
+                        </ul>
+                        <form th:action="@{/logout}" method="post" class="d-none d-lg-flex pt-5 justify-content-center">
+                            <button type="submit" class="btn btn-danger w-75">
+                                <i class="fas fa-sign-out-alt mx-1"></i> Logout
+                            </button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-8 col-12 card m-3 p-3">
+                <div class="card">
+                    <h5 class="card-header">Lịch sử đơn hàng:</h5>
+                    <div class="card-body">
+                        <table class="table table-striped table-hover">
+                            <thead>
+                            <tr>
+                                <th scope="col">Mã đơn hàng</th>
+                                <th scope="col">Ngày đặt</th>
+                                <th scope="col">Nhà hàng</th>
+                                <th scope="col">Tổng tiền</th>
+                                <th scope="col">Trạng thái</th>
+                                <th scope="col">Chi tiết</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr th:if="${orders.isEmpty()}">
+                                <td colspan="5" class="text-center">Không có đơn hàng nào</td>
+                            </tr>
+                            <tr th:unless="${orders.isEmpty()}" th:each="order : ${orders}">
+                                <td th:text="${order.getId()}"></td>
+                                <td th:text="${order.getCreatedAt()}"></td>
+                                <td>[[${order.getRestaurant().getRestaurantName()}]] - <span th:if="${!order.getRatingRestaurant()}">Rating</span></td>
+                                <td th:text="${order.getTotalBill()}"></td>
+                                <td>
+                                    <span th:if="${order.getStatus().toString().equalsIgnoreCase('PROCESSING')}" class="badge bg-success"><i class="fas fa-pizza-slice" title="Đang xử lý"></i></span>
+                                    <span th:if="${order.getStatus().toString().equalsIgnoreCase('WAITING')}" class="badge bg-success"><i class="fas fa-credit-card" title="Đợi thanh toán"></i></span>
+                                    <span th:if="${order.getStatus().toString().equalsIgnoreCase('SHIPPING')}" class="badge bg-success"><i class="fas fa-shipping-fast" title="Đang giao"></i></span>
+                                    <span th:if="${order.getStatus().toString().equalsIgnoreCase('DELIVERED')}" class="badge bg-info"><i class="fas fa-truck" title="Đã giao"></i></span>
+                                    <span th:if="${order.getStatus().toString().equalsIgnoreCase('CANCEL')}" class="badge bg-danger"><i class="fas fa-ban" title="Đã huỷ"></i></span>
+                                </td>
+                                <td>
+                                    <a th:href="@{/users/orders/{id}(id=${order.getId()})}" class="btn btn-primary">Chi tiết</a>
+                                </td>
+                            </tr>
+                            </tbody>
+                        </table>
                     </div>
                 </div>
             </div>
@@ -89,3 +109,4 @@
 </body>
 
 </html>
+

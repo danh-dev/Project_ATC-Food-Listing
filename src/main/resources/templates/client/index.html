@@ -726,7 +726,11 @@
 <!-- Blog End -->
 
 <!-- Footer Start -->
-
+<th:block th:if="${RuntimeError != null}">
+    <script>
+        alert("Có lỗi xảy ra, vui lòng thử lại sau!");
+    </script>
+</th:block>
 <div th:replace="~{client/fragments/footer::footer}"></div>
 <div th:replace="~{client/fragments/js::js-insert}"></div>
 </body>

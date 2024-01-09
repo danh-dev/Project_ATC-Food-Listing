@@ -15,4 +15,9 @@ public class HandleMaxSizeController {
         String referer = request.getHeader("Referer");
         return new RedirectView(referer);
     }
+    @ExceptionHandler(RuntimeException.class)
+    public String handleRuntimeException(RuntimeException ex, RedirectAttributes redirectAttributes) {
+        redirectAttributes.addFlashAttribute("RuntimeError", ex.getMessage());
+        return "/";
+    }
 }

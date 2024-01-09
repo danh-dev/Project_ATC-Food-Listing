@@ -33,7 +33,7 @@ public class UploadFile {
                     file.getInputStream(),
                     filePath);
             // Trả về đường dẫn file
-            return filePath.toString();
+            return uploadDir + filename;
         }
         catch (Exception e) {
             throw new FileUploadException("Could not store file " + file.getOriginalFilename()

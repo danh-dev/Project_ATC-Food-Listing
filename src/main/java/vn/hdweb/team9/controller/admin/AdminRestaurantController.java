@@ -27,8 +27,6 @@ public class AdminRestaurantController {
     public String restaurantsList(Model model) {
 
         List<Restaurant> restaurants = restaurantService.findRestaurants();
-        /*order id user and reverse*/
-//        users.sort((o1, o2) -> o2.getId().compareTo(o1.getId()));
         model.addAttribute("res", restaurants);
         return "admin/restaurants_list";
     }

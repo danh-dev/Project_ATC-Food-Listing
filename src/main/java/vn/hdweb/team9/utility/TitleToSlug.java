@@ -15,6 +15,7 @@ public class TitleToSlug {
         slug = slug.replaceAll("([^0-9a-z-\\s])", "");
         /*Remove spaces*/
         slug = slug.replaceAll("[\\s]", "-");
+        /*Remove - at begin end*/
         return slug;
     }
 }

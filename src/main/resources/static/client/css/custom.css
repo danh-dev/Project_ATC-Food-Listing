@@ -92,10 +92,10 @@ a:hover {
 }
 
 .header-end .h-icon {
-    width: 50px;
-    height: 50px;
+    width: 15px;
+    height: 15px;
     border: 0;
-    padding: 0 50px;
+    padding: 0 30px;
 }
 
 .min-vh-85 {
@@ -262,4 +262,28 @@ img.res-img{
 }
 .content-res{
     width: clamp(300px, 80%, 500px);
+}
+
+
+.btn-outline-primary .badge {
+    background: var(--bs-primary);
+    border-color: var(--bs-primary);
+    color: #fff;
+}
+.btn-check:checked + .btn-outline-primary, .btn-check:active + .btn-outline-primary, .btn-outline-primary:active, .btn-outline-primary.active, .btn-outline-primary.dropdown-toggle.show {
+    color: #fff;
+    background-color: var(--bs-secondary);
+    border-color: var(--bs-secondary);
+}
+.btn-check:focus + .btn-outline-primary, .btn-outline-primary:focus {
+    color: #fff;
+    background-color: var(--bs-secondary);
+    border-color: var(--bs-secondary);
+    box-shadow: none;
+    transform: translateY(0);
+}
+
+.quantity-input:focus-visible{
+    border-color: var(--bs-primary);
+    box-shadow: 0 2px 4px 0 rgba(var(--bs-primary-rgb), 0.4);
 }

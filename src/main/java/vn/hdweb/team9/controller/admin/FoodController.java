@@ -34,12 +34,6 @@ public class FoodController {
     public String foodList(Model model) {
         List<Food> foods = foodService.getAllFoods();
         
-        for(Food food : foods) {
-            String displayUrl =  food.getImage();
-            displayUrl = displayUrl.replace('\\', '/');
-            food.setImage(displayUrl);
-        }
-        
         model.addAttribute("foods", foods);
         
         return "admin/food/foodList";

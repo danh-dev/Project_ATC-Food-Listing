@@ -6,6 +6,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import vn.hdweb.team9.domain.dto.Cart;
 import vn.hdweb.team9.domain.dto.ItemCart;
+import vn.hdweb.team9.domain.entity.Coupon;
 import vn.hdweb.team9.domain.entity.Food;
 import vn.hdweb.team9.repository.interfaces.IFoodRepository;
 
@@ -53,5 +54,15 @@ public class CartService {
             session.setAttribute("cart", cart);
         }
         return cart;
+    }
+
+    public void addCoupon(HttpSession session, Coupon coupon) {
+        Cart cart = getCart(session);
+        cart.setCoupon(coupon);
+        session.setAttribute("cart", cart);
+    }
+
+    public void removeCart(HttpSession session) {
+        session.removeAttribute("cart");
     }
 }

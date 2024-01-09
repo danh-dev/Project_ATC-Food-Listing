@@ -17,7 +17,7 @@ public interface IUserService extends UserDetailsService {
 
     User save(SignUpDto user);
 
-    UserDto findByEmail(String userEmail);
+    User findByEmail(String userEmail);
 
     void uploadAvatar(MultipartFile avatar, String email);
 

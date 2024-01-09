@@ -95,7 +95,6 @@ public class CategoryService {
             String newSlug = resultSlug + "-" + category.getId();
             category.setSlug(newSlug);
         }
-        
         categoryDAO.update(category);
         return category.getId();
     }

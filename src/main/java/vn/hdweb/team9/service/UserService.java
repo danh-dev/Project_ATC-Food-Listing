@@ -69,21 +69,12 @@ public class UserService implements IUserService {
     }
 
     @Override
-    public UserDto findByEmail(String userEmail) {
+    public User findByEmail(String userEmail) {
         User user = userRepository.findByEmail(userEmail);
         if (user == null) {
             throw new UsernameNotFoundException("Không tìm thấy dữ liệu tài khoản");
         }
-        UserDto userDto = new UserDto();
-        userDto.setId(user.getId());
-        userDto.setFullName(user.getFullName());
-        userDto.setEmail(user.getEmail());
-        userDto.setPhone(user.getPhone());
-        userDto.setAddress(user.getAddress());
-        userDto.setAvatar(user.getAvatar());
-        userDto.setRole(user.getRole().getRoleName());
-        userDto.setCreatedAt(user.getCreatedAt());
-        return userDto;
+        return user;
     }
 
     @Override

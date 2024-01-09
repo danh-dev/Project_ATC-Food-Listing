@@ -33,13 +33,7 @@ public class CategoryController {
     @GetMapping("/list")
     public String categoryList(Model model) {
         List<Category> categories = categoryService.getAllCategories();
-        
-        for(Category category : categories) {
-            String displayUrl =  category.getImage();
-            displayUrl = displayUrl.replace('\\', '/');
-            category.setImage(displayUrl);
-        }
-        
+
         model.addAttribute("categories", categories);
         
         return "admin/category/categoryList";

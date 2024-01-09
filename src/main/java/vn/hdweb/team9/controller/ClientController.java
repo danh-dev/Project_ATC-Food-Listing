@@ -10,6 +10,8 @@ public class ClientController {
 
     @GetMapping(value = {"", "/","/home","/index","/trang-chu","index.html","home.html","trang-chu.html"})
     public String home() {
+
+
         return "client/index";
     }
 

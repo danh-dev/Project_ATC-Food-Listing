@@ -16,7 +16,37 @@
                 <div class="top-link pe-2">
                     <a href="#" class="text-white"><small class="text-white mx-2">About Us</small>/</a>
                     <a th:href="@{/contact.html}" class="text-white"><small class="text-white ms-2">Contact</small></a>
+                    <div class="header-end d-flex justify-content-end">
+                        <div class="h-col h-switch dropdown">
+                            <button class="theme-switch h-icon" id="bd-theme" type="button" aria-expanded="true"
+                                    data-bs-toggle="dropdown" data-bs-display="static"><span
+                                    class="bi theme-icon-active"><i class="bi-sun-fill"></i>
+                            </span>
+                            </button>
+                            <ul class="dropdown-menu" aria-labelledby="bd-theme">
+                                <li>
+                                    <button type="button" class="dropdown-item active"
+                                            data-bs-theme-value="light"><span>
+                                        <i class="bi-sun-fill"></i> </span>Light
+                                    </button>
+                                </li>
+                                <li>
+                                    <button type="button" class="dropdown-item" data-bs-theme-value="dark"><span
+                                            class="bi me-2 opacity-50 theme-icon"><i class="bi-moon-stars-fill"></i>
+                                    </span>Dark
+                                    </button>
+                                </li>
+                                <li>
+                                    <button type="button" class="dropdown-item" data-bs-theme-value="auto"><span
+                                            class="bi me-2 opacity-50 theme-icon"><i
+                                            class="bi-circle-half"></i> </span>Auto
+                                    </button>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
                 </div>
+
             </div>
         </div>
         <div class="container px-0">
@@ -40,34 +70,12 @@
                         <a th:href="@{/category_demo}" class="nav-item nav-link">Pizza</a>
                     </div>
                     <div class="d-flex m-3 me-0">
-                        <div class="header-end d-flex justify-content-end">
-                            <div class="h-col h-switch dropdown">
-                                <button class="theme-switch h-icon" id="bd-theme" type="button" aria-expanded="true"
-                                        data-bs-toggle="dropdown" data-bs-display="static"><span
-                                        class="bi theme-icon-active"><i class="bi-sun-fill"></i>
-                            </span></button>
-                                <ul class="dropdown-menu" aria-labelledby="bd-theme">
-                                    <li>
-                                        <button type="button" class="dropdown-item active"
-                                                data-bs-theme-value="light"><span>
-                                        <i class="bi-sun-fill"></i> </span>Light
-                                        </button>
-                                    </li>
-                                    <li>
-                                        <button type="button" class="dropdown-item" data-bs-theme-value="dark"><span
-                                                class="bi me-2 opacity-50 theme-icon"><i class="bi-moon-stars-fill"></i>
-                                    </span>Dark
-                                        </button>
-                                    </li>
-                                    <li>
-                                        <button type="button" class="dropdown-item" data-bs-theme-value="auto"><span
-                                                class="bi me-2 opacity-50 theme-icon"><i
-                                                class="bi-circle-half"></i> </span>Auto
-                                        </button>
-                                    </li>
-                                </ul>
-                            </div>
-                        </div>
+                        <th:block th:if="${cartInfo}">
+                            <a class="btn btn-outline-primary mx-2" th:href="@{/cart}">
+                                <i class="fas fa-shopping-cart"></i>
+                                <span class="badge ms-1" th:text="${cartInfo.getTotalQuantity()}"></span>
+                            </a>
+                        </th:block>
                         <a th:href="@{/users}" class="my-auto">
                             <th:block th:if="${userInfo != null}">
                                 <th:block th:if="${userInfo.avatar != null}">

@@ -27,7 +27,9 @@
                         Sai tài khoản và mật khẩu.
                     </div>
                 </div>
-
+                <div th:if="${param.Request_login}">
+                    <div class="alert alert-info">Bạn cần đăng nhập để sử dụng chức năng này.</div>
+                </div>
                 <!-- logout message -->
                 <div th:if="${param.logout}">
                     <div class="alert alert-info">Bạn đã đăng xuất thành công.</div>

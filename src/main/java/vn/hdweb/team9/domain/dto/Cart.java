@@ -1,6 +1,7 @@
 package vn.hdweb.team9.domain.dto;
 
 import lombok.Data;
+import vn.hdweb.team9.domain.entity.Coupon;
 import vn.hdweb.team9.domain.entity.Food;
 
 import java.util.ArrayList;
@@ -9,7 +10,7 @@ import java.util.List;
 @Data
 public class Cart {
     private List<ItemCart> items = new ArrayList<>();
-    private String Coupon;
+    private Coupon Coupon;
     private String Restaurant;
 
     public ItemCart findItemByFoodId(Long foodId) {
@@ -48,6 +49,14 @@ public class Cart {
         int total = 0;
         for (ItemCart item : items) {
             total += item.getFood().getPrice() * item.getQuantity();
+        }
+        return total;
+    }
+
+    public int getTotalQuantity() {
+        int total = 0;
+        for (ItemCart item : items) {
+            total += item.getQuantity();
         }
         return total;
     }

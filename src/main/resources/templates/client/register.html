@@ -29,7 +29,7 @@
                 </div>
                 <form id="formAuthentication" class="mb-3" th:action="@{/register}" method="post" th:object="${user}">
                     <div class="mb-3">
-                        <label for="fullname" class="form-label">Email</label>
+                        <label for="fullname" class="form-label">Fullname</label>
                         <input type="text" class="form-control" id="fullname"
                                placeholder="Enter your fullname"
                                th:field="*{fullName}"
@@ -74,14 +74,14 @@
                         </div>
                     </div>
                     <div class="mb-3">
-                        <button class="btn btn-primary d-grid w-100" type="submit">Sign Up</button>
+                        <button class="btn btn-primary d-grid w-100" type="submit">Đăng ký</button>
                     </div>
                 </form>
 
                 <p class="text-center">
                     <span>Bạn đã có tài khoản?</span>
                     <a th:href="@{/login}">
-                        <span>Login now!</span>
+                        <span>Đăng nhập</span>
                     </a>
                 </p>
 

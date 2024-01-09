@@ -45,7 +45,7 @@ public class Order {
     @Column(name = "coupon_value")
     private String couponDto;
 
-    //enum (PROCESSING, SHIPPING, DELIVERED, CANCEL)
+    //enum (PROCESSING, WAITING , SHIPPING, DELIVERED, CANCEL)
     @Enumerated(EnumType.STRING)
     @Column(name = "status")
     private OrderStatus status;

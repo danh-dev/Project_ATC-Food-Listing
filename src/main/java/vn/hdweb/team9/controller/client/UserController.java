@@ -3,6 +3,7 @@ package vn.hdweb.team9.controller.client;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 import jakarta.validation.Valid;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
@@ -18,6 +19,9 @@ import vn.hdweb.team9.domain.dto.request.SignUpDto;
 import vn.hdweb.team9.domain.dto.respon.OrderListOfUserDto;
 import vn.hdweb.team9.domain.dto.respon.UserDto;
 import vn.hdweb.team9.domain.entity.Food;
+import vn.hdweb.team9.domain.entity.Order;
+import vn.hdweb.team9.domain.entity.User;
+import vn.hdweb.team9.service.imp.IOrderService;
 import vn.hdweb.team9.service.imp.IUserService;
 
 
@@ -27,14 +31,11 @@ import java.util.Objects;
 
 @Controller
 @Slf4j
+@RequiredArgsConstructor
 public class UserController {
 
     private final IUserService userService;
-
-    @Autowired
-    public UserController(IUserService userService) {
-        this.userService = userService;
-    }
+    private final IOrderService orderService;
 
     @GetMapping("/login")
     public String login() {
@@ -101,7 +102,7 @@ public class UserController {
     public String user(Model model) {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         String userEmail = authentication.getName();
-        UserDto user =  userService.findByEmail(userEmail);
+        UserDto user =  userService.findByEmail(userEmail).convertUserDto();
         model.addAttribute("user", user);
         return "client/users";
     }
@@ -173,9 +174,9 @@ public class UserController {
     public String orderListOfUser(Model model) {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         String userEmail = authentication.getName();
-        UserDto user =  userService.findByEmail(userEmail);
-        model.addAttribute("user", user);
-        List<OrderListOfUserDto> orders = userService.orderListOfUser(userEmail);
+        User user =  userService.findByEmail(userEmail);
+        List<Order> orders = orderService.orderOfUser(user);
+        orders.sort((o1, o2) -> o2.getCreatedAt().compareTo(o1.getCreatedAt()));
         model.addAttribute("orders", orders);
         return "client/user_orders";
     }

@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org"
-      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity6">
+>
 <head th:replace="~{client/fragments/head :: heads(pageTitle='Restaurant name?')}">
     <title></title>
 </head>
@@ -31,16 +31,21 @@
 
                             <span class="badge bg-warning">999+</span>
                         </div>
-                        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#modalScrollable">
+                        <button type="button" class="btn btn-primary" data-bs-toggle="modal"
+                                data-bs-target="#modalScrollable">
                             Xem Rating
                         </button>
                         <div th:insert="~{client/fragments/rating_list :: rating}"></div>
                         <p>Thời gian đợi: xxx Giờ đóng cửa: xxx</p>
                         <p>Giá: xxx</p>
                         <th:block th:if="${userInfo}">
-                        <form th:action="@{/cart/add/1}" method="post">
-                            <button type="submit">Thêm vào giỏ hàng</button>
-                        </form></th:block>
+                            <form th:action="@{/cart/add/1}" method="post">
+                                <button type="submit" class="btn btn-primary">Thêm vào giỏ hàng</button>
+                            </form>
+                        </th:block>
+                        <th:block th:unless="${userInfo}">
+                            <a href="/login?Request_login" class="btn btn-primary">Thêm vào giỏ hàng</a>
+                        </th:block>
                         <p class="my-3 content-res">
                             If you would like to discuss anything related to payment, account, licensing,
                             partnerships, or have pre-sales questions, you’re at the right place.

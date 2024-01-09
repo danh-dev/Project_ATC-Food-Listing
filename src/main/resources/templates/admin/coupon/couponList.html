@@ -69,10 +69,8 @@
                                         <label class="form-label">Loại mã</label>
                                         <select class="form-select" th:field="*{typeCoupon}" id="typeCoupon">
                                             <option value="" selected></option>
-                                            <option th:each="type : ${T(vn.hdweb.team9.domain.entity.TypeCoupon).values()}"
-                                                    th:value="${type}"
-                                                    th:text="${type}">option
-                                            </option>
+                                            <option value="DIRECT">DIRECT</option>
+                                            <option value="PERCENT">PERCENT</option>
                                         </select>
                                     </div>
                                 </div>
@@ -83,8 +81,7 @@
                                            class="form-control"
                                            id="datePicker-startDate"
                                            th:field="*{startDate}"
-                                           th:class="${#fields.hasErrors('startDate')}? 'form-control
-                                                        fieldError' : 'form-control'"/>
+                                           th:class="${#fields.hasErrors('startDate')}? 'form-control fieldError' : 'form-control'"/>
                                     <p th:if="${#fields.hasErrors('startDate')}" th:errors="*{startDate}" th:errorclass="errorMessage"></p>
                                     <script>
                                         <!--start date min is today-->
@@ -148,7 +145,7 @@
                                                 </td>
                                                 <td>
                                                     <i class="fab fa-bootstrap fa-lg text-primary me-1"></i>
-                                                    [[${coupon.typeCoupon == T(vn.hdweb.team9.domain.entity.TypeCoupon).DIRECT ? coupon.couponValue + '$' : coupon.couponValue + '%'}]]
+                                                    [[${coupon.typeCoupon == T(vn.hdweb.team9.domain.entity.TypeCoupon).DIRECT ? coupon.couponValue + 'vnđ' : coupon.couponValue + '%'}]]
                                                 </td>
                                                 <td>
                                                     <i class="fab fa-bootstrap fa-lg text-primary me-1"></i>

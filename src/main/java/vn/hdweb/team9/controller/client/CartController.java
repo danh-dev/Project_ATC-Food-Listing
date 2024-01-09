@@ -11,17 +11,27 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import vn.hdweb.team9.domain.dto.Cart;
+import vn.hdweb.team9.domain.entity.Coupon;
 import vn.hdweb.team9.service.CartService;
+import vn.hdweb.team9.service.CouponService;
+
+import java.util.Optional;
 
 @Controller
 @RequestMapping("/cart")
 @RequiredArgsConstructor
+@Slf4j
 public class CartController {
 
     private final CartService cartService;
-
+    private final CouponService couponService;
     @GetMapping(value = {"", "/"})
-    public String cart(HttpSession session, Model model) {
+    public String cart(HttpSession session, Model model, RedirectAttributes redirectAttributes) {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        if(authentication == null || authentication.getPrincipal().equals("anonymousUser")) {
+            redirectAttributes.addFlashAttribute("request_login","Bạn phải đăng nhập để sử dụng chức năng này");
+            return "redirect:/login";
+        }
         Cart cart = cartService.getCart(session);
         model.addAttribute("cart", cart);
         return "client/cart";
@@ -49,15 +59,16 @@ public class CartController {
         return "redirect:/cart";
     }
     @PostMapping("/apply-coupon")
-    public String addCoupon(@RequestParam String coupon, HttpSession session, RedirectAttributes redirectAttributes) {
+    public String addCoupon(@RequestParam String coupon, HttpSession session, RedirectAttributes redirectAttributes, Model model) {
         Cart cart = cartService.getCart(session);
-        if (coupon.equals("ABC")) {
-            cart.setCoupon(coupon);
-            session.setAttribute("cart", cart);
-            redirectAttributes.addFlashAttribute("apply_success", "Thêm mã giảm giá thành công");
-        } else {
-            redirectAttributes.addFlashAttribute("apply_error", "Mã giảm giá không hợp lệ");
+        Optional<Coupon> thisCoupon = couponService.findByCouponCode(coupon);
+        if (thisCoupon.isEmpty()) {
+            redirectAttributes.addFlashAttribute("apply_error", "Mã giảm giá không tồn tại");
+            return "redirect:/cart";
         }
+        cart.setCoupon(thisCoupon.get());
+        session.setAttribute("cart", cart);
+        redirectAttributes.addFlashAttribute("apply_success", "Thêm mã giảm giá thành công");
         return "redirect:/cart";
     }
     @PostMapping("/remove-coupon")

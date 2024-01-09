@@ -5,8 +5,12 @@ import vn.hdweb.team9.domain.entity.Food;
 import java.util.Optional;
 
 public interface IFoodService {
+    Optional<Food> findById(Long id);
+    Optional<Food> findBySlug(String slug);
+    Long saveFood(Food food);
 
-    public Optional<Food> findById(Long id);
+    void deleteFood(Long id);
 
+    void updateFood(Food food);
 
 }
