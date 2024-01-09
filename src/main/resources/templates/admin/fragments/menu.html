@@ -40,15 +40,14 @@
             </ul>
         </li>
 
-        <!-- Menu Rating -->
+        <!--  Rating food -->
         <li class="menu-header small text-uppercase">
-            <span class="menu-header-text">Ratings</span>
+            <span class="menu-header-text">Rating Foods</span>
         </li>
-        <!--       rating-food  -->
         <li th:classappend="${value_menu.contains('ratings')?'active open':''}" class="menu-item">
             <a href="javascript:void(0)" class="menu-link menu-toggle">
                 <i class='menu-icon tf-icons bx bx-star'></i>
-                <div>Rating Food</div>
+                <div>Rating Foods</div>
             </a>
             <ul class="menu-sub">
                 <li th:classappend="${value_menu.contains('rating_list')?'active':''}" class="menu-item">
@@ -58,15 +57,18 @@
                 </li>
             </ul>
         </li>
-        <!--        rating-restaurant -->
+        <!--    rating-restaurant -->
+        <li class="menu-header small text-uppercase">
+            <span class="menu-header-text">Rating Restaurants</span>
+        </li>
         <li th:classappend="${value_menu.contains('ratings')?'active open':''}" class="menu-item">
             <a href="javascript:void(0)" class="menu-link menu-toggle">
                 <i class='menu-icon tf-icons bx bxs-star'></i>
-                <div>Rating Restaurant</div>
+                <div>Rating Restaurants</div>
             </a>
             <ul class="menu-sub">
                 <li th:classappend="${value_menu.contains('rating_list')?'active':''}" class="menu-item">
-                    <a th:href="@{/admin/rating-food/list}"  class="menu-link">
+                    <a th:href="@{/admin/rating-restaurant/list}"  class="menu-link">
                         <div>List rating</div>
                     </a>
                 </li>
