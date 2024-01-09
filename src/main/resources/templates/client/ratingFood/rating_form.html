@@ -16,17 +16,50 @@
                     <form th:action="@{/rating-food/add}" method="post">
                         <div class="mb-3">
                             <label for="content" class="form-label">Nội dung</label>
-                            <input type="text" class="form-control" id="content" name="content" required>
+                            <textarea class="form-control" id="content" name="content" required>
+                            </textarea>
+                            <!--                            <input type="text" class="form-control" id="content" name="content" required>-->
                         </div>
-                        <div class="mb-3">
-                            <label for="rateStar" class="form-label">Điểm đánh giá</label>
-                            <input type="number" class="form-control" id="rateStar" name="rateStar" min="0" max="5"
-                                   required>
+                        <!--                        test-->
+                        <div class="mb-3 rating">
+                            <label>
+                                <input type="radio" th:name="${'rateStar'}" th:value="${1}" required/>
+                                <span class="icon">★</span>
+                            </label>
+                            <label>
+                                <input type="radio" th:name="${'rateStar'}" th:value="${2}" required/>
+                                <span class="icon">★</span>
+                                <span class="icon">★</span>
+                            </label>
+                            <label>
+                                <input type="radio" th:name="${'rateStar'}" th:value="${3}" required/>
+                                <span class="icon">★</span>
+                                <span class="icon">★</span>
+                                <span class="icon">★</span>
+                            </label>
+                            <label>
+                                <input type="radio" th:name="${'rateStar'}" th:value="${4}" required/>
+                                <span class="icon">★</span>
+                                <span class="icon">★</span>
+                                <span class="icon">★</span>
+                                <span class="icon">★</span>
+                            </label>
+                            <label>
+                                <input type="radio" th:name="${'rateStar'}" th:value="${5}" required/>
+                                <span class="icon">★</span>
+                                <span class="icon">★</span>
+                                <span class="icon">★</span>
+                                <span class="icon">★</span>
+                                <span class="icon">★</span>
+                            </label>
                         </div>
-                        <!-- pass foodId in value -->
-<!--                        <input type="hidden" name="foodId" value="1">-->
+
+                        <!--                        <input type="hidden" name="foodId" value="1">-->
                         <input type="hidden" name="foodId" th:value="${foodId}">
-                        <button type="submit" class="btn btn-primary">Thêm Đánh giá</button>
+                        <div class="mb-3">
+
+                            <button type="submit" class="btn btn-primary">Thêm Đánh giá</button>
+                        </div>
                     </form>
                 </div>
             </div>
