@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity6"
+      class="light-style layout-menu-fixed layout-navbar-fixed"
+      dir="ltr"
+      data-theme="theme-default"
+      data-assets-path="../../admin/assets/"
+      data-template="vertical-menu-template-free"
+>
+<head th:replace="~{admin/fragments/head :: heads(pageTitle='Dashboard')}">
+    <title></title>
+</head>
+<body>
+<div class="layout-wrapper layout-content-navbar">
+    <div class="layout-container">
+        <!--đưa giá trị value_menu để so sánh với menu kích hoạt active-->
+        <aside th:replace="~{admin/fragments/menu :: drawer-menu(value_menu = 'dashboard')}"></aside>
+        <div class="layout-page">
+            <nav th:replace="~{admin/fragments/nav :: nav-bar(value_title='Dashboard')}"></nav>
+            <div class="content-wrapper">
+                <div class="container-xxl flex-grow-1 container-p-y">
+                    <!--Content-->
+                    <div class="card">
+                        <h5 class="card-header" th:text="${title}">Title</h5>
+                        <div class="card-body">
+                            <div class="card-content ">
+                                <!--Nhớ bỏ min-vh-100 -->
+                                <div th:replace="admin/ratingFood/table.html :: table"></div>
+                            </div>
+                        </div>
+                    </div>
+                    <!--End Content-->
+                </div>
+                <footer th:replace="~{admin/fragments/footer :: footer}"></footer>
+                <div class="content-backdrop fade"></div>
+            </div>
+        </div>
+    </div>
+    <div class="layout-overlay layout-menu-toggle"></div>
+</div>
+<div th:replace="~{admin/fragments/js :: js-insert}"></div>
+</body>
+</html>

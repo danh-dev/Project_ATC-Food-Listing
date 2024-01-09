@@ -40,6 +40,41 @@
             </ul>
         </li>
 
+
+        <!--  Rating food -->
+        <li class="menu-header small text-uppercase">
+            <span class="menu-header-text">Rating Foods</span>
+        </li>
+        <li th:classappend="${value_menu.contains('ratings')?'active open':''}" class="menu-item">
+            <a href="javascript:void(0)" class="menu-link menu-toggle">
+                <i class='menu-icon tf-icons bx bx-star'></i>
+                <div>Rating Foods</div>
+            </a>
+            <ul class="menu-sub">
+                <li th:classappend="${value_menu.contains('rating_list')?'active':''}" class="menu-item">
+                    <a th:href="@{/admin/rating-food/list}" class="menu-link">
+                        <div>List rating</div>
+                    </a>
+                </li>
+            </ul>
+        </li>
+        <!--    rating-restaurant -->
+        <li class="menu-header small text-uppercase">
+            <span class="menu-header-text">Rating Restaurants</span>
+        </li>
+        <li th:classappend="${value_menu.contains('ratings')?'active open':''}" class="menu-item">
+            <a href="javascript:void(0)" class="menu-link menu-toggle">
+                <i class='menu-icon tf-icons bx bxs-star'></i>
+                <div>Rating Restaurants</div>
+            </a>
+            <ul class="menu-sub">
+                <li th:classappend="${value_menu.contains('rating_list')?'active':''}" class="menu-item">
+                    <a th:href="@{/admin/rating-restaurant/list}"  class="menu-link">
+                        <div>List rating</div>
+                    </a>
+                </li>
+            </ul>
+        </li>
         <!-- User -->
         <li class="menu-header small text-uppercase">
             <span class="menu-header-text">User</span>

@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org"
->
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity6">
 <head th:replace="~{client/fragments/head :: heads(pageTitle='Restaurant name?')}">
     <title></title>
 </head>
@@ -27,12 +27,11 @@
                         <h4 class="my-2 py-2">Tên món ăn</h4>
                         <p>Của nhà hàng: xxx</p>
                         <div class="d-flex align-items-center">
-                            <div th:insert="~{client/fragments/elements/rating :: rating(rating_value = 4.3)}"></div>
+                            <div th:insert="~{client/fragments/elements/rating :: rating(rating_value = 4.5)}"></div>
 
-                            <span class="badge bg-warning">999+</span>
+                            <span class="badge bg-warning" th:text="${countRating}">999+</span>
                         </div>
-                        <button type="button" class="btn btn-primary" data-bs-toggle="modal"
-                                data-bs-target="#modalScrollable">
+                        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#modalScrollable">
                             Xem Rating
                         </button>
                         <div th:insert="~{client/fragments/rating_list :: rating}"></div>
@@ -53,6 +52,8 @@
                     </div>
                 </div>
             </div>
+
+
         </div>
     </div>
 </div>

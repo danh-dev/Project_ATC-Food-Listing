@@ -23,6 +23,7 @@ import vn.hdweb.team9.service.imp.IUserService;
 import vn.hdweb.team9.utility.UploadFile;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 @Slf4j
@@ -75,6 +76,11 @@ public class UserService implements IUserService {
             throw new UsernameNotFoundException("Không tìm thấy dữ liệu tài khoản");
         }
         return user;
+    }
+
+    @Override
+    public Optional<User> findById(Long id) {
+        return userRepository.findById(id);
     }
 
     @Override
@@ -158,4 +164,5 @@ public class UserService implements IUserService {
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         return loadUserByEmail(username);
     }
+
 }

@@ -1,0 +1,68 @@
+<div th:fragment="ratingForm">
+
+    <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#addRatingModal">
+        Thêm Đánh giá
+    </button>
+    <!-- Modal -->
+    <div class="modal fade" id="addRatingModal" tabindex="-1" aria-labelledby="addRatingModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="addRatingModalLabel">Thêm Đánh giá</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <!-- Form Add rating -->
+                    <form th:action="@{/rating-food/add}" method="post">
+                        <div class="mb-3">
+                            <label for="content" class="form-label">Nội dung</label>
+                            <textarea class="form-control" id="content" name="content" required>
+                            </textarea>
+                            <!--                            <input type="text" class="form-control" id="content" name="content" required>-->
+                        </div>
+                        <!--                        test-->
+                        <div class="mb-3 rating">
+                            <label>
+                                <input type="radio" th:name="${'rateStar'}" th:value="${1}" required/>
+                                <span class="icon">★</span>
+                            </label>
+                            <label>
+                                <input type="radio" th:name="${'rateStar'}" th:value="${2}" required/>
+                                <span class="icon">★</span>
+                                <span class="icon">★</span>
+                            </label>
+                            <label>
+                                <input type="radio" th:name="${'rateStar'}" th:value="${3}" required/>
+                                <span class="icon">★</span>
+                                <span class="icon">★</span>
+                                <span class="icon">★</span>
+                            </label>
+                            <label>
+                                <input type="radio" th:name="${'rateStar'}" th:value="${4}" required/>
+                                <span class="icon">★</span>
+                                <span class="icon">★</span>
+                                <span class="icon">★</span>
+                                <span class="icon">★</span>
+                            </label>
+                            <label>
+                                <input type="radio" th:name="${'rateStar'}" th:value="${5}" required/>
+                                <span class="icon">★</span>
+                                <span class="icon">★</span>
+                                <span class="icon">★</span>
+                                <span class="icon">★</span>
+                                <span class="icon">★</span>
+                            </label>
+                        </div>
+
+                        <!--                        <input type="hidden" name="foodId" value="1">-->
+                        <input type="hidden" name="foodId" th:value="${foodId}">
+                        <div class="mb-3">
+
+                            <button type="submit" class="btn btn-primary">Thêm Đánh giá</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Modal -->

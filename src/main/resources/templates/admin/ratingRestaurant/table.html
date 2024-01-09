@@ -1,0 +1,42 @@
+<div th:fragment="table" id="table">
+    <div class="card-body">
+        <div class="card-content">
+            <!--Nhớ bỏ min-vh-100 -->
+            <table class="table">
+                <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Content</th>
+                    <th>Rate Star</th>
+                    <th>Created At</th>
+                    <th >Restaurant</th>
+                    <th>User</th>
+                    <th>Action</th>
+                </tr>
+                </thead>
+                <tbody>
+                <!-- Thymeleaf: Lặp qua danh sách dữ liệu và hiển thị từng dòng -->
+                <tr th:each="rating : ${ratingList}">
+                    <td th:text="${rating.id}">Default ID</td>
+                    <td th:text="${rating.content}">Default Content</td>
+                    <td th:text="${rating.rateStar}">Default Rate Star</td>
+                    <td th:text="${rating.createdAt}">Default Created At</td>
+                    <td th:text="${rating.restaurantName}">Default Food</td>
+                    <td th:text="${rating.userFullName}">Default User</td>
+                    <td>
+                        <form th:action="@{/admin/rating-food/delete/{id}(id=${rating.id})}" method="post">
+                            <button type="submit" class="btn btn-danger"
+                                    onclick="return confirm('Are you sure you want to delete this item?');">
+                                Delete
+                            </button>
+                        </form>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <!-- ... Các phần sau đó ... -->
+
+</div>
