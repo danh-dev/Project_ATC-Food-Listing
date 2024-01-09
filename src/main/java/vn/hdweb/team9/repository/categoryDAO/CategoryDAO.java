@@ -21,6 +21,9 @@ public interface CategoryDAO {
     // find category by slug
     List<Category> findBySlug(String categorySlug);
     
+    // find category except current id
+    List<Category> findByNameExceptId(String categoryName, Long currentCategoryId);
+    
     // find foods by category id
     List<Food> findFoodsByCategoryId(Long categoryId);
     
