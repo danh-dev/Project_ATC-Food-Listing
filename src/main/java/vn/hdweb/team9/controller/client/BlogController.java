@@ -5,11 +5,15 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
+
 import vn.hdweb.team9.domain.dto.respon.BlogResponDto;
 import vn.hdweb.team9.service.BlogService;
+
+import java.net.URLDecoder;
+import java.net.URLEncoder;
+import java.nio.charset.StandardCharsets;
+import java.util.List;
 
 
 @Controller
@@ -29,11 +33,13 @@ public class BlogController {
         int pageSize = 4;
 
         Page<BlogResponDto> blogPage = blogService.findPaginatedBlogs(page, pageSize);
+        List<BlogResponDto>  blogsRandom = blogService.getRandomBlogs();
         int totalPages = blogPage.getTotalPages();
 
         model.addAttribute("blogs", blogPage.getContent());
         model.addAttribute("currentPage", page);
         model.addAttribute("totalPages", totalPages);
+        model.addAttribute("blogsRandom",blogsRandom);
 
         return "client/blogs";
 
@@ -41,9 +47,25 @@ public class BlogController {
 
     @GetMapping("/blog_demo/{page}")
     public String showPaginatedBlogs(@PathVariable("page") int page, Model model) {
-        if (page == 0) {
-            return "redirect:/blog_demo";
+        if (page < 1) {
+            return "redirect:/blog_demo/1";
         }
-        return showPaginatedBlogs(model, page);
+        return showPaginatedBlogs(model, page - 1);
     }
+
+    @PostMapping("/blogs/search")
+    public String search(@RequestParam("searchText") String searchText) {
+        // Xử lý tìm kiếm và trả về URL với tham số
+        return "redirect:/blogs/search/results?searchText=" + URLEncoder.encode(searchText, StandardCharsets.UTF_8);
+    }
+
+
+    @GetMapping("/blogs/search/results")
+    public String showSearchResults(@RequestParam("searchText") String searchText, Model model) {
+        List<BlogResponDto> searchResults = blogService.searchBlogs(URLDecoder.decode(searchText, StandardCharsets.UTF_8));
+        model.addAttribute("searchResults", searchResults);
+        return "client/blogs_search";
+    }
+
+
 }

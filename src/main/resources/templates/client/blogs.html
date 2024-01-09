@@ -42,37 +42,31 @@
 
                 <div class="col-md-3">
                     <!-- Search form -->
-                    <form class="d-flex mb-3">
-                        <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+                    <form class="d-flex mb-3" th:action="@{/blogs/search}" method="post">
+                        <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search" name="searchText">
+                        <!-- "searchText" is the name attribute added to the input field -->
                         <button class="btn btn-outline-success" type="submit">Search</button>
                     </form>
 
+
                     <!-- List of blogs in the sidebar -->
-                    <div class="card" th:each="blog : ${blogs}">
+                    <div class="card" th:each="blog : ${blogsRandom}" style="margin-bottom: 10px;">
                         <div class="card-body d-flex">
                             <a th:href="@{${'/blog/' + blog.slug + '.html'}}">
-                                <img class="card-img-top" th:src="@{'/' + ${blog.blog_img}}" th:alt="${blog.getBlog_title()}" style="width: 100px; height: auto;"/>
+                                <img class="card-img-top" th:src="@{'/' + ${blog.blog_img}}" th:alt="${blog.getBlog_title()}" style="width: 50px; height: 50px;"/>
                             </a>
                             <div class="flex-grow-1 ms-3">
                                 <h5 class="card-title">
-                                    <a th:href="@{${'/blog/' + blog.slug + '.html'}}" th:text="${blog.blog_title}"></a>
+                                    <a th:href="@{${'/blog/' + blog.slug + '.html'}}" th:text="${blog.blog_title}" style="font-size: 18px;"></a>
                                 </h5>
                             </div>
                         </div>
                     </div>
+
                 </div>
             </div>
         </div>
     </div>
-
-    <!-- Pagination -->
-
-    <!-- Your existing pagination HTML -->
-
-    <!-- Your existing HTML content -->
-
-
-    <!-- ... your existing HTML content ... -->
 
     <!-- Pagination -->
     <div class="container-fluid py-3">
@@ -85,7 +79,7 @@
                     <li class="page-item" th:classappend="${currentPage == 0}? 'disabled'">
                         <a class="page-link" th:href="@{'/blog_demo/' + ${currentPage - 1}}">Previous</a>
                     </li>
-                    <li class="page-item" th:each="i : ${#numbers.sequence(0, totalPages - 1)}">
+                    <li class="page-item" th:each="i : ${#numbers.sequence(0, totalPages - 1)}"  th:classappend="${i == currentPage}? 'active'">
                         <a class="page-link" th:href="@{'/blog_demo/' + ${i + 1}}" th:text="${i + 1}"></a>
                     </li>
                     <li class="page-item" th:classappend="${currentPage + 1 >= totalPages}? 'disabled'">
@@ -97,6 +91,7 @@
                 </ul>
             </nav>
         </div>
+    </div>
 
 
     <div th:replace="~{client/fragments/footer::footer}"></div>

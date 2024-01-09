@@ -1,7 +1,6 @@
 package vn.hdweb.team9.service;
 
-import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
@@ -17,21 +16,14 @@ import vn.hdweb.team9.utility.TitleToSlug;
 import vn.hdweb.team9.utility.UploadFile;
 
 import java.lang.module.FindException;
-import java.util.ArrayList;
-import java.util.Comparator;
-import java.util.List;
+import java.util.*;
 
 
 @Service
-@Slf4j
+@RequiredArgsConstructor
 @Transactional
 public class BlogService implements IBlogService {
     private final IBlogRepository blogRepository;
-
-    @Autowired
-    public BlogService(IBlogRepository blogRepository) {
-        this.blogRepository = blogRepository;
-    }
 
     @Override
     public void createBlog(BlogRepuestDto blogDto) {
@@ -123,11 +115,12 @@ public class BlogService implements IBlogService {
             blogResponDto.setBlog_title(blog.getBlogTitle());
             blogResponDto.setBlog_content(blog.getBlogContent());
             blogResponDto.setBlog_img(blog.getBlog_img());
+            blogResponDto.setCreatedAt(blog.getCreatedAt());
+
             return blogResponDto;
         } catch (Exception e) {
             throw new FindException("Blog with "+ slug + " not found");
         }
-
     }
 
     @Override
@@ -145,6 +138,23 @@ public class BlogService implements IBlogService {
         blogResponDto.setBlog_img(blog.getBlog_img());
         blogResponDto.setSlug(blog.getSlug());
         return blogResponDto;
+    }
+
+    @Override
+    public List<BlogResponDto> getRandomBlogs(){
+        List<BlogResponDto> blogs = this.findAll();
+        Collections.shuffle(blogs);
+
+        // Get the first 10 elements (or less if the list size is less than 10)
+        int numOfBlogsToGet = Math.min(blogs.size(), 10);
+
+        return blogs.subList(0, numOfBlogsToGet);
+    }
+
+    @Override
+    public List<BlogResponDto> searchBlogs(String searchText) {
+        List<Blog> blogsSearch =  blogRepository.findByBlogTitleContaining(searchText);
+        return getBlogResponDtos(blogsSearch);
     }
 
 }

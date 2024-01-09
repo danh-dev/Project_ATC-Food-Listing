@@ -18,29 +18,40 @@
 <div class="container-fluid py-5">
     <div class="container py-2">
         <div class="row justify-content-center">
-            <div class="col-lg-10"> <!-- Tăng kích thước cột chứa card -->
+            <div class="col-lg-10"> <!-- Increase column size to contain the card -->
                 <div class="card p-3">
                     <div class="card-content">
                         <div class="row">
-                            <div class="col-lg-6"> <!-- Tăng kích thước cột chứa hình ảnh -->
+                            <div class="col-lg-6"> <!-- Increase column size for the image -->
                                 <div class="card h-100">
                                     <img class="card-img-top" th:src="@{'/' + ${blog.getBlog_img()}}" th:alt="${blog.getBlog_title()}"/>
                                 </div>
                             </div>
-                            <div class="col-lg-6"> <!-- Tăng kích thước cột chứa title và content -->
+                            <div class="col-lg-6"> <!-- Increase column size for title and content -->
                                 <div class="card-body">
                                     <h3 th:text="${blog.getBlog_title()}" class="card-title"></h3>
                                     <p th:text="${blog.getBlog_content()}" class="card-text"></p>
+                                    <!-- Display createdAt -->
+                                    <p>Ngày Đăng: <span th:text="${#temporals.format(blog.getCreatedAt(), 'dd/MM/yyyy')}"></span></p>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
-                <a th:href="@{/blog_demo}" class="btn"><< Quay lại</a>
+                <!-- Back button -->
+                <a href="javascript:void(0)" onclick="goBack()" class="btn"><< Quay lại</a>
+
+                <script>
+                    function goBack() {
+                        window.history.go(-1); // This navigates back one step without resubmitting the form
+                    }
+                </script>
+
             </div>
         </div>
     </div>
 </div>
+
 
 
 <!-- Blog End -->

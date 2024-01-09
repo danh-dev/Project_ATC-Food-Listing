@@ -23,4 +23,7 @@ public interface IBlogService {
     BlogResponDto getBlogBySlug(String slug);
 
     Page<BlogResponDto> findPaginatedBlogs(int page, int size);
+
+    List<BlogResponDto> getRandomBlogs();
+    List<BlogResponDto> searchBlogs(String searchText);
 }

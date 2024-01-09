@@ -19,7 +19,6 @@ import java.util.List;
 @Controller
 @RequestMapping("/admin/blogs")
 @RequiredArgsConstructor
-@Slf4j
 public class BlogAdminController {
     private final BlogService blogService;
     private final IBlogRepository blogRepository;

@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity6">
+<head th:replace="~{client/fragments/head :: heads(pageTitle='Search Results')}">
+    <title>Search Results</title>
+    <style>
+        /* Flexbox styles */
+        .row-display {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-around; /* Adjust alignment as needed */
+            gap: 20px; /* Spacing between cards */
+        }
+        /* Adjust card width if needed */
+        .card {
+            width: 300px;
+            height: 100px;
+        }
+    </style>
+</head>
+<body>
+
+<div th:replace="~{client/fragments/header :: header}"></div>
+
+<!-- Page Header Title Start -->
+<div th:replace="~{client/fragments/header_page :: header_page(headerTitle='Blogs Search Results')}"></div>
+<!-- Page Header Title End -->
+
+<!-- Search Results -->
+<div class="container-fluid py-5">
+    <div class="container py-2">
+        <div class="row row-display"> <!-- Apply the flexbox styles -->
+            <!-- Display search results -->
+            <div class="col-md-6" th:each="blog : ${searchResults}">
+                <div class="card mb-3">
+                    <a th:href="@{${'/blog/' + blog.slug + '.html'}}">
+                        <img class="card-img-top" th:src="@{'/' + ${blog.blog_img}}" th:alt="${blog.blog_title}" style="width: 100%; height: 400px;"/>
+                    </a>
+                    <div class="card-body">
+                        <h5 class="card-title">
+                            <a th:href="@{${'/blog/' + blog.slug + '.html'}}" th:text="${blog.blog_title}"></a>
+                        </h5>
+<!--                        <p class="card-text" th:text="${blog.blog_content}"></p>-->
+                        <a th:href="@{${'/blog/' + blog.slug + '.html'}}" class="btn">Xem chi tiết >></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div th:replace="~{client/fragments/footer::footer}"></div>
+<div th:replace="~{client/fragments/js::js-insert}"></div>
+
+</body>
+</html>

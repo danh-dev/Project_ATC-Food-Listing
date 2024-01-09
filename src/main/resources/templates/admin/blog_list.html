@@ -34,7 +34,7 @@
                                         <table class="table table-striped">
                                             <thead>
                                             <tr>
-                                                <th>ID</th>
+                                                <th>STT</th>
                                                 <th>Title</th>
                                                 <th>Created At</th>
                                                 <th>Image</th>
@@ -42,10 +42,10 @@
                                             </tr>
                                             </thead>
                                             <tbody class="table-border-bottom-0">
-                                            <tr th:each="blog : ${blogs}">
-                                                <td th:text="${blog.id}"></td>
+                                            <tr th:each="blog, blogIndex : ${blogs}">
+                                                <td th:text="${blogIndex.index + 1}"></td>
                                                 <td th:text="${blog.blog_title}"></td>
-                                                <td th:text="${blog.createdAt}"></td>
+                                                <td th:text="${#temporals.format(blog.createdAt)}"></td>
                                                 <td>
                                                     <img th:src="@{'/' + ${blog.getBlog_img()}}" alt class="h-auto rounded-circle"
                                                          width="80px"/>

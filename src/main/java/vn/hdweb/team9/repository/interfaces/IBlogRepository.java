@@ -4,6 +4,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
+import vn.hdweb.team9.domain.dto.respon.BlogResponDto;
 import vn.hdweb.team9.domain.entity.Blog;
 
 
@@ -17,6 +18,6 @@ public interface IBlogRepository extends JpaRepository<Blog, Long> {
     List<Blog> findTop6ByOrderByCreatedAtDesc();
     Blog findBlogBySlug(String slug);
 
-
+    List<Blog> findByBlogTitleContaining(String blogTitle);
 
 }
