@@ -644,76 +644,16 @@
     <div class="container py-5">
         <h2 class="my-3 alert-link pb-3">Blog mới</h2>
         <div class="row row-cols-1 row-cols-md-3 g-4 mb-5">
-            <div class="col">
+            <div class="col" th:each="blog : ${blogs}">
                 <div class="card h-100">
-                    <a th:href="@{/}">
-                        <img class="card-img-top" src="/client/img/sliders/1.webp" alt="Card image cap"/>
+                    <a th:href="@{${'/blog/' + blog.getSlug() + '.html'}}">
+                        <img class="card-img-top img-fluid" th:src="@{'/' + ${blog.getBlog_img()}}" th:alt="${blog.getBlog_title()}" style="object-fit: cover; height: 200px;"/>
                     </a>
                     <div class="card-body">
-                        <a th:href="@{/}">
-                            <h5 class="card-title">Bài viết 1</h5>
+                        <a th:href="@{${'/blog/' + blog.getSlug() + '.html'}}">
+                            <h5 class="card-title" th:text="${blog.getBlog_title()}" >Bài viết 1</h5>
                         </a>
-                        <p class="card-text">
-                            This is a longer card with supporting text below as a natural lead-in to additional content.
-                            This content is a little bit longer.
-                        </p>
-                    </div>
-                </div>
-            </div>
-            <div class="col">
-                <div th:href="@{/#}" class="card h-100">
-                    <img class="card-img-top" src="/client/img/sliders/1.webp" alt="Card image cap"/>
-                    <div class="card-body">
-                        <h5 class="card-title">Bài viết 1</h5>
-                        <p class="card-text">
-                            This is a longer card with supporting text below as a natural lead-in to additional content.
-                            This content is a little bit longer.
-                        </p>
-                    </div>
-                </div>
-            </div>
-            <div class="col">
-                <div th:href="@{/#}" class="card h-100">
-                    <img class="card-img-top" src="/client/img/sliders/1.webp" alt="Card image cap"/>
-                    <div class="card-body">
-                        <h5 class="card-title">Bài viết 1</h5>
-                        <p class="card-text">
-                            This is a longer card with supporting text below as a natural lead-in to additional content.
-                            This content is a little bit longer.
-                        </p>
-                    </div>
-                </div>
-            </div>
-            <div class="col">
-                <div th:href="@{/#}" class="card h-100">
-                    <img class="card-img-top" src="/client/img/sliders/1.webp" alt="Card image cap"/>
-                    <div class="card-body">
-                        <h5 class="card-title">Bài viết 1</h5>
-                        <p class="card-text">
-                            This is a longer card with supporting text below as a natural lead-in to additional content.
-                            This content is a little bit longer.
-                        </p>
-                    </div>
-                </div>
-            </div>
-            <div class="col">
-                <div th:href="@{/#}" class="card h-100">
-                    <img class="card-img-top" src="/client/img/sliders/1.webp" alt="Card image cap"/>
-                    <div class="card-body">
-                        <h5 class="card-title">Bài viết 1</h5>
-                        <p class="card-text">
-                            This is a longer card with supporting text below as a natural lead-in to additional content.
-                            This content is a little bit longer.
-                        </p>
-                    </div>
-                </div>
-            </div>
-            <div class="col">
-                <div th:href="@{/#}" class="card h-100">
-                    <img class="card-img-top" src="/client/img/sliders/1.webp" alt="Card image cap"/>
-                    <div class="card-body">
-                        <h5 class="card-title">Bài viết 1</h5>
-                        <p class="card-text">
+                        <p class="card-text" th:text="${blog.getBlog_content()}">
                             This is a longer card with supporting text below as a natural lead-in to additional content.
                             This content is a little bit longer.
                         </p>
@@ -721,6 +661,7 @@
                 </div>
             </div>
         </div>
+
     </div>
 </div>
 <!-- Blog End -->

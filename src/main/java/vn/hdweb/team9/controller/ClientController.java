@@ -13,6 +13,8 @@ import vn.hdweb.team9.domain.entity.RatingFood;
 import vn.hdweb.team9.domain.entity.RatingRestaurant;
 import vn.hdweb.team9.service.RatingFoodService;
 import vn.hdweb.team9.service.RatingRestaurantService;
+import vn.hdweb.team9.domain.dto.respon.BlogResponDto;
+import vn.hdweb.team9.service.BlogService;
 
 import java.util.List;
 
@@ -23,12 +25,13 @@ import java.util.List;
 public class ClientController {
     private final RatingFoodService ratingFoodService;
     private final RatingRestaurantService ratingRestaurantService;
-
+    private final BlogService blogService;
 
     @GetMapping(value = {"", "/","/home","/index","/trang-chu","index.html","home.html","trang-chu.html"})
-    public String home() {
 
-
+    public String home(Model model) {
+        List<BlogResponDto> blogs = blogService.findLimitOrderDate();
+        model.addAttribute("blogs",blogs);
         return "client/index";
     }
 

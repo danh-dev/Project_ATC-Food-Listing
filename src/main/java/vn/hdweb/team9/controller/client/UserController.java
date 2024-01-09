@@ -114,7 +114,7 @@ public class UserController {
         List<String> validContentTypes = Arrays.asList("image/jpeg", "image/png");
         if(!validContentTypes.contains(file.getContentType())){
             ra.addFlashAttribute("error_upload", "Ảnh không đúng định dạng.");
-            return "redirect:/users?uploadErrorType";
+            return "redirect:/users";
         }
         if(file.getSize() > 5000000){
             ra.addFlashAttribute("error_upload", "Kích thước ảnh không được vượt quá 5MB.");
