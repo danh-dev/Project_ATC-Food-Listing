@@ -109,4 +109,7 @@ public class RestaurantService {
             super(message);
         }
     }
+    public Optional<Restaurant> findBySlug (String slug) {
+        return Optional.ofNullable(restaurantRepository.findBySlug(slug));
+    }
 }

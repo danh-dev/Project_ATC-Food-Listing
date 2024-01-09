@@ -1,15 +1,31 @@
 package vn.hdweb.team9.controller;
 
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
+import org.springframework.stereotype.Repository;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import vn.hdweb.team9.domain.entity.Restaurant;
+import vn.hdweb.team9.service.RestaurantService;
+
+import java.util.List;
+import java.util.Optional;
 
 @Controller
 @RequestMapping("/")
+@Slf4j
 public class ClientController {
+    private final RestaurantService restaurantService;
+    public ClientController(RestaurantService restaurantService) {
+        this.restaurantService = restaurantService;
+    }
 
     @GetMapping(value = {"", "/","/home","/index","/trang-chu","index.html","home.html","trang-chu.html"})
-    public String home() {
+    public String home(Model model) {
+        List<Restaurant> restaurants = restaurantService.findRestaurants();
+        model.addAttribute("restaurants",restaurants);
         return "client/index";
     }
 
@@ -22,7 +38,16 @@ public class ClientController {
     public String restaurant_demo() {
         return "client/restaurant_page";
     }
+    @GetMapping("/restaurant/{slug}")
+    public String getRestaurantDetail(Model model, @PathVariable("slug") String slug) {
+        log.info("slug la:" + slug);
 
+        Optional<Restaurant> restaurant = restaurantService.findBySlug(slug);
+
+        log.info("slug la:" + restaurant.get());
+        model.addAttribute("restaurant", restaurant.get());
+        return "client/restaurant_page";
+    }
     @GetMapping("/food_demo")
     public String food_demo() {
         return "client/food_page";
