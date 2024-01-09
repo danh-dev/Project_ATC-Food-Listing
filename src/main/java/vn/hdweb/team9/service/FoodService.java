@@ -22,7 +22,7 @@ public class FoodService {
     @Transactional
     public Long saveFood(Food food) {
         // validate duplicate food name
-        validateDuplicateFood(food);
+        validateDuplicateFood(food, false);
         
         // trim food name white spaces
         String result = food.getFoodName()
@@ -49,18 +49,23 @@ public class FoodService {
     }
     
     private boolean validateDuplicateFoodSlug(Food food) {
-        List<Food> categories = foodDAO.findByName(food.getSlug());
-        return categories.isEmpty();
+        List<Food> foods = foodDAO.findByName(food.getSlug());
+        return foods.isEmpty();
     }
     
-    private void validateDuplicateFood(Food food) {
-        List<Food> categories = foodDAO.findByName(food.getFoodName());
-        if (!categories.isEmpty()) {
+    private void validateDuplicateFood(Food food, boolean isUpdate) {
+        List<Food> foods;
+        if (isUpdate) {
+            foods = foodDAO.findByNameExceptId(food.getFoodName(),food.getId());
+        } else {
+            foods = foodDAO.findByName(food.getFoodName());
+        }
+        if (!foods.isEmpty()) {
             throw new FoodException(404, "Food already exist!");
         }
     }
     
-    // get all categories
+    // get all foods
     public List<Food> getAllFoods() {
         return foodDAO.findAll();
     }
@@ -84,6 +89,8 @@ public class FoodService {
     // update food
     @Transactional
     public Long updateFood(Food food) {
+        validateDuplicateFood(food, true);
+        
         // convert string to slug
         String resultSlug = StringToSlugUtil.toSlug(food.getFoodName());
         

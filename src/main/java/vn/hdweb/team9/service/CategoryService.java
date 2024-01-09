@@ -22,7 +22,7 @@ public class CategoryService {
     @Transactional
     public Long saveCategory(Category category) {
         // validate duplicate category name
-        validateDuplicateCategory(category);
+        validateDuplicateCategory(category, false);
         
         // trim category name white spaces
         String result = category.getCategoryName()
@@ -53,8 +53,13 @@ public class CategoryService {
         return categories.isEmpty();
     }
     
-    private void validateDuplicateCategory(Category category) {
-        List<Category> categories = categoryDAO.findByName(category.getCategoryName());
+    private void validateDuplicateCategory(Category category, boolean isUpdate) {
+        List<Category> categories;
+        if (isUpdate) {
+            categories = categoryDAO.findByNameExceptId(category.getCategoryName(), category.getId());
+        } else {
+            categories = categoryDAO.findByName(category.getCategoryName());
+        }
         if (!categories.isEmpty()) {
             throw new CategoryException(404, "Category already exist!");
         }
@@ -84,6 +89,9 @@ public class CategoryService {
     // update category
     @Transactional
     public Long updateCategory(Category category) {
+        // validate duplicate category name
+        validateDuplicateCategory(category, true);
+        
         // convert string to slug
         String resultSlug = StringToSlugUtil.toSlug(category.getCategoryName());
         

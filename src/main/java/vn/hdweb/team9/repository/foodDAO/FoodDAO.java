@@ -18,6 +18,9 @@ public interface FoodDAO {
     // find food by name
     List<Food> findByName(String foodName);
     
+    // find food except current id
+    List<Food> findByNameExceptId(String fooName, Long currentFoodId);
+    
     // find food by slug
     List<Food> findBySlug(String foodSlug);
     
