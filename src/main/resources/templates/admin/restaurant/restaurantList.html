@@ -48,45 +48,6 @@
             <div class="content-wrapper">
                 <!-- Content -->
 
-<!--                <div class="container-xxl flex-grow-1 container-p-y">-->
-<!--                    <div class="card mb-2">-->
-<!--                        <div class="card-body">-->
-<!--                            &lt;!&ndash; Coupon search &ndash;&gt;-->
-<!--                            <div class="flex-grow-1 mb-3 d-flex justify-content-start">-->
-<!--                                <button type="submit" class="btn btn-primary mr-2" onclick="searchCoupon()">Search</button>-->
-<!--                                <button type="submit" class="btn btn-info mx-2" onclick="searchDefault()">Set default</button>-->
-<!--                            </div>-->
-
-<!--                            &lt;!&ndash; Search Entries &ndash;&gt;-->
-<!--                            <form id="restaurantSearch" th:object="${restaurantSearch}" class="d-flex justify-content-around">-->
-<!--                                <div class="mb-2 pr-2 ">-->
-<!--                                    <label class="form-label" for="restaurantName">Restaurant Name</label>-->
-<!--                                    <input type="text"-->
-<!--                                           class="form-control"-->
-<!--                                           id="restaurantName"-->
-<!--                                           th:field="*{restaurantName}"-->
-<!--                                           placeholder="Coupon name or code"-->
-<!--                                           th:class="${#fields.hasErrors('restaurantName')}? 'form-control fieldError' : 'form-control'"-->
-<!--                                           maxlength="20"/>-->
-<!--                                    <p th:if="${#fields.hasErrors('restaurantName')}" th:errors="*{restaurantName}" th:errorclass="errorMessage"></p>-->
-<!--                                </div>-->
-
-<!--                                <div class="mb-2 pr-2 ">-->
-<!--                                    <label class="form-label" for="restaurantAddress">Restaurant Address</label>-->
-<!--                                    <input type="text"-->
-<!--                                           class="form-control"-->
-<!--                                           id="restaurantAddress"-->
-<!--                                           th:field="*{restaurantAddress}"-->
-<!--                                           placeholder="Coupon name or code"-->
-<!--                                           th:class="${#fields.hasErrors('restaurantAddress')}? 'form-control fieldError' : 'form-control'"-->
-<!--                                           maxlength="20"/>-->
-<!--                                    <p th:if="${#fields.hasErrors('restaurantAddress')}" th:errors="*{restaurantAddress}" th:errorclass="errorMessage"></p>-->
-<!--                                </div>-->
-
-<!--                            </form>-->
-<!--                        </div>-->
-<!--                    </div>-->
-
                     <!-- Basic Bootstrap Table -->
                     <div class="card">
                         <h5 class="card-header">Restaurants</h5>
@@ -120,7 +81,7 @@
                                     <td th:text="${restaurant.closeTime}"></td>
                                     <td>
                                         <a class="btn btn-sm btn-primary"
-                                           th:href="@{/admin/restaurants/update/{id}(id=${restaurant.id})}"
+                                           th:href="@{/admin/restaurant/update/{id}(id=${restaurant.id})}"
                                         >
                                             <i class="bx bx-edit-alt me-1"></i> Edit
                                         </a>

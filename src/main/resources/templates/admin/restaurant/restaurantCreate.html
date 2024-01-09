@@ -11,7 +11,21 @@
 <head th:replace="~{admin/fragments/head :: heads(pageTitle='Create Restaurants')}">
     <title></title>
 </head>
+<style>
+    .fieldError {
+        border-color: #bd2130;
+    }
 
+    .errorMessage {
+        color: red !important;
+        font-size: 12px;
+    }
+
+    .item {
+        margin-left: 10px;
+        margin-right: 10px;
+      }
+</style>
 <body>
 <!-- Layout wrapper -->
 <div class="layout-wrapper layout-content-navbar">
@@ -50,20 +64,33 @@
                                 <div class="card-body">
                                     <form th:action="@{/admin/restaurant/create}" method="POST" th:object="${restaurantForm}" enctype="multipart/form-data">
                                         <div class="mb-3">
-                                            <label class="form-label" for="formName">Restaurant Name</label>
-                                            <input type="text"
-                                                   class="form-control"
-                                                   id="formName" th:field="*{restaurantName}"
-                                                   placeholder="Input name" />
+                                            <label class="form-label" for="formName">Restaurant Name*</label>
+                                            <input
+                                                    type="text"
+                                                    class="form-control"
+                                                    id="formName"
+                                                    th:field="*{restaurantName}"
+                                                    placeholder="Input name"
+                                                    th:class="${#fields.hasErrors('restaurantName')}? 'form-control fieldError' : 'form-control'"
+                                            />
+                                            <p th:if="${#fields.hasErrors('restaurantName')}" th:errors="*{restaurantName}" th:errorclass="errorMessage">
+                                                This field is required
+                                            </p>
                                         </div>
+
                                         <div class="mb-3">
-                                            <label class="form-label" for="formAddress">Address</label>
-                                            <input type="text"
-                                                   class="form-control"
-                                                   id="formAddress"
-                                                   th:field="*{address}"
-                                                   placeholder="Input address"
-                                                   th:class="${#fields.hasErrors('formAddress')}? 'form-control fieldError' : 'form-control'"/>
+                                            <label class="form-label" for="formAddress">Address*</label>
+                                            <input
+                                                    type="text"
+                                                    class="form-control"
+                                                    id="formAddress"
+                                                    th:field="*{address}"
+                                                    placeholder="Input address"
+                                                    th:class="${#fields.hasErrors('address')}? 'form-control fieldError' : 'form-control'"
+                                            />
+                                            <p th:if="${#fields.hasErrors('address')}" th:errors="*{address}" th:errorclass="errorMessage">
+                                                This field is required
+                                            </p>
                                         </div>
 
                                         <div class="mb-3">
@@ -76,24 +103,50 @@
                                               th:field="*{description}"
                                             ></textarea>
                                         </div>
-                                </div>-->
                                         <div class="mb-3">
-                                            <label class="form-label" for="formImage">Image</label>
-                                            <input class="form-control" type="file" id="formImage"
-                                                   th:field="*{image}"
-                                                   th:class="${#fields.hasErrors('formImage')}? 'form-control fieldError' : 'form-control'">
+                                            <label class="form-label" for="formImage">Image*</label>
+                                            <input
+                                                    class="form-control"
+                                                    type="file"
+                                                    id="formImage"
+                                                    th:field="*{image}"
+                                                    th:class="${#fields.hasErrors('image')}? 'form-control fieldError' : 'form-control'"
+
+                                            />
+                                            <p th:if="${#fields.hasErrors('image')}" th:errors="*{image}" th:errorclass="errorMessage">
+                                                This field is required
+                                            </p>
                                         </div>
+
+
                                         <div class="mb-3">
-                                            <label class="form-label" for="formOpenTime">Open time</label>
-                                            <input class="form-control" type="time" id="formOpenTime" th:field="*{openTime}" th:class="${#fields.hasErrors('formOpenTime')}? 'form-control fieldError' : 'form-control'">
+                                            <label class="form-label" for="formOpenTime">Open Time*</label>
+                                            <input
+                                                    class="form-control"
+                                                    type="time"
+                                                    id="formOpenTime"
+                                                    th:field="*{openTime}"
+                                                    th:class="${#fields.hasErrors('openTime')}? 'form-control fieldError' : 'form-control'"
+                                            />
+                                            <p th:if="${#fields.hasErrors('openTime')}" th:errors="*{openTime}" th:errorclass="errorMessage">
+                                                This field is required
+                                            </p>
                                         </div>
+
                                         <div class="mb-3">
-                                            <label class="form-label" for="formCloseTime">Close time</label>
-                                            <input class="form-control"
-                                                   type="time" id="formCloseTime"
-                                                   th:field="*{closeTime}"
-                                                   th:class="${#fields.hasErrors('formCloseTime')}? 'form-control fieldError' : 'form-control'">>
+                                            <label class="form-label" for="formCloseTime">Close Time*</label>
+                                            <input
+                                                    class="form-control"
+                                                    type="time"
+                                                    id="formCloseTime"
+                                                    th:field="*{closeTime}"
+                                                    th:class="${#fields.hasErrors('closeTime')}? 'form-control fieldError' : 'form-control'"
+                                            />
+                                            <p th:if="${#fields.hasErrors('closeTime')}" th:errors="*{closeTime}" th:errorclass="errorMessage">
+                                                This field is required
+                                            </p>
                                         </div>
+
                                         <button type="submit" class="btn btn-primary">Send</button>
                                     </form>
                                 </div>

@@ -52,7 +52,7 @@ public class AdminRestaurantController {
                          RedirectAttributes redirectAttributes) throws FileUploadException {
         //og.info("in post create" + restaurantForm);
         if (result.hasErrors()) {
-            return "admin/coupon/couponCreate";
+            return "admin/restaurant/restaurantCreate";
         }
 
         restaurantService.add(restaurantForm);
@@ -60,7 +60,7 @@ public class AdminRestaurantController {
         return "redirect:/admin/restaurant/list";
     }
 
-    @GetMapping("/edit/{restaurantId}")
+    @GetMapping("/update/{restaurantId}")
     public String updateRestaurantForm(@PathVariable("restaurantId") Long restaurantId, Model model) {
         log.info("Run this one!");
 
@@ -80,7 +80,7 @@ public class AdminRestaurantController {
         return "admin/restaurant/restaurantEdit";
     }
 
-    @PostMapping("/edit/{restaurantId}")
+    @PostMapping("/update/{restaurantId}")
     public String updateRestaurant(@PathVariable("restaurantId") Long restaurantId,
                                    UpdateRestaurantForm updatedRestaurantForm)
                                         throws FileUploadException {
