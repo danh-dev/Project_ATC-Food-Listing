@@ -19,7 +19,7 @@
         <!-- Menu -->
 
         <aside id="layout-menu"
-               th:replace="~{admin/fragments/menu :: drawer-menu(value_menu = 'restaurants,restaurants_create')}"
+               th:replace="~{admin/fragments/menu :: drawer-menu(value_menu = 'restaurants,restaurants_update')}"
                class="layout-menu menu-vertical menu bg-menu-theme"></aside>
         <!-- / Menu -->
 
@@ -27,7 +27,7 @@
         <div class="layout-page">
             <!-- Navbar -->
 
-            <nav th:replace="admin/fragments/layout :: navbar" />
+            <nav th:replace="admin/fragments/layout :: navbar"></nav>
 
             <!-- / Navbar -->
 
@@ -36,7 +36,7 @@
                 <!-- Content -->
 
                 <div class="container-xxl flex-grow-1 container-p-y">
-                    <h4 class="fw-bold py-3 mb-4"><span class="text-muted fw-light">Restaurant/</span> Create New</h4>
+                    <h4 class="fw-bold py-3 mb-4"><span class="text-muted fw-light">Restaurant/</span> Update</h4>
 
                     <!-- Basic Layout -->
                     <div class="row">
@@ -47,31 +47,32 @@
                                     <small class="text-muted float-end">Default label</small>
                                 </div>
                                 <div class="card-body">
-                                    <form th:action="@{/admin/restaurant/create}" method="POST" th:object="${res}" enctype="multipart/form-data">
-<!--                                        <div class="mb-3">-->
-<!--                                            <label for="fullName" class="form-label">Restaurant Name</label>-->
-<!--                                            <input type="text" class="form-control" id="fullName" th:field="*{restaurantName}">-->
-<!--                                        </div>-->
-<!--                                        <div class="mb-3">-->
-<!--                                            <label for="description" class="form-label">Description</label>-->
-<!--                                            <input type="email" class="form-control" id="description"-->
-<!--                                                   th:field="*{description}">-->
-<!--                                        </div>-->
-<!--                                        <div class="mb-3">-->
-<!--                                            <label for="address" class="form-label">Address</label>-->
-<!--                                            <input type="text" class="form-control" id="address"-->
-<!--                                                   th:field="*{address}">-->
-<!--                                        </div>-->
-<!--                                        <div class="mb-3">-->
-<!--                                            <label for="openTime" class="form-label">Open time</label>-->
-<!--                                            <input type="time" class="form-control" id="openTime"-->
-<!--                                                   th:field="*{openTime}">-->
-<!--                                        </div>-->
-<!--                                        <div class="mb-3">-->
-<!--                                            <label for="closeTime" class="form-label">Close time</label>-->
-<!--                                            <input type="time" class="form-control" id="closeTime"-->
-<!--                                                   th:field="*{closeTime}">-->
-<!--                                        </div>-->
+                                    <form method="POST" th:action="@{'/admin/restaurants/update/' + ${res.id}}" th:object="${res}" enctype="multipart/form-data">
+                                        <!--                                        <div class="mb-3">-->
+                                        <!--                                            <label for="fullName" class="form-label">Restaurant Name</label>-->
+                                        <!--                                            <input type="text" class="form-control" id="fullName" th:field="*{restaurantName}">-->
+                                        <!--                                        </div>-->
+                                        <!--                                        <div class="mb-3">-->
+                                        <!--                                            <label for="description" class="form-label">Description</label>-->
+                                        <!--                                            <input type="email" class="form-control" id="description"-->
+                                        <!--                                                   th:field="*{description}">-->
+                                        <!--                                        </div>-->
+                                        <!--                                        <div class="mb-3">-->
+                                        <!--                                            <label for="address" class="form-label">Address</label>-->
+                                        <!--                                            <input type="text" class="form-control" id="address"-->
+                                        <!--                                                   th:field="*{address}">-->
+                                        <!--                                        </div>-->
+                                        <!--                                        <div class="mb-3">-->
+                                        <!--                                            <label for="openTime" class="form-label">Open time</label>-->
+                                        <!--                                            <input type="time" class="form-control" id="openTime"-->
+                                        <!--                                                   th:field="*{openTime}">-->
+                                        <!--                                        </div>-->
+                                        <!--                                        <div class="mb-3">-->
+                                        <!--                                            <label for="closeTime" class="form-label">Close time</label>-->
+                                        <!--                                            <input type="time" class="form-control" id="closeTime"-->
+                                        <!--                                                   th:field="*{closeTime}">-->
+                                        <!--                                        </div>-->
+                                        <input type="hidden" th:field="*{id}" />
                                         <div class="mb-3">
                                             <label class="form-label" for="basic-default-name">Restaurant Name</label>
                                             <input type="text" class="form-control" id="basic-default-name" th:field="*{restaurantName}" placeholder="Input name" />
@@ -94,10 +95,10 @@
                                                     th:field="*{description}"
                                             ></textarea>
                                         </div>
-<!--                                        <div class="mb-3">-->
-<!--                                            <label class="form-label" for="formFileLogo">Logo</label>-->
-<!--                                            <input class="form-control" type="file" id="formFileLogo" th:field="*{logo}">-->
-<!--                                        </div>-->
+                                        <!--                                        <div class="mb-3">-->
+                                        <!--                                            <label class="form-label" for="formFileLogo">Logo</label>-->
+                                        <!--                                            <input class="form-control" type="file" id="formFileLogo" th:field="*{logo}">-->
+                                        <!--                                        </div>-->
                                         <div class="mb-3">
                                             <label class="form-label" for="formFileImage">Image</label>
                                             <input class="form-control" type="file" id="formFileImage" th:field="*{image}">

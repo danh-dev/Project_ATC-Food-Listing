@@ -13,14 +13,17 @@
  -->
 <!-- beautify ignore:start -->
 <html
-        lang="en" xmlns:th="http://www.thymeleaf.org"
-        class="light-style layout-menu-fixed"
-        dir="ltr"
-        data-theme="theme-default"
-        data-assets-path="../../admin/assets/"
-        data-template="vertical-menu-template-free"
+  lang="en" xmlns:th="http://www.thymeleaf.org"
+  class="light-style layout-menu-fixed"
+  dir="ltr"
+  data-theme="theme-default"
+  data-assets-path="../../admin/assets/"
+  data-template="vertical-menu-template-free"
 >
-<head th:replace="admin/fragments/layout :: head" />
+<head th:replace="~{admin/fragments/head :: heads(pageTitle='List Restaurants')}">
+    <title>List Restaurants</title>
+</head>
+
 
 <body>
 <!-- Layout wrapper -->
@@ -37,7 +40,7 @@
         <div class="layout-page">
             <!-- Navbar -->
 
-            <nav th:replace="admin/fragments/layout :: navbar" />
+            <nav th:replace="~{admin/fragments/nav :: nav-bar(value_title = 'Restaurant')}"></nav>
 
             <!-- / Navbar -->
 
@@ -45,12 +48,48 @@
             <div class="content-wrapper">
                 <!-- Content -->
 
-                <div class="container-xxl flex-grow-1 container-p-y">
-                    <h4 class="fw-bold py-3 mb-4"><span class="text-muted fw-light">Restaurant /</span> List</h4>
+<!--                <div class="container-xxl flex-grow-1 container-p-y">-->
+<!--                    <div class="card mb-2">-->
+<!--                        <div class="card-body">-->
+<!--                            &lt;!&ndash; Coupon search &ndash;&gt;-->
+<!--                            <div class="flex-grow-1 mb-3 d-flex justify-content-start">-->
+<!--                                <button type="submit" class="btn btn-primary mr-2" onclick="searchCoupon()">Search</button>-->
+<!--                                <button type="submit" class="btn btn-info mx-2" onclick="searchDefault()">Set default</button>-->
+<!--                            </div>-->
+
+<!--                            &lt;!&ndash; Search Entries &ndash;&gt;-->
+<!--                            <form id="restaurantSearch" th:object="${restaurantSearch}" class="d-flex justify-content-around">-->
+<!--                                <div class="mb-2 pr-2 ">-->
+<!--                                    <label class="form-label" for="restaurantName">Restaurant Name</label>-->
+<!--                                    <input type="text"-->
+<!--                                           class="form-control"-->
+<!--                                           id="restaurantName"-->
+<!--                                           th:field="*{restaurantName}"-->
+<!--                                           placeholder="Coupon name or code"-->
+<!--                                           th:class="${#fields.hasErrors('restaurantName')}? 'form-control fieldError' : 'form-control'"-->
+<!--                                           maxlength="20"/>-->
+<!--                                    <p th:if="${#fields.hasErrors('restaurantName')}" th:errors="*{restaurantName}" th:errorclass="errorMessage"></p>-->
+<!--                                </div>-->
+
+<!--                                <div class="mb-2 pr-2 ">-->
+<!--                                    <label class="form-label" for="restaurantAddress">Restaurant Address</label>-->
+<!--                                    <input type="text"-->
+<!--                                           class="form-control"-->
+<!--                                           id="restaurantAddress"-->
+<!--                                           th:field="*{restaurantAddress}"-->
+<!--                                           placeholder="Coupon name or code"-->
+<!--                                           th:class="${#fields.hasErrors('restaurantAddress')}? 'form-control fieldError' : 'form-control'"-->
+<!--                                           maxlength="20"/>-->
+<!--                                    <p th:if="${#fields.hasErrors('restaurantAddress')}" th:errors="*{restaurantAddress}" th:errorclass="errorMessage"></p>-->
+<!--                                </div>-->
+
+<!--                            </form>-->
+<!--                        </div>-->
+<!--                    </div>-->
 
                     <!-- Basic Bootstrap Table -->
                     <div class="card">
-                        <h5 class="card-header">Table Basic</h5>
+                        <h5 class="card-header">Restaurants</h5>
                         <div class="table-responsive text-nowrap">
                             <table class="table">
                                 <thead>
@@ -59,180 +98,32 @@
                                     <th>Slug</th>
                                     <th>Description</th>
                                     <th>Address</th>
-                                    <th>Logo</th>
-                                    <th>Image</th>
                                     <th>Open time</th>
                                     <th>Close time</th>
-                                    <th>Is active</th>
-                                    <th>Foods</th>
-                                    <th>Ratings</th>
-                                    <th>Orders</th>
                                     <th>Actions</th>
                                 </tr>
                                 </thead>
                                 <tbody class="table-border-bottom-0">
-                                <tr th:each="restaurant : ${restaurants}">
-                                    <td th:text="${restaurant.restaurantName}"><i class="fab fa-angular fa-lg text-danger me-3"></i> <strong>Nhà hàng 1</strong></td>
-                                    <td th:text="${restaurant.slug}">http://localhost:8080/</td>
-                                    <td th:text="${restaurant.description}">Nhà hàng có nhiều món ngon</td>
-                                    <td th:text="${restaurant.address}">123 Bà Hom</td>
-                                    <td th:text="${restaurant.logo}">
-                                        <ul class="list-unstyled users-list m-0 avatar-group d-flex align-items-center">
-                                            <li
-                                                    data-bs-toggle="tooltip"
-                                                    data-popup="tooltip-custom"
-                                                    data-bs-placement="top"
-                                                    class="avatar avatar-xs pull-up"
-                                                    title="Lilian Fuller"
-                                            >
-                                                <img src="../../admin/assets/img/avatars/5.png" alt="Avatar" class="rounded-circle" />
-                                            </li>
-                                        </ul>
-                                    </td>
-                                    <td th:text="${restaurant.image}">
-                                        <ul class="list-unstyled users-list m-0 avatar-group d-flex align-items-center">
-                                            <li
-                                                data-bs-toggle="tooltip"
-                                                data-popup="tooltip-custom"
-                                                data-bs-placement="top"
-                                                class="avatar avatar-xs pull-up"
-                                                title="Lilian Fuller"
-                                            >
-                                                <img src="../../admin/assets/img/avatars/5.png" alt="Avatar" class="rounded-circle" />
-                                            </li>
-                                        </ul>
-                                    </td>
-                                    <td th:text="${restaurant.open_time}">8:00</td>
-                                    <td th:text="${restaurant.close_time}">21:00</td>
-                                    <td th:text="${restaurant.is_active}"><span class="badge bg-label-primary me-1">Active</span></td>
-                                    <td th:text="">
-                                        <div class="col-lg-4 col-md-6">
-                                            <div class="mt-1">
-                                                <button
-                                                        type="button"
-                                                        class="btn btn-primary"
-                                                        data-bs-toggle="modal"
-                                                        data-bs-target="#modalFood"
-                                                >
-                                                    List Food
-                                                </button>
-
-                                                <!-- Modal-->
-                                                <div
-                                                        class="modal fade"
-                                                        id="modalFood"
-                                                        aria-labelledby="modalFoodLabel"
-                                                        tabindex="-1"
-                                                        style="display: none"
-                                                        aria-hidden="true"
-                                                >
-                                                    <div class="modal-dialog modal-dialog-centered">
-                                                        <div class="modal-content">
-                                                            <div class="modal-header">
-                                                                <h5 class="modal-title" id="modalFoodLabel">List Food</h5>
-                                                                <button
-                                                                        type="button"
-                                                                        class="btn-close"
-                                                                        data-bs-dismiss="modal"
-                                                                        aria-label="Close"
-                                                                ></button>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </td>
-                                    <td th:text="">
-                                        <div class="col-lg-4 col-md-6">
-                                            <div class="mt-1">
-                                                <button
-                                                        type="button"
-                                                        class="btn btn-primary"
-                                                        data-bs-toggle="modal"
-                                                        data-bs-target="#modalRating"
-                                                >
-                                                    List Rating
-                                                </button>
-
-                                                <!-- Modal-->
-                                                <div
-                                                        class="modal fade"
-                                                        id="modalRating"
-                                                        aria-labelledby="modalRatingLabel"
-                                                        tabindex="-1"
-                                                        style="display: none"
-                                                        aria-hidden="true"
-                                                >
-                                                    <div class="modal-dialog modal-dialog-centered">
-                                                        <div class="modal-content">
-                                                            <div class="modal-header">
-                                                                <h5 class="modal-title" id="modalRatingLabel">List Rating</h5>
-                                                                <button
-                                                                        type="button"
-                                                                        class="btn-close"
-                                                                        data-bs-dismiss="modal"
-                                                                        aria-label="Close"
-                                                                ></button>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </td>
-                                    <td th:text="">
-                                        <div class="col-lg-4 col-md-6">
-                                            <div class="mt-1">
-                                                <button
-                                                        type="button"
-                                                        class="btn btn-primary"
-                                                        data-bs-toggle="modal"
-                                                        data-bs-target="#modalOrder"
-                                                >
-                                                    List Order
-                                                </button>
-
-                                                <!-- Modal-->
-                                                <div
-                                                        class="modal fade"
-                                                        id="modalOrder"
-                                                        aria-labelledby="modalOrderLabel"
-                                                        tabindex="-1"
-                                                        style="display: none"
-                                                        aria-hidden="true"
-                                                >
-                                                    <div class="modal-dialog modal-dialog-centered">
-                                                        <div class="modal-content">
-                                                            <div class="modal-header">
-                                                                <h5 class="modal-title" id="modalOrderLabel">List Order</h5>
-                                                                <button
-                                                                        type="button"
-                                                                        class="btn-close"
-                                                                        data-bs-dismiss="modal"
-                                                                        aria-label="Close"
-                                                                ></button>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </td>
+                                <tr th:each="restaurant : ${res}">
                                     <td>
-                                        <div class="dropdown">
-                                            <button type="button" class="btn p-0 dropdown-toggle hide-arrow" data-bs-toggle="dropdown">
-                                                <i class="bx bx-dots-vertical-rounded"></i>
-                                            </button>
-                                            <div class="dropdown-menu">
-                                                <a class="dropdown-item" href="javascript:void(0);"
-                                                ><i class="bx bx-edit-alt me-1"></i> Edit</a
-                                                >
-                                                <a class="dropdown-item" href="javascript:void(0);"
-                                                ><i class="bx bx-trash me-1"></i> Delete</a
-                                                >
-                                            </div>
-                                        </div>
+                                        <th:block th:if="${restaurant.image != null}">
+                                            <img th:src="@{'/' + ${restaurant.image}}"
+                                                 th:alt-title="${restaurant.restaurantName}" class="rounded-circle"
+                                                 width="30" height="30"/>
+                                        </th:block>
+                                        <span th:text="${restaurant.restaurantName}"></span>
+                                    </td>
+                                    <td th:text="${restaurant.slug}"><i class="fab fa-angular fa-lg text-danger me-3"></i> <strong></strong></td>
+                                    <td th:text="${restaurant.description}"></td>
+                                    <td th:text="${restaurant.address}"></td>
+                                    <td th:text="${restaurant.openTime}"></td>
+                                    <td th:text="${restaurant.closeTime}"></td>
+                                    <td>
+                                        <a class="btn btn-sm btn-primary"
+                                           th:href="@{/admin/restaurants/update/{id}(id=${restaurant.id})}"
+                                        >
+                                            <i class="bx bx-edit-alt me-1"></i> Edit
+                                        </a>
                                     </td>
                                 </tr>
                                 </tbody>
@@ -244,7 +135,7 @@
                 <!-- / Content -->
 
                 <!-- Footer -->
-                <footer th:replace="admin/fragments/layout :: footer"></footer>
+                <footer th:replace="admin/fragments/footer :: footer"></footer>
                 <!-- / Footer -->
 
                 <div class="content-backdrop fade"></div>

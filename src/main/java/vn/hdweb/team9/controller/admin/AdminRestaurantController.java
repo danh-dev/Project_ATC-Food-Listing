@@ -1,17 +1,19 @@
 package vn.hdweb.team9.controller.admin;
 
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.tomcat.util.http.fileupload.FileUploadException;
 import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import vn.hdweb.team9.domain.dto.respon.RestaurantDto;
-import vn.hdweb.team9.domain.dto.respon.UserDto;
+import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+import vn.hdweb.team9.domain.dto.CouponSearch;
+import vn.hdweb.team9.domain.dto.RestaurantForm;
+import vn.hdweb.team9.domain.dto.RestaurantSearch;
+import vn.hdweb.team9.domain.dto.UpdateRestaurantForm;
 import vn.hdweb.team9.domain.entity.Restaurant;
 import vn.hdweb.team9.service.RestaurantService;
 
@@ -19,38 +21,46 @@ import vn.hdweb.team9.service.RestaurantService;
 import java.util.List;
 
 @Controller
-@RequestMapping("/admin/restaurants")
+@RequestMapping("/admin/restaurant")
 @RequiredArgsConstructor
 @Slf4j
 public class AdminRestaurantController {
     private final RestaurantService restaurantService;
 
-    @RequestMapping(value = {"", "/","/list"})
+    @GetMapping(value = {"", "/","/list"})
     public String restaurantsList(Model model) {
 
         List<Restaurant> restaurants = restaurantService.findRestaurants();
         /*order id user and reverse*/
 //        users.sort((o1, o2) -> o2.getId().compareTo(o1.getId()));
         model.addAttribute("res", restaurants);
-        return "admin/restaurants_list";
+        return "admin/restaurant/restaurantList";
     }
 
     @GetMapping("/create")
     public String createRestaurant(Model model) {
-        model.addAttribute("res", new RestaurantForm());
-        log.info("in get create");
-        return "admin/restaurants_create";
+//        log.info("in get create");
+        RestaurantForm restaurantForm = new RestaurantForm();
+        model.addAttribute("restaurantForm", restaurantForm);
+
+        return "admin/restaurant/restaurantCreate";
     }
 
     @PostMapping("/create")
-    public String create(RestaurantForm restaurantForm) throws FileUploadException {
+    public String create(@Valid RestaurantForm restaurantForm,
+                         BindingResult result,
+                         RedirectAttributes redirectAttributes) throws FileUploadException {
         //og.info("in post create" + restaurantForm);
+        if (result.hasErrors()) {
+            return "admin/coupon/couponCreate";
+        }
+
         restaurantService.add(restaurantForm);
 
-        return "redirect:/admin/restaurants/list";
+        return "redirect:/admin/restaurant/list";
     }
 
-    @GetMapping("/update/{restaurantId}")
+    @GetMapping("/edit/{restaurantId}")
     public String updateRestaurantForm(@PathVariable("restaurantId") Long restaurantId, Model model) {
         log.info("Run this one!");
 
@@ -67,16 +77,16 @@ public class AdminRestaurantController {
         // Truyền đối tượng RestaurantForm vào model để hiển thị trong form
         model.addAttribute("res", updatedRestaurantForm);
 
-        return "admin/restaurants_update";
+        return "admin/restaurant/restaurantEdit";
     }
 
-    @PostMapping("/update/{restaurantId}")
+    @PostMapping("/edit/{restaurantId}")
     public String updateRestaurant(@PathVariable("restaurantId") Long restaurantId,
                                    UpdateRestaurantForm updatedRestaurantForm)
                                         throws FileUploadException {
         // Gọi service để cập nhật thông tin nhà hàng
         restaurantService.update(restaurantId, updatedRestaurantForm);
 
-        return "redirect:/admin/restaurants/list";
+        return "redirect:/admin/restaurant/list";
     }
 }

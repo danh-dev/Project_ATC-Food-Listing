@@ -14,15 +14,14 @@ import java.util.Optional;
 
 @Repository
 @Transactional
-public interface IRestaurantRepository{
+public interface IRestaurantRepository extends JpaRepository<Restaurant, Long> {
 
-    void save(Restaurant restaurant);
 
-    Optional<Restaurant> findById(Long id);
-
-    List<Restaurant> findAll();
-
+//    void save(Restaurant restaurant);
+    //Optional<Restaurant> findById(Long id);
     List<Restaurant> findByRestaurantName(String restaurantName);
+
+    List<Restaurant> findExactByRestaurantName(String restaurantName);
 
     Restaurant findBySlug(String slug);
 

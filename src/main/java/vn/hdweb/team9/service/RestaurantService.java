@@ -5,11 +5,9 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.tomcat.util.http.fileupload.FileUploadException;
 import org.springframework.stereotype.Service;
-import vn.hdweb.team9.controller.admin.RestaurantForm;
-import vn.hdweb.team9.controller.admin.UpdateRestaurantForm;
-import vn.hdweb.team9.domain.dto.respon.RestaurantDto;
+import vn.hdweb.team9.domain.dto.RestaurantForm;
+import vn.hdweb.team9.domain.dto.UpdateRestaurantForm;
 import vn.hdweb.team9.domain.entity.Restaurant;
-import vn.hdweb.team9.repository.RestaurantRepository;
 import vn.hdweb.team9.repository.interfaces.IRestaurantRepository;
 import vn.hdweb.team9.utility.TitleToSlug;
 import vn.hdweb.team9.utility.UploadFile;
@@ -26,9 +24,9 @@ public class RestaurantService {
 
     public void add(RestaurantForm r) throws FileUploadException {
         // Kiểm tra xem nhà hàng có tên tương tự đã tồn tại hay chưa
-        log.info("Input restaurant: " + r.getRestaurantName());
+//        log.info("Input restaurant: " + r.getRestaurantName());
         List<Restaurant> existingRestaurants = restaurantRepository.findByRestaurantName(r.getRestaurantName());
-        log.info("Found restaurant: " + existingRestaurants.get(0).getRestaurantName());
+//        log.info("Found restaurant: " + existingRestaurants.get(0).getRestaurantName());
         if (!existingRestaurants.isEmpty()) {
             // Nếu tồn tại, bạn có thể thực hiện xử lý khi có lỗi, ví dụ:
             throw new DuplicateRestaurantNameException("Restaurant with the same name already exists");
@@ -51,7 +49,7 @@ public class RestaurantService {
     private String createSlug(String restaurantName) {
         while (true) {
             String slug = TitleToSlug.toSlug(restaurantName);
-            if (restaurantRepository.findBySlug(slug) == null) {
+            if (restaurantRepository.findBySlug(slug)== null) {
                 return slug;
             }
             restaurantName = restaurantName + "1";

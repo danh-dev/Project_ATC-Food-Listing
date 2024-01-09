@@ -40,7 +40,7 @@
         <div class="layout-page">
             <!-- Navbar -->
 
-            <nav th:replace="admin/fragments/layout :: navbar" />
+            <nav th:replace="~{admin/fragments/nav :: nav-bar(value_title = 'Restaurant')}"></nav>
 
             <!-- / Navbar -->
 
@@ -49,11 +49,10 @@
                 <!-- Content -->
 
                 <div class="container-xxl flex-grow-1 container-p-y">
-                    <h4 class="fw-bold py-3 mb-4"><span class="text-muted fw-light">Restaurant /</span> List</h4>
 
                     <!-- Basic Bootstrap Table -->
                     <div class="card">
-                        <h5 class="card-header">Table Basic</h5>
+                        <h5 class="card-header">Restaurants</h5>
                         <div class="table-responsive text-nowrap">
                             <table class="table">
                                 <thead>
