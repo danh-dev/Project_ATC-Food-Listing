@@ -11,6 +11,7 @@ import vn.hdweb.team9.domain.dto.respon.UserDto;
 import vn.hdweb.team9.domain.entity.User;
 
 import java.util.List;
+import java.util.Optional;
 
 public interface IUserService extends UserDetailsService {
     UserDetails loadUserByEmail(String email) throws UsernameNotFoundException;
@@ -18,6 +19,7 @@ public interface IUserService extends UserDetailsService {
     User save(SignUpDto user);
 
     UserDto findByEmail(String userEmail);
+    Optional<User> findById(Long id);
 
     void uploadAvatar(MultipartFile avatar, String email);
 
@@ -30,4 +32,5 @@ public interface IUserService extends UserDetailsService {
     List<OrderListOfUserDto> orderListOfUser(String userEmail);
 
     List<UserDto> findAll();
+
 }

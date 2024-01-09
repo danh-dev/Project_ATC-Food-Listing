@@ -1,0 +1,35 @@
+<div th:fragment="ratingForm">
+
+    <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#addRatingModal">
+        Thêm Đánh giá
+    </button>
+    <!-- Modal -->
+    <div class="modal fade" id="addRatingModal" tabindex="-1" aria-labelledby="addRatingModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="addRatingModalLabel">Thêm Đánh giá</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <!-- Form Add rating -->
+                    <form th:action="@{/rating-food/add}" method="post">
+                        <div class="mb-3">
+                            <label for="content" class="form-label">Nội dung</label>
+                            <input type="text" class="form-control" id="content" name="content" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="rateStar" class="form-label">Điểm đánh giá</label>
+                            <input type="number" class="form-control" id="rateStar" name="rateStar" min="0" max="5"
+                                   required>
+                        </div>
+                        <!-- pass foodId in value -->
+<!--                        <input type="hidden" name="foodId" value="1">-->
+                        <input type="hidden" name="foodId" th:value="${foodId}">
+                        <button type="submit" class="btn btn-primary">Thêm Đánh giá</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Modal -->

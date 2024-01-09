@@ -1,4 +1,5 @@
-<div th:fragment="rating" class="modal fade" id="modalScrollable" tabindex="-1" style="display: none;" aria-hidden="true">
+<div th:fragment="list(listValue)"  class="modal fade" id="modalScrollable" tabindex="-1" style="display: none;"
+     aria-hidden="true">
     <div class="modal-dialog modal-dialog-scrollable" role="document">
         <div class="modal-content">
             <div class="modal-header">
@@ -6,215 +7,221 @@
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
-                <div class="border border-primary rounded bg-light p-1 m-1">
-                    <div class="row d-flex">
-                        <div class="col-3 d-flex justify-content-center align-items-center">
-                            <img src="/client/img/res/1.webp" class="rounded-circle" alt="" width="80" height="80">
-                        </div>
-                        <div class="col-9 d-flex flex-column justify-content-between overflow-hidden">
-                            <div class="d-flex"> <span class="h5">Nguyen Van A</span> -
-                                <span th:replace="~{client/fragments/elements/rating :: rating(rating_value = 4.3)}"></span>
+                <!--                for each-->
+                <div th:each="rating: ${listValue}">
+                    <div class="border border-primary rounded bg-light p-1 m-1">
+                        <div class="row d-flex">
+                            <div class="col-3 d-flex justify-content-center align-items-center">
+                                <img th:src="${rating.userAvatar}" class="rounded-circle" alt="" width="80"
+                                     height="80">
                             </div>
-                            <p>phục vụ tốt, món ăn ngon, giá cả hợp lý</p>
+                            <div class="col-9 d-flex flex-column justify-content-between overflow-hidden">
+                                <div class="d-flex">
+                                    <span class="h5" th:text="${rating.userFullName}"></span> -
+                                    <span th:replace="~{client/fragments/elements/rating :: rating(rating_value = ${rating.rateStar})}"></span>
+                                </div>
+                                <p th:text="${rating.content}"></p>
+                            </div>
                         </div>
                     </div>
                 </div>
 
-                <div class="border border-primary rounded bg-light p-1 m-1">
-                    <div class="row d-flex">
-                        <div class="col-3 d-flex justify-content-center align-items-center">
-                            <img src="/client/img/res/1.webp" class="rounded-circle" alt="" width="80" height="80">
-                        </div>
-                        <div class="col-9 d-flex flex-column justify-content-between overflow-hidden">
-                            <div class="d-flex"> <span class="h5">Nguyen Van A</span> -
-                                <span th:replace="~{client/fragments/elements/rating :: rating(rating_value = 4.3)}"></span>
-                            </div>
-                            <p>phục vụ tốt, món ăn ngon, giá cả hợp lý</p>
-                        </div>
-                    </div>
-                </div>
 
-                <div class="border border-primary rounded bg-light p-1 m-1">
-                    <div class="row d-flex">
-                        <div class="col-3 d-flex justify-content-center align-items-center">
-                            <img src="/client/img/res/1.webp" class="rounded-circle" alt="" width="80" height="80">
-                        </div>
-                        <div class="col-9 d-flex flex-column justify-content-between overflow-hidden">
-                            <div class="d-flex"> <span class="h5">Nguyen Van A</span> -
-                                <span th:replace="~{client/fragments/elements/rating :: rating(rating_value = 4.3)}"></span>
-                            </div>
-                            <p>phục vụ tốt, món ăn ngon, giá cả hợp lý</p>
-                        </div>
-                    </div>
-                </div>
+                <!--                <div class="border border-primary rounded bg-light p-1 m-1">-->
+                <!--                    <div class="row d-flex">-->
+                <!--                        <div class="col-3 d-flex justify-content-center align-items-center">-->
+                <!--                            <img src="/client/img/res/1.webp" class="rounded-circle" alt="" width="80" height="80">-->
+                <!--                        </div>-->
+                <!--                        <div class="col-9 d-flex flex-column justify-content-between overflow-hidden">-->
+                <!--                            <div class="d-flex"> <span class="h5">Nguyen Van A</span> - -->
+                <!--                                <span th:replace="~{client/fragments/elements/rating :: rating(rating_value = 4.3)}"></span>-->
+                <!--                            </div>-->
+                <!--                            <p>phục vụ tốt, món ăn ngon, giá cả hợp lý</p>-->
+                <!--                        </div>-->
+                <!--                    </div>-->
+                <!--                </div>-->
 
-                <div class="border border-primary rounded bg-light p-1 m-1">
-                    <div class="row d-flex">
-                        <div class="col-3 d-flex justify-content-center align-items-center">
-                            <img src="/client/img/res/1.webp" class="rounded-circle" alt="" width="80" height="80">
-                        </div>
-                        <div class="col-9 d-flex flex-column justify-content-between overflow-hidden">
-                            <div class="d-flex"> <span class="h5">Nguyen Van A</span> -
-                                <span th:replace="~{client/fragments/elements/rating :: rating(rating_value = 4.3)}"></span>
-                            </div>
-                            <p>phục vụ tốt, món ăn ngon, giá cả hợp lý</p>
-                        </div>
-                    </div>
-                </div>
+                <!--                <div class="border border-primary rounded bg-light p-1 m-1">-->
+                <!--                    <div class="row d-flex">-->
+                <!--                        <div class="col-3 d-flex justify-content-center align-items-center">-->
+                <!--                            <img src="/client/img/res/1.webp" class="rounded-circle" alt="" width="80" height="80">-->
+                <!--                        </div>-->
+                <!--                        <div class="col-9 d-flex flex-column justify-content-between overflow-hidden">-->
+                <!--                            <div class="d-flex"> <span class="h5">Nguyen Van A</span> - -->
+                <!--                                <span th:replace="~{client/fragments/elements/rating :: rating(rating_value = 4.3)}"></span>-->
+                <!--                            </div>-->
+                <!--                            <p>phục vụ tốt, món ăn ngon, giá cả hợp lý</p>-->
+                <!--                        </div>-->
+                <!--                    </div>-->
+                <!--                </div>-->
 
-                <div class="border border-primary rounded bg-light p-1 m-1">
-                    <div class="row d-flex">
-                        <div class="col-3 d-flex justify-content-center align-items-center">
-                            <img src="/client/img/res/1.webp" class="rounded-circle" alt="" width="80" height="80">
-                        </div>
-                        <div class="col-9 d-flex flex-column justify-content-between overflow-hidden">
-                            <div class="d-flex"> <span class="h5">Nguyen Van A</span> -
-                                <span th:replace="~{client/fragments/elements/rating :: rating(rating_value = 4.3)}"></span>
-                            </div>
-                            <p>phục vụ tốt, món ăn ngon, giá cả hợp lý</p>
-                        </div>
-                    </div>
-                </div>
+                <!--                <div class="border border-primary rounded bg-light p-1 m-1">-->
+                <!--                    <div class="row d-flex">-->
+                <!--                        <div class="col-3 d-flex justify-content-center align-items-center">-->
+                <!--                            <img src="/client/img/res/1.webp" class="rounded-circle" alt="" width="80" height="80">-->
+                <!--                        </div>-->
+                <!--                        <div class="col-9 d-flex flex-column justify-content-between overflow-hidden">-->
+                <!--                            <div class="d-flex"> <span class="h5">Nguyen Van A</span> - -->
+                <!--                                <span th:replace="~{client/fragments/elements/rating :: rating(rating_value = 4.3)}"></span>-->
+                <!--                            </div>-->
+                <!--                            <p>phục vụ tốt, món ăn ngon, giá cả hợp lý</p>-->
+                <!--                        </div>-->
+                <!--                    </div>-->
+                <!--                </div>-->
 
-                <div class="border border-primary rounded bg-light p-1 m-1">
-                    <div class="row d-flex">
-                        <div class="col-3 d-flex justify-content-center align-items-center">
-                            <img src="/client/img/res/1.webp" class="rounded-circle" alt="" width="80" height="80">
-                        </div>
-                        <div class="col-9 d-flex flex-column justify-content-between overflow-hidden">
-                            <div class="d-flex"> <span class="h5">Nguyen Van A</span> -
-                                <span th:replace="~{client/fragments/elements/rating :: rating(rating_value = 4.3)}"></span>
-                            </div>
-                            <p>phục vụ tốt, món ăn ngon, giá cả hợp lý</p>
-                        </div>
-                    </div>
-                </div>
+                <!--                <div class="border border-primary rounded bg-light p-1 m-1">-->
+                <!--                    <div class="row d-flex">-->
+                <!--                        <div class="col-3 d-flex justify-content-center align-items-center">-->
+                <!--                            <img src="/client/img/res/1.webp" class="rounded-circle" alt="" width="80" height="80">-->
+                <!--                        </div>-->
+                <!--                        <div class="col-9 d-flex flex-column justify-content-between overflow-hidden">-->
+                <!--                            <div class="d-flex"> <span class="h5">Nguyen Van A</span> - -->
+                <!--                                <span th:replace="~{client/fragments/elements/rating :: rating(rating_value = 4.3)}"></span>-->
+                <!--                            </div>-->
+                <!--                            <p>phục vụ tốt, món ăn ngon, giá cả hợp lý</p>-->
+                <!--                        </div>-->
+                <!--                    </div>-->
+                <!--                </div>-->
 
-                <div class="border border-primary rounded bg-light p-1 m-1">
-                    <div class="row d-flex">
-                        <div class="col-3 d-flex justify-content-center align-items-center">
-                            <img src="/client/img/res/1.webp" class="rounded-circle" alt="" width="80" height="80">
-                        </div>
-                        <div class="col-9 d-flex flex-column justify-content-between overflow-hidden">
-                            <div class="d-flex"> <span class="h5">Nguyen Van A</span> -
-                                <span th:replace="~{client/fragments/elements/rating :: rating(rating_value = 4.3)}"></span>
-                            </div>
-                            <p>phục vụ tốt, món ăn ngon, giá cả hợp lý</p>
-                        </div>
-                    </div>
-                </div>
+                <!--                <div class="border border-primary rounded bg-light p-1 m-1">-->
+                <!--                    <div class="row d-flex">-->
+                <!--                        <div class="col-3 d-flex justify-content-center align-items-center">-->
+                <!--                            <img src="/client/img/res/1.webp" class="rounded-circle" alt="" width="80" height="80">-->
+                <!--                        </div>-->
+                <!--                        <div class="col-9 d-flex flex-column justify-content-between overflow-hidden">-->
+                <!--                            <div class="d-flex"> <span class="h5">Nguyen Van A</span> - -->
+                <!--                                <span th:replace="~{client/fragments/elements/rating :: rating(rating_value = 4.3)}"></span>-->
+                <!--                            </div>-->
+                <!--                            <p>phục vụ tốt, món ăn ngon, giá cả hợp lý</p>-->
+                <!--                        </div>-->
+                <!--                    </div>-->
+                <!--                </div>-->
 
-                <div class="border border-primary rounded bg-light p-1 m-1">
-                    <div class="row d-flex">
-                        <div class="col-3 d-flex justify-content-center align-items-center">
-                            <img src="/client/img/res/1.webp" class="rounded-circle" alt="" width="80" height="80">
-                        </div>
-                        <div class="col-9 d-flex flex-column justify-content-between overflow-hidden">
-                            <div class="d-flex"> <span class="h5">Nguyen Van A</span> -
-                                <span th:replace="~{client/fragments/elements/rating :: rating(rating_value = 4.3)}"></span>
-                            </div>
-                            <p>phục vụ tốt, món ăn ngon, giá cả hợp lý</p>
-                        </div>
-                    </div>
-                </div>
+                <!--                <div class="border border-primary rounded bg-light p-1 m-1">-->
+                <!--                    <div class="row d-flex">-->
+                <!--                        <div class="col-3 d-flex justify-content-center align-items-center">-->
+                <!--                            <img src="/client/img/res/1.webp" class="rounded-circle" alt="" width="80" height="80">-->
+                <!--                        </div>-->
+                <!--                        <div class="col-9 d-flex flex-column justify-content-between overflow-hidden">-->
+                <!--                            <div class="d-flex"> <span class="h5">Nguyen Van A</span> - -->
+                <!--                                <span th:replace="~{client/fragments/elements/rating :: rating(rating_value = 4.3)}"></span>-->
+                <!--                            </div>-->
+                <!--                            <p>phục vụ tốt, món ăn ngon, giá cả hợp lý</p>-->
+                <!--                        </div>-->
+                <!--                    </div>-->
+                <!--                </div>-->
 
-                <div class="border border-primary rounded bg-light p-1 m-1">
-                    <div class="row d-flex">
-                        <div class="col-3 d-flex justify-content-center align-items-center">
-                            <img src="/client/img/res/1.webp" class="rounded-circle" alt="" width="80" height="80">
-                        </div>
-                        <div class="col-9 d-flex flex-column justify-content-between overflow-hidden">
-                            <div class="d-flex"> <span class="h5">Nguyen Van A</span> -
-                                <span th:replace="~{client/fragments/elements/rating :: rating(rating_value = 4.3)}"></span>
-                            </div>
-                            <p>phục vụ tốt, món ăn ngon, giá cả hợp lý</p>
-                        </div>
-                    </div>
-                </div>
+                <!--                <div class="border border-primary rounded bg-light p-1 m-1">-->
+                <!--                    <div class="row d-flex">-->
+                <!--                        <div class="col-3 d-flex justify-content-center align-items-center">-->
+                <!--                            <img src="/client/img/res/1.webp" class="rounded-circle" alt="" width="80" height="80">-->
+                <!--                        </div>-->
+                <!--                        <div class="col-9 d-flex flex-column justify-content-between overflow-hidden">-->
+                <!--                            <div class="d-flex"> <span class="h5">Nguyen Van A</span> - -->
+                <!--                                <span th:replace="~{client/fragments/elements/rating :: rating(rating_value = 4.3)}"></span>-->
+                <!--                            </div>-->
+                <!--                            <p>phục vụ tốt, món ăn ngon, giá cả hợp lý</p>-->
+                <!--                        </div>-->
+                <!--                    </div>-->
+                <!--                </div>-->
 
-                <div class="border border-primary rounded bg-light p-1 m-1">
-                    <div class="row d-flex">
-                        <div class="col-3 d-flex justify-content-center align-items-center">
-                            <img src="/client/img/res/1.webp" class="rounded-circle" alt="" width="80" height="80">
-                        </div>
-                        <div class="col-9 d-flex flex-column justify-content-between overflow-hidden">
-                            <div class="d-flex"> <span class="h5">Nguyen Van A</span> -
-                                <span th:replace="~{client/fragments/elements/rating :: rating(rating_value = 4.3)}"></span>
-                            </div>
-                            <p>phục vụ tốt, món ăn ngon, giá cả hợp lý</p>
-                        </div>
-                    </div>
-                </div>
+                <!--                <div class="border border-primary rounded bg-light p-1 m-1">-->
+                <!--                    <div class="row d-flex">-->
+                <!--                        <div class="col-3 d-flex justify-content-center align-items-center">-->
+                <!--                            <img src="/client/img/res/1.webp" class="rounded-circle" alt="" width="80" height="80">-->
+                <!--                        </div>-->
+                <!--                        <div class="col-9 d-flex flex-column justify-content-between overflow-hidden">-->
+                <!--                            <div class="d-flex"> <span class="h5">Nguyen Van A</span> - -->
+                <!--                                <span th:replace="~{client/fragments/elements/rating :: rating(rating_value = 4.3)}"></span>-->
+                <!--                            </div>-->
+                <!--                            <p>phục vụ tốt, món ăn ngon, giá cả hợp lý</p>-->
+                <!--                        </div>-->
+                <!--                    </div>-->
+                <!--                </div>-->
 
-                <div class="border border-primary rounded bg-light p-1 m-1">
-                    <div class="row d-flex">
-                        <div class="col-3 d-flex justify-content-center align-items-center">
-                            <img src="/client/img/res/1.webp" class="rounded-circle" alt="" width="80" height="80">
-                        </div>
-                        <div class="col-9 d-flex flex-column justify-content-between overflow-hidden">
-                            <div class="d-flex"> <span class="h5">Nguyen Van A</span> -
-                                <span th:replace="~{client/fragments/elements/rating :: rating(rating_value = 4.3)}"></span>
-                            </div>
-                            <p>phục vụ tốt, món ăn ngon, giá cả hợp lý</p>
-                        </div>
-                    </div>
-                </div>
+                <!--                <div class="border border-primary rounded bg-light p-1 m-1">-->
+                <!--                    <div class="row d-flex">-->
+                <!--                        <div class="col-3 d-flex justify-content-center align-items-center">-->
+                <!--                            <img src="/client/img/res/1.webp" class="rounded-circle" alt="" width="80" height="80">-->
+                <!--                        </div>-->
+                <!--                        <div class="col-9 d-flex flex-column justify-content-between overflow-hidden">-->
+                <!--                            <div class="d-flex"> <span class="h5">Nguyen Van A</span> - -->
+                <!--                                <span th:replace="~{client/fragments/elements/rating :: rating(rating_value = 4.3)}"></span>-->
+                <!--                            </div>-->
+                <!--                            <p>phục vụ tốt, món ăn ngon, giá cả hợp lý</p>-->
+                <!--                        </div>-->
+                <!--                    </div>-->
+                <!--                </div>-->
 
-                <div class="border border-primary rounded bg-light p-1 m-1">
-                    <div class="row d-flex">
-                        <div class="col-3 d-flex justify-content-center align-items-center">
-                            <img src="/client/img/res/1.webp" class="rounded-circle" alt="" width="80" height="80">
-                        </div>
-                        <div class="col-9 d-flex flex-column justify-content-between overflow-hidden">
-                            <div class="d-flex"> <span class="h5">Nguyen Van A</span> -
-                                <span th:replace="~{client/fragments/elements/rating :: rating(rating_value = 4.3)}"></span>
-                            </div>
-                            <p>phục vụ tốt, món ăn ngon, giá cả hợp lý</p>
-                        </div>
-                    </div>
-                </div>
+                <!--                <div class="border border-primary rounded bg-light p-1 m-1">-->
+                <!--                    <div class="row d-flex">-->
+                <!--                        <div class="col-3 d-flex justify-content-center align-items-center">-->
+                <!--                            <img src="/client/img/res/1.webp" class="rounded-circle" alt="" width="80" height="80">-->
+                <!--                        </div>-->
+                <!--                        <div class="col-9 d-flex flex-column justify-content-between overflow-hidden">-->
+                <!--                            <div class="d-flex"> <span class="h5">Nguyen Van A</span> - -->
+                <!--                                <span th:replace="~{client/fragments/elements/rating :: rating(rating_value = 4.3)}"></span>-->
+                <!--                            </div>-->
+                <!--                            <p>phục vụ tốt, món ăn ngon, giá cả hợp lý</p>-->
+                <!--                        </div>-->
+                <!--                    </div>-->
+                <!--                </div>-->
 
-                <div class="border border-primary rounded bg-light p-1 m-1">
-                    <div class="row d-flex">
-                        <div class="col-3 d-flex justify-content-center align-items-center">
-                            <img src="/client/img/res/1.webp" class="rounded-circle" alt="" width="80" height="80">
-                        </div>
-                        <div class="col-9 d-flex flex-column justify-content-between overflow-hidden">
-                            <div class="d-flex"> <span class="h5">Nguyen Van A</span> -
-                                <span th:replace="~{client/fragments/elements/rating :: rating(rating_value = 4.3)}"></span>
-                            </div>
-                            <p>phục vụ tốt, món ăn ngon, giá cả hợp lý</p>
-                        </div>
-                    </div>
-                </div>
+                <!--                <div class="border border-primary rounded bg-light p-1 m-1">-->
+                <!--                    <div class="row d-flex">-->
+                <!--                        <div class="col-3 d-flex justify-content-center align-items-center">-->
+                <!--                            <img src="/client/img/res/1.webp" class="rounded-circle" alt="" width="80" height="80">-->
+                <!--                        </div>-->
+                <!--                        <div class="col-9 d-flex flex-column justify-content-between overflow-hidden">-->
+                <!--                            <div class="d-flex"> <span class="h5">Nguyen Van A</span> - -->
+                <!--                                <span th:replace="~{client/fragments/elements/rating :: rating(rating_value = 4.3)}"></span>-->
+                <!--                            </div>-->
+                <!--                            <p>phục vụ tốt, món ăn ngon, giá cả hợp lý</p>-->
+                <!--                        </div>-->
+                <!--                    </div>-->
+                <!--                </div>-->
 
-                <div class="border border-primary rounded bg-light p-1 m-1">
-                    <div class="row d-flex">
-                        <div class="col-3 d-flex justify-content-center align-items-center">
-                            <img src="/client/img/res/1.webp" class="rounded-circle" alt="" width="80" height="80">
-                        </div>
-                        <div class="col-9 d-flex flex-column justify-content-between overflow-hidden">
-                            <div class="d-flex"> <span class="h5">Nguyen Van A</span> -
-                                <span th:replace="~{client/fragments/elements/rating :: rating(rating_value = 4.3)}"></span>
-                            </div>
-                            <p>phục vụ tốt, món ăn ngon, giá cả hợp lý</p>
-                        </div>
-                    </div>
-                </div>
+                <!--                <div class="border border-primary rounded bg-light p-1 m-1">-->
+                <!--                    <div class="row d-flex">-->
+                <!--                        <div class="col-3 d-flex justify-content-center align-items-center">-->
+                <!--                            <img src="/client/img/res/1.webp" class="rounded-circle" alt="" width="80" height="80">-->
+                <!--                        </div>-->
+                <!--                        <div class="col-9 d-flex flex-column justify-content-between overflow-hidden">-->
+                <!--                            <div class="d-flex"> <span class="h5">Nguyen Van A</span> - -->
+                <!--                                <span th:replace="~{client/fragments/elements/rating :: rating(rating_value = 4.3)}"></span>-->
+                <!--                            </div>-->
+                <!--                            <p>phục vụ tốt, món ăn ngon, giá cả hợp lý</p>-->
+                <!--                        </div>-->
+                <!--                    </div>-->
+                <!--                </div>-->
 
-                <div class="border border-primary rounded bg-light p-1 m-1">
-                    <div class="row d-flex">
-                        <div class="col-3 d-flex justify-content-center align-items-center">
-                            <img src="/client/img/res/1.webp" class="rounded-circle" alt="" width="80" height="80">
-                        </div>
-                        <div class="col-9 d-flex flex-column justify-content-between overflow-hidden">
-                            <div class="d-flex"> <span class="h5">Nguyen Van A</span> -
-                                <span th:replace="~{client/fragments/elements/rating :: rating(rating_value = 4.3)}"></span>
-                            </div>
-                            <p>phục vụ tốt, món ăn ngon, giá cả hợp lý</p>
-                        </div>
-                    </div>
-                </div>
+                <!--                <div class="border border-primary rounded bg-light p-1 m-1">-->
+                <!--                    <div class="row d-flex">-->
+                <!--                        <div class="col-3 d-flex justify-content-center align-items-center">-->
+                <!--                            <img src="/client/img/res/1.webp" class="rounded-circle" alt="" width="80" height="80">-->
+                <!--                        </div>-->
+                <!--                        <div class="col-9 d-flex flex-column justify-content-between overflow-hidden">-->
+                <!--                            <div class="d-flex"> <span class="h5">Nguyen Van A</span> - -->
+                <!--                                <span th:replace="~{client/fragments/elements/rating :: rating(rating_value = 4.3)}"></span>-->
+                <!--                            </div>-->
+                <!--                            <p>phục vụ tốt, món ăn ngon, giá cả hợp lý</p>-->
+                <!--                        </div>-->
+                <!--                    </div>-->
+                <!--                </div>-->
+
+                <!--                <div class="border border-primary rounded bg-light p-1 m-1">-->
+                <!--                    <div class="row d-flex">-->
+                <!--                        <div class="col-3 d-flex justify-content-center align-items-center">-->
+                <!--                            <img src="/client/img/res/1.webp" class="rounded-circle" alt="" width="80" height="80">-->
+                <!--                        </div>-->
+                <!--                        <div class="col-9 d-flex flex-column justify-content-between overflow-hidden">-->
+                <!--                            <div class="d-flex"> <span class="h5">Nguyen Van A</span> - -->
+                <!--                                <span th:replace="~{client/fragments/elements/rating :: rating(rating_value = 4.3)}"></span>-->
+                <!--                            </div>-->
+                <!--                            <p>phục vụ tốt, món ăn ngon, giá cả hợp lý</p>-->
+                <!--                        </div>-->
+                <!--                    </div>-->
+                <!--                </div>-->
 
             </div>
         </div>

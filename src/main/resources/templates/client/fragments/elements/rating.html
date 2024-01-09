@@ -1,4 +1,5 @@
 <div th:fragment="rating" class="d-flex pe-1" th:title="${rating_value}">
+
     <i th:classappend="${rating_value >= 1 ? 'text-primary' : ''}" class="fas fa-star"></i>
     <i th:classappend="${rating_value >= 2 ? 'text-primary' : ''}" class="fas fa-star"></i>
     <i th:classappend="${rating_value >= 3 ? 'text-primary' : ''}" class="fas fa-star"></i>

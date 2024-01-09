@@ -23,6 +23,7 @@ import vn.hdweb.team9.service.imp.IUserService;
 import vn.hdweb.team9.utility.UploadFile;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 @Slf4j
@@ -84,6 +85,11 @@ public class UserService implements IUserService {
         userDto.setRole(user.getRole().getRoleName());
         userDto.setCreatedAt(user.getCreatedAt());
         return userDto;
+    }
+
+    @Override
+    public Optional<User> findById(Long id) {
+        return userRepository.findById(id);
     }
 
     @Override
@@ -167,4 +173,5 @@ public class UserService implements IUserService {
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         return loadUserByEmail(username);
     }
+
 }

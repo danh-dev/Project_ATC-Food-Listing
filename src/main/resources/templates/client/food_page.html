@@ -27,14 +27,21 @@
                         <h4 class="my-2 py-2">Tên món ăn</h4>
                         <p>Của nhà hàng: xxx</p>
                         <div class="d-flex align-items-center">
-                            <div th:insert="~{client/fragments/elements/rating :: rating(rating_value = 4.3)}"></div>
+                            <div th:insert="~{client/fragments/elements/rating :: rating(rating_value = 4.5)}"></div>
 
-                            <span class="badge bg-warning">999+</span>
+                            <span class="badge bg-warning" th:text="${countRating}">999+</span>
                         </div>
-                        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#modalScrollable">
-                            Xem Rating
-                        </button>
-                        <div th:insert="~{client/fragments/rating_list :: rating}"></div>
+                        <div class="d-flex justify-content-between">
+                            <button type="button" class="btn btn-primary" data-bs-toggle="modal"
+                                    data-bs-target="#modalScrollable">
+                                Xem Rating
+                            </button>
+                            <!-- incluce ratingForm Button trigger modal add Form -->
+                            <div th:include="client/ratingFood/rating_form :: ratingForm"></div>
+
+                        </div>
+                        <!-- list rating review-->
+                        <div th:insert="~{client/fragments/rating_list :: list(listValue = ${ratingList})}"></div>
                         <p>Thời gian đợi: xxx Giờ đóng cửa: xxx</p>
                         <p>Giá: xxx</p>
                         <p class="my-3 content-res">
@@ -44,6 +51,8 @@
                     </div>
                 </div>
             </div>
+
+
         </div>
     </div>
 </div>
