@@ -27,17 +27,18 @@
                         <h4 class="my-2 py-2">Tên món ăn</h4>
                         <p>Của nhà hàng: xxx</p>
                         <div class="d-flex align-items-center">
-                            <div th:insert="~{client/fragments/elements/rating :: rating(rating_value = 4.5)}"></div>
+                            <div th:insert="~{client/fragments/elements/rating :: rating(rating_value = ${ratingValue})}"></div>
 
                             <span class="badge bg-warning" th:text="${countRating}">999+</span>
                         </div>
                         <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#modalScrollable">
                             Xem Rating
                         </button>
-                        <div th:insert="~{client/fragments/rating_list :: rating}"></div>
+                        <div th:insert="~{client/fragments/rating_list :: list(listValue = ${ratingList})}"></div>
                         <p>Thời gian đợi: xxx Giờ đóng cửa: xxx</p>
                         <p>Giá: xxx</p>
                         <th:block th:if="${userInfo}">
+                            <!--NHỚ Thêm id vào nút mua-->
                             <form th:action="@{/cart/add/1}" method="post">
                                 <button type="submit" class="btn btn-primary">Thêm vào giỏ hàng</button>
                             </form>

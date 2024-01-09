@@ -36,8 +36,7 @@ public class RatingRestaurantService {
     @Transactional
     public Long rateRestaurant(Long restaurantId, String content, int rateStar) {
         // Retrieve Entities
-        UserDto userDto = userService.findByEmail(SecurityContextHolder.getContext().getAuthentication().getName());
-        User user = userService.findById(userDto.getId()).get();
+        User user = userService.findByEmail(SecurityContextHolder.getContext().getAuthentication().getName());
 
         Restaurant restaurant = restaurantRepository.findById(restaurantId).orElseThrow(() -> new RuntimeException("Restaurant not found"));
 

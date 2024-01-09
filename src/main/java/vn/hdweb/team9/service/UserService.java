@@ -79,11 +79,6 @@ public class UserService implements IUserService {
     }
 
     @Override
-    public Optional<User> findById(Long id) {
-        return userRepository.findById(id);
-    }
-
-    @Override
     public void uploadAvatar(MultipartFile avatar, String email) {
         User user = userRepository.findByEmail(email);
         String currentAvatar = user.getAvatar();

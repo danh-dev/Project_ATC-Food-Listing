@@ -85,7 +85,7 @@
                                 <td>[[${order.getRestaurant().getRestaurantName()}]] - <span th:if="${!order.getRatingRestaurant()}">Rating</span></td>
                                 <td th:text="${order.getTotalBill()}"></td>
                                 <td>
-                                    <span th:if="${order.getStatus().toString().equalsIgnoreCase('PROCESSING')}" class="badge bg-success"><i class="fas fa-pizza-slice" title="Đang xử lý"></i></span>
+                                    <span th:if="${order.getStatus().toString().equalsIgnoreCase('PROCESSING')}" class="badge bg-warning"><i class="fas fa-pizza-slice" title="Đang xử lý"></i></span>
                                     <span th:if="${order.getStatus().toString().equalsIgnoreCase('WAITING')}" class="badge bg-success"><i class="fas fa-credit-card" title="Đợi thanh toán"></i></span>
                                     <span th:if="${order.getStatus().toString().equalsIgnoreCase('SHIPPING')}" class="badge bg-success"><i class="fas fa-shipping-fast" title="Đang giao"></i></span>
                                     <span th:if="${order.getStatus().toString().equalsIgnoreCase('DELIVERED')}" class="badge bg-info"><i class="fas fa-truck" title="Đã giao"></i></span>
