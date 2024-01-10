@@ -64,7 +64,6 @@ public class Restaurant {
                       String slug,
                       String description,
                       String address,
-                      String logo,
                       String image,
                       String openTime,
                       String closeTime,
@@ -74,7 +73,6 @@ public class Restaurant {
         this.slug = slug;
         this.description = description;
         this.address = address;
-        this.logo = logo;
         this.image = image;
         this.openTime = openTime;
         this.closeTime = closeTime;

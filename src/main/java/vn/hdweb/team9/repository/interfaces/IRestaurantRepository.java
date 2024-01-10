@@ -8,6 +8,7 @@ import org.springframework.transaction.annotation.Transactional;
 import vn.hdweb.team9.domain.entity.Restaurant;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.Set;
 
 @Repository
@@ -17,8 +18,10 @@ public interface IRestaurantRepository extends JpaRepository<Restaurant, Long> {
 
 //    void save(Restaurant restaurant);
     //Optional<Restaurant> findById(Long id);
-    List<Restaurant> findByRestaurantName(String restaurantName);
+    Optional<Restaurant> findByRestaurantName(String restaurantName);
 
+
+    List<Restaurant> findByRestaurantNameContaining(String restaurantName);
     List<Restaurant> findExactByRestaurantName(String restaurantName);
 
     Restaurant findBySlug(String slug);

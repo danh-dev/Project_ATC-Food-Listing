@@ -7,6 +7,8 @@ import org.springframework.web.multipart.MaxUploadSizeExceededException;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import org.springframework.web.servlet.view.RedirectView;
 
+import java.time.DateTimeException;
+
 @ControllerAdvice
 public class HandleMaxSizeController {
     @ExceptionHandler(MaxUploadSizeExceededException.class)
@@ -16,8 +18,15 @@ public class HandleMaxSizeController {
         return new RedirectView(referer);
     }
     @ExceptionHandler(RuntimeException.class)
-    public String handleRuntimeException(RuntimeException ex, RedirectAttributes redirectAttributes) {
+    public RedirectView handleRuntimeException(RuntimeException ex, RedirectAttributes redirectAttributes, HttpServletRequest request) {
         redirectAttributes.addFlashAttribute("RuntimeError", ex.getMessage());
-        return "/";
+        String referer = request.getHeader("Referer");
+        return new RedirectView(referer);
+    }
+    @ExceptionHandler(DateTimeException.class)
+    public RedirectView handleCoupon(RedirectAttributes redirectAttributes, HttpServletRequest request) {
+        redirectAttributes.addFlashAttribute("error_coupon", "Coupon hết hạn.");
+        String referer = request.getHeader("Referer");
+        return new RedirectView(referer);
     }
 }

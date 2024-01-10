@@ -86,6 +86,7 @@
                                         <th:block th:if="${apply_error}">
                                             <div th:replace="~{client/fragments/elements/alert::error(message= ${apply_error} )}"></div>
                                         </th:block>
+
                                         <th:block th:if="${cart.coupon}">
                                             <div class="alert alert-success d-flex justify-content-between"
                                                  role="alert">

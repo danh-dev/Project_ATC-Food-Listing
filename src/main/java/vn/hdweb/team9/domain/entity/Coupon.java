@@ -116,7 +116,7 @@ public class Coupon {
      */
     public void decreaseCouponQuantity() {
         if (this.couponQuantity == 0) {
-            throw new NotEnoughException("We need more coupon.");
+            throw new RuntimeException("We need more coupon.");
         }
         this.couponQuantity -= 1;
     }
@@ -127,9 +127,9 @@ public class Coupon {
     public int getOrderDiscount(int totalPrice) {
         updateStatus();
         if (couponStatus == CouponStatus.PAST) {
-            throw new DateTimeException("Coupon has expired");
+            return 0;
         } else if (couponStatus == CouponStatus.UPCOMING) {
-            throw new DateTimeException("Coupon is not applicable at the moment");
+            return 0;
         } else {
             if (typeCoupon == TypeCoupon.PERCENT) {
                 float discountValue = couponValue * totalPrice / 100;
@@ -140,6 +140,6 @@ public class Coupon {
                 return couponValue;
             }
         }
-        throw new ValidationException("Error occur while validating coupon discount");
+        return 0;
     }
 }

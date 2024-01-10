@@ -28,20 +28,17 @@
                         <!-- Use the 'foodName' property of the 'food' object -->
                         <h4 class="my-2 py-2" th:text="${food.getFoodName()}">Tên món ăn</h4>
 
-                        <!-- Use the 'restaurant' property to access restaurant details -->
-<!--                        <p th:text="'Của nhà hàng: ' + ${food.getRestaurant().getRestaurantName()}">Của nhà hàng: xxx</p>-->
-
                         <div class="d-flex align-items-center">
                             <div th:insert="~{client/fragments/elements/rating :: rating(rating_value = ${ratingValue})}"></div>
 
-                            <span class="badge bg-warning" th:text="${countRating}">999+</span>
+                            <span class="badge bg-warning" th:text="${countRating}"></span>
                         </div>
                         <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#modalScrollable">
                             Xem Rating
                         </button>
 
                         <!-- Render the list of ratings -->
-                        <div th:insert="~{client/fragments/rating_list :: rating}"></div>
+                        <div th:insert="~{client/fragments/rating_list :: list(listValue = ${ratingList})}"></div>
 
                         <!-- Use the 'timeWait', 'closingTime', and 'price' properties of the 'food' object -->
                         <p th:text="'Thời gian đợi: ' + ${food.getTimeWait()}">xxx</p>
@@ -49,7 +46,7 @@
                         <p th:text="'Giá: ' + ${food.getPrice()} + ' đồng'">xxx</p>
                         <th:block th:if="${userInfo}">
                             <!--NHỚ Thêm id vào nút mua-->
-                            <form th:action="@{/cart/add/1}" method="post">
+                            <form th:action="@{/cart/add/{id}(id=${food.getId()})}" method="post">
                                 <button type="submit" class="btn btn-primary">Thêm vào giỏ hàng</button>
                             </form>
                         </th:block>

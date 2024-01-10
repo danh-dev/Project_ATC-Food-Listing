@@ -9,10 +9,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import vn.hdweb.team9.domain.dto.respon.RatingFoodDto;
 import vn.hdweb.team9.domain.dto.respon.RatingRestaurantDto;
-import vn.hdweb.team9.domain.entity.Coupon;
-import vn.hdweb.team9.domain.entity.Food;
-import vn.hdweb.team9.domain.entity.RatingFood;
-import vn.hdweb.team9.domain.entity.RatingRestaurant;
+import vn.hdweb.team9.domain.entity.*;
 import vn.hdweb.team9.service.*;
 import vn.hdweb.team9.domain.dto.respon.BlogResponDto;
 
@@ -90,27 +87,23 @@ public class ClientController {
         return "client/food_page";
     }
 
+    @GetMapping("/food/{slug}")
+    public String getFoodDetail(Model model, @PathVariable("slug") String slug) {
+        Optional<Food> food = foodService.findBySlug(slug);
 
-//    ratingFood detail by id
-    @GetMapping("/food_demo/{foodId}")
-    public String food_demo_detail(@PathVariable("foodId") Long foodId, Model model) {
-        List<RatingFoodDto> ratingList = ratingFoodService.getRatingsByFoodId(foodId);
-        Double ratingValue = ratingFoodService.calculateAverageRatingByFoodId(foodId);
-        long countRating=ratingFoodService.countRating(foodId);
+        List<RatingFoodDto> ratingList = ratingFoodService.getRatingsByFoodId(food.get().getId());
+        Double ratingValue = ratingFoodService.calculateAverageRatingByFoodId(food.get().getId());
+        long countRating=ratingFoodService.countRating(food.get().getId());
         log.info("Check rating list"+ ratingList);
         log.info("Check rating value"+ ratingValue);
         log.info("Check count" + countRating);
 
-        model.addAttribute("foodId", foodId);
+        model.addAttribute("foodId", food.get().getId());
         model.addAttribute("ratingList", ratingList);
-        model.addAttribute("ratingValue", ratingValue);
+        if(ratingValue != null) {
+            model.addAttribute("ratingValue", 0);
+        }
         model.addAttribute("countRating", countRating);
-        return "client/food_page";
-    }
-
-    @GetMapping("/food/{slug}")
-    public String getFoodDetail(Model model, @PathVariable("slug") String slug) {
-        Optional<Food> food = foodService.findBySlug(slug);
         model.addAttribute("food", food.get());
         return "client/food_page";
     }

@@ -26,7 +26,7 @@ public class RestaurantService {
     public void add(RestaurantForm r) throws FileUploadException {
         // Kiểm tra xem nhà hàng có tên tương tự đã tồn tại hay chưa
 //        log.info("Input restaurant: " + r.getRestaurantName());
-        List<Restaurant> existingRestaurants = restaurantRepository.findByRestaurantName(r.getRestaurantName());
+        Optional<Restaurant> existingRestaurants = restaurantRepository.findByRestaurantName(r.getRestaurantName());
 //        log.info("Found restaurant: " + existingRestaurants.get(0).getRestaurantName());
         if (!existingRestaurants.isEmpty()) {
             // Nếu tồn tại, bạn có thể thực hiện xử lý khi có lỗi, ví dụ:
@@ -66,13 +66,6 @@ public class RestaurantService {
 
         Restaurant existingRestaurant = existingRestaurantOptional.get();
 
-        // Kiểm tra xem tên đã tồn tại cho những nhà hàng khác hay không
-        if (!existingRestaurant.getRestaurantName().equals(updatedRestaurantForm.getRestaurantName())) {
-            List<Restaurant> existingRestaurantsWithNewName = restaurantRepository.findByRestaurantName(updatedRestaurantForm.getRestaurantName());
-            if (!existingRestaurantsWithNewName.isEmpty()) {
-                throw new DuplicateRestaurantNameException("Restaurant with the updated name already exists");
-            }
-        }
 
         // Cập nhật thông tin của nhà hàng
         existingRestaurant.setRestaurantName(updatedRestaurantForm.getRestaurantName());

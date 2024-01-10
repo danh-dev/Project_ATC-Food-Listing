@@ -66,6 +66,10 @@ public class CartController {
             redirectAttributes.addFlashAttribute("apply_error", "Mã giảm giá không tồn tại");
             return "redirect:/cart";
         }
+        if(thisCoupon.get().getOrderDiscount(cart.getTotalBill()) == 0) {
+            redirectAttributes.addFlashAttribute("apply_error", "Mã giảm giá không áp dụng cho đơn hàng này");
+            return "redirect:/cart";
+        }
         cart.setCoupon(thisCoupon.get());
         session.setAttribute("cart", cart);
         redirectAttributes.addFlashAttribute("apply_success", "Thêm mã giảm giá thành công");
