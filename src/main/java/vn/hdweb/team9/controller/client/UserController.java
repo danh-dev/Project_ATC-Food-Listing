@@ -173,8 +173,9 @@ public class UserController {
         String userEmail = authentication.getName();
         User user =  userService.findByEmail(userEmail);
         List<Order> orders = orderService.orderOfUser(user);
-        orders.sort((o1, o2) -> o2.getCreatedAt().compareTo(o1.getCreatedAt()));
-        model.addAttribute("orders", orders);
+            orders.sort((o1, o2) -> o2.getCreatedAt().compareTo(o1.getCreatedAt()));
+            model.addAttribute("orders", orders);
+
         return "client/user_orders";
     }
 

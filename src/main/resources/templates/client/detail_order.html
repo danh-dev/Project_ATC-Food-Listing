@@ -123,6 +123,7 @@
                                     <tr th:each="orderDetail, iStat : ${order.getOrderItems()}">
                                         <td th:text="${iStat.count}"></td>
                                         <td>
+                                            <!--                                            food Id-->
                                             <a th:href="@{/food/{slug}(slug=${orderDetail.getFood().getSlug()})}">
                                                 <img th:src="@{'/' + ${orderDetail.getFood().getImage()}}"
                                                      alt="food image" width="30px" height="30px">
@@ -135,7 +136,10 @@
                                         <td th:text="${orderDetail.getQuantity() * orderDetail.getUnitPrice()}"></td>
                                         <td>
                                             <th:block th:if="${!orderDetail.ratingFood}">
-                                                <a class="btn btn-primary">Rating</a>
+                                                <!--  food id-->
+                                                <!--  add rating- form-->
+                                                <div th:replace="~{client/ratingFood/rating_form :: ratingForm(foodId= ${orderDetail.getFood().getId()})}"></div>
+
                                             </th:block>
                                             <th:block th:unless="${!orderDetail.ratingFood}">
                                                 <a class="btn btn-primary">Da Rating</a>
@@ -173,9 +177,9 @@
                                         </div>
                                         <div class="order-calculations col-12 col-lg-4">
                                             <div th:if="${order.couponDto}" class="d-flex justify-content-between mb-2">
-                                                    <span class="w-px-100">Tạm tính:</span>
-                                                    <span class="text-heading"
-                                                          th:text="${order.getTotalBill()+order.couponDto.getOrderDiscount()}"></span>
+                                                <span class="w-px-100">Tạm tính:</span>
+                                                <span class="text-heading"
+                                                      th:text="${order.getTotalBill()+order.couponDto.getOrderDiscount()}"></span>
                                             </div>
                                             <div th:if="${order.couponDto}" class="d-flex justify-content-between mb-2">
                                                 <span class="w-px-100">Giảm giá:</span>
