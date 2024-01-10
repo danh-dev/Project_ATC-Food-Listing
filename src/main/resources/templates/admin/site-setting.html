@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity6"
+      class="light-style layout-menu-fixed layout-navbar-fixed"
+      dir="ltr"
+      data-theme="theme-default"
+      data-assets-path="../../admin/assets/"
+      data-template="vertical-menu-template-free"
+>
+<head th:replace="~{admin/fragments/head :: heads(pageTitle='Setting')}">
+  <title></title>
+</head>
+<style>
+  .fieldError {
+        border-color: #bd2130;
+    }
+
+    .errorMessage {
+        color: red !important;
+        font-size: 12px;
+    }
+
+    .item {
+        margin-left: 10px;
+        margin-right: 10px;
+      }
+</style>
+<body>
+<div class="layout-wrapper layout-content-navbar">
+  <div class="layout-container">
+    <!--đưa giá trị value_menu để so sánh với menu kích hoạt active-->
+    <aside th:replace="~{admin/fragments/menu :: drawer-menu(value_menu = 'site-setting')}"></aside>
+    <div class="layout-page">
+      <nav th:replace="~{admin/fragments/nav :: nav-bar(value_title='Setting')}"></nav>
+      <div class="content-wrapper">
+        <div class="container-xxl flex-grow-1 container-p-y">
+          <!--Content-->
+          <div class="card" style="height: 100%;">
+            <div class="d-flex justify-content-between">
+              <div class="ml-auto p2">
+                <h5 class="card-header">Site Setting</h5>
+              </div>
+              <div class="mr-auto p-2">
+                <form>
+                  <button type="button" class="btn btn-primary btn-circle" data-bs-toggle="modal" data-bs-target="#addSiteSettingModal">
+                    <span class="bx bx-plus"></span>
+                  </button>
+                </form>
+              </div>
+
+            </div>
+
+            <div class="card-body"  style="height: 100%;">
+              <div class="card-content "  style="height: 100%;">
+                <form th:each="siteSetting: ${siteSetting}" class="d-flex flex-column">
+                  <div class="mb-2 p-2">
+                    <label th:text="${siteSetting.key}"></label>
+                  </div>
+                  <div class="mb-2 p-2">
+                    <input type="text" class="form-control" id="value"
+                           placeholder="Giá trị">
+                  </div>
+                </form>
+              </div>
+            </div>
+          </div>
+          <!--End Content-->
+
+          <!-- Add Site Setting Modal -->
+          <div class="modal fade" id="addSiteSettingModal" tabindex="-1" aria-labelledby="addSiteSettingModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h5 class="modal-title" id="addSiteSettingModalLabel">Add New Value</h5>
+                  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                  <!-- Form for adding new siteSettingForm parameters -->
+                  <form th:action="@{/admin/site-setting}" method="post" id="siteSettingForm" th:object="${siteSettingForm}" class="d-flex flex-column">
+                    <!-- Form fields here -->
+                    <div class="mb-3 p-2">
+                      <label for="formKey">Key*:</label>
+                      <input type="text" th:field="*{key}"
+                             class="form-control"
+                             id="formKey"
+                             placeholder="Từ khóạ"/>
+                      <p id="keyError" class="errorMessage">
+                        Đây là trường bắt buộc
+                      </p>
+                    </div>
+                    <div class="mb-3 p-2">
+                      <label for="value">Value:</label>
+                      <input type="text" th:field="*{value}" class="form-control" id="formValue"
+                             placeholder="Giá trị"
+                             th:class="${#fields.hasErrors('value')}? 'form-control fieldError' : 'form-control'"/>
+                    </div>
+
+                  </form>
+                </div>
+                <div class="modal-footer">
+                  <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                  <button type="button" class="btn btn-primary" onclick="submitForm()">Add</button>
+                </div>
+              </div>
+            </div>
+          </div>
+
+
+        </div>
+        <footer th:replace="~{admin/fragments/footer :: footer}"></footer>
+        <div class="content-backdrop fade"></div>
+      </div>
+    </div>
+  </div>
+  <div class="layout-overlay layout-menu-toggle"></div>
+</div>
+<div th:replace="~{admin/fragments/js :: js-insert}"></div>
+</body>
+<script>
+  function submitForm() {
+        // Get the key field value
+        var keyFieldValue = $('#key').val();
+
+        // Check if the key field is empty
+        if (!keyFieldValue.trim()) {
+            // Display the error message for the key field
+            console.log("error");
+            $('#keyError').style.display = "block";
+            return;
+        }
+
+      var form = $('#siteSettingForm');
+      form.submit();
+  }
+</script>
+</html>

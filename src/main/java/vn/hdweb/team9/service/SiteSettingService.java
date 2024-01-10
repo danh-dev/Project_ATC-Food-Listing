@@ -2,6 +2,7 @@ package vn.hdweb.team9.service;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DuplicateKeyException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import vn.hdweb.team9.domain.entity.SiteSetting;
@@ -21,6 +22,10 @@ public class SiteSettingService {
      * Add new information
      */
     public void add(SiteSetting siteSetting) {
+        Optional<SiteSetting> foundSiteSetting = findByKey(siteSetting.getKey());
+        if (!foundSiteSetting.isEmpty()) {
+            throw new DuplicateKeyException("This key has existed, please choose another key");
+        }
         siteSettingRepository.save(siteSetting);
     }
 
