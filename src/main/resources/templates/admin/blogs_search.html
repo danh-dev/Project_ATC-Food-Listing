@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity6"
+      class="light-style layout-menu-fixed layout-navbar-fixed"
+      dir="ltr"
+      data-theme="theme-default"
+      data-assets-path="../../admin/assets/"
+      data-template="vertical-menu-template-free"
+>
+<head th:replace="~{admin/fragments/head :: heads(pageTitle='Dashboard')}">
+    <title></title>
+</head>
+<body>
+<div class="layout-wrapper layout-content-navbar">
+    <div class="layout-container">
+        <!--đưa giá trị value_menu để so sánh với menu kích hoạt active-->
+        <aside th:replace="~{admin/fragments/menu :: drawer-menu(value_menu = 'blogs,blog_list')}"></aside>
+        <div class="layout-page">
+            <nav th:replace="~{admin/fragments/nav :: nav-bar(value_title='Dashboard')}"></nav>
+            <div class="content-wrapper">
+                <div class="container-xxl flex-grow-1 container-p-y">
+                    <!--Content-->
+                    <div class="card">
+                        <div class="card-body">
+                            <div class="card-content ">
+                                <div class="card">
+                                    <h5 class="card-header">List blog search</h5>
+<!--                                    <th:block th:if="${success_upload}">-->
+<!--                                        <div th:replace="~{client/fragments/elements/alert::success(message= ${success_upload} )}"></div>-->
+<!--                                    </th:block>-->
+                                    <div class="table-responsive text-nowrap">
+                                        <table class="table table-striped">
+                                            <thead>
+                                            <tr>
+                                                <th>STT</th>
+                                                <th>Title</th>
+                                                <th>Created At</th>
+                                                <th>Image</th>
+                                                <th>Actions</th>
+                                            </tr>
+                                            </thead>
+                                            <tbody class="table-border-bottom-0">
+                                            <tr th:each="blog, blogIndex : ${searchResults}">
+                                                <td th:text="${blogIndex.index + 1}"></td>
+                                                <td th:text="${blog.blog_title}"></td>
+                                                <td th:text="${#temporals.format(blog.createdAt)}"></td>
+                                                <td>
+                                                    <img th:src="@{'/' + ${blog.blog_img}}" alt class="h-auto rounded-circle"
+                                                         width="80px"/>
+                                                </td>
+                                                <td>
+                                                    <a class="btn btn-sm btn-primary"
+                                                       th:href="@{/admin/blogs/edit/{id}(id=${blog.id})}"
+                                                    >
+                                                        <i class="bx bx-edit-alt me-1"></i> Edit
+                                                    </a>
+                                                    <a th:href="@{/admin/blogs/delete/{id}(id=${blog.id})}"
+                                                       class="btn btn-sm btn-danger"
+                                                       onclick="return confirm('Bạn thật sự muốn xóa nó?')"
+                                                       style="color: #FFFFFF"
+                                                    >
+                                                        <i class="bx bx-trash me-1"></i> Delete
+                                                    </a>
+                                                </td>
+                                            </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!--End Content-->
+                </div>
+                <footer th:replace="~{admin/fragments/footer :: footer}"></footer>
+                <div class="content-backdrop fade"></div>
+            </div>
+        </div>
+    </div>
+    <div class="layout-overlay layout-menu-toggle"></div>
+</div>
+<div th:replace="~{admin/fragments/js :: js-insert}"></div>
+</body>
+</html>

@@ -25,15 +25,15 @@
                         <!-- Loop through blogs and display in a grid -->
                         <div class="col-md-6" th:each="blog : ${blogs}">
                             <div class="card mb-3">
-                                <a th:href="@{${'/blog/' + blog.slug + '.html'}}">
+                                <a th:href="@{${'/blog/detail/' + blog.slug}}">
                                     <img class="card-img-top" th:src="@{'/' + ${blog.blog_img}}" th:alt="${blog.blog_title}" style="width: 100%; height: 400px;"/>
                                 </a>
                                 <div class="card-body">
                                     <h5 class="card-title">
-                                        <a th:href="@{${'/blog/' + blog.slug + '.html'}}" th:text="${blog.blog_title}"></a>
+                                        <a th:href="@{${'/blog/detail/' + blog.getSlug()}}" th:text="${blog.blog_title}"></a>
                                     </h5>
                                     <p class="card-text" th:text="${blog.blog_content}"></p>
-                                    <a th:href="@{${'/blog/' + blog.slug + '.html'}}" class="btn">Xem chi tiết >></a>
+                                    <a th:href="@{${'/blog/detail/' + blog.slug}}" class="btn">Xem chi tiết >></a>
                                 </div>
                             </div>
                         </div>
@@ -49,15 +49,16 @@
                     </form>
 
 
+
                     <!-- List of blogs in the sidebar -->
                     <div class="card" th:each="blog : ${blogsRandom}" style="margin-bottom: 10px;">
                         <div class="card-body d-flex">
-                            <a th:href="@{${'/blog/' + blog.slug + '.html'}}">
-                                <img class="card-img-top" th:src="@{'/' + ${blog.blog_img}}" th:alt="${blog.getBlog_title()}" style="width: 50px; height: 50px;"/>
+                            <a th:href="@{${'/blog/' + blog.getSlug()}}">
+                                <img class="card-img-top" th:src="@{'/' + ${blog.getBlog_img()}}" th:alt="${blog.getBlog_title()}" style="width: 50px; height: 50px;"/>
                             </a>
                             <div class="flex-grow-1 ms-3">
                                 <h5 class="card-title">
-                                    <a th:href="@{${'/blog/' + blog.slug + '.html'}}" th:text="${blog.blog_title}" style="font-size: 18px;"></a>
+                                    <a th:href="@{${'/blog/' +blog.getSlug()}}" th:text="${blog.getBlog_title()}" style="font-size: 18px;"></a>
                                 </h5>
                             </div>
                         </div>
@@ -69,30 +70,29 @@
     </div>
 
     <!-- Pagination -->
-    <div class="container-fluid py-3">
-        <div class="container">
-            <nav aria-label="Page navigation example" style="display: flex; justify-content: center;">
-                <ul class="pagination justify-content-center" style="list-style: none; padding-left: 0; display: flex; justify-content: center;">
-                    <li class="page-item" th:classappend="${currentPage == 0}? 'disabled'">
-                        <a class="page-link" th:href="@{'/blog_demo'}">First</a>
-                    </li>
-                    <li class="page-item" th:classappend="${currentPage == 0}? 'disabled'">
-                        <a class="page-link" th:href="@{'/blog_demo/' + ${currentPage - 1}}">Previous</a>
-                    </li>
-                    <li class="page-item" th:each="i : ${#numbers.sequence(0, totalPages - 1)}"  th:classappend="${i == currentPage}? 'active'">
-                        <a class="page-link" th:href="@{'/blog_demo/' + ${i + 1}}" th:text="${i + 1}"></a>
-                    </li>
-                    <li class="page-item" th:classappend="${currentPage + 1 >= totalPages}? 'disabled'">
-                        <a class="page-link" th:href="@{'/blog_demo/' + ${currentPage + 1}}">Next</a>
-                    </li>
-                    <li class="page-item" th:classappend="${currentPage + 1 >= totalPages}? 'disabled'">
-                        <a class="page-link" th:href="@{'/blog_demo/' + ${totalPages - 1 }}">Last</a>
-                    </li>
-                </ul>
-            </nav>
-        </div>
-    </div>
-
+<!--    <div class="container-fluid py-3">-->
+<!--        <div class="container">-->
+<!--            <nav aria-label="Page navigation example" style="display: flex; justify-content: center;">-->
+<!--                <ul class="pagination justify-content-center" style="list-style: none; padding-left: 0; display: flex; justify-content: center;">-->
+<!--                    <li class="page-item" th:classappend="${currentPage == 0}? 'disabled'">-->
+<!--                        <a class="page-link" th:href="@{'/blog_demo'}">First</a>-->
+<!--                    </li>-->
+<!--                    <li class="page-item" th:classappend="${currentPage == 0}? 'disabled'">-->
+<!--                        <a class="page-link" th:href="@{'/blog_demo/' + ${currentPage - 1}}">Previous</a>-->
+<!--                    </li>-->
+<!--                    <li class="page-item" th:each="i : ${#numbers.sequence(0, totalPages - 1)}"  th:classappend="${i == currentPage}? 'active'">-->
+<!--                        <a class="page-link" th:href="@{'/blog_demo/' + ${i}}" th:text="${i + 1}"></a>-->
+<!--                    </li>-->
+<!--                    <li class="page-item" th:classappend="${currentPage + 1 >= totalPages}? 'disabled'">-->
+<!--                        <a class="page-link" th:href="@{'/blog_demo/' + ${currentPage + 1}}">Next</a>-->
+<!--                    </li>-->
+<!--                    <li class="page-item" th:classappend="${currentPage + 1 >= totalPages}? 'disabled'">-->
+<!--                        <a class="page-link" th:href="@{'/blog_demo/' + ${totalPages - 1 }}">Last</a>-->
+<!--                    </li>-->
+<!--                </ul>-->
+<!--            </nav>-->
+<!--        </div>-->
+<!--    </div>-->
 
     <div th:replace="~{client/fragments/footer::footer}"></div>
     <div th:replace="~{client/fragments/js::js-insert}"></div>

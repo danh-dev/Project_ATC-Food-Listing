@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org"
->
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity6">
 <head th:replace="~{client/fragments/head :: heads(pageTitle='Project Index')}"></head>
 <body>
 
@@ -142,7 +142,6 @@
                     </div>
                 </div>
             </div>
-            <!-- End iteration -->
         </div>
     </div>
 </div>
@@ -626,13 +625,12 @@
         <div class="row row-cols-1 row-cols-md-3 g-4 mb-5">
             <div class="col" th:each="blog : ${blogs}">
                 <div class="card h-100">
-                    <a th:href="@{${'/blog/' + blog.getSlug() + '.html'}}">
-                        <img class="card-img-top img-fluid" th:src="@{'/' + ${blog.getBlog_img()}}"
-                             th:alt="${blog.getBlog_title()}" style="object-fit: cover; height: 200px;"/>
+                    <a th:href="@{${'/blog/detail/' + blog.getSlug()}}">
+                        <img class="card-img-top img-fluid" th:src="@{'/' + ${blog.getBlog_img()}}" th:alt="${blog.getBlog_title()}" style="object-fit: cover; height: 200px;"/>
                     </a>
                     <div class="card-body">
-                        <a th:href="@{${'/blog/' + blog.getSlug() + '.html'}}">
-                            <h5 class="card-title" th:text="${blog.getBlog_title()}">Bài viết 1</h5>
+                        <a th:href="@{${'/blog/detail/' + blog.getSlug()}}">
+                            <h5 class="card-title" th:text="${blog.getBlog_title()}" >Bài viết 1</h5>
                         </a>
                         <p class="card-text" th:text="${blog.getBlog_content()}">
                             This is a longer card with supporting text below as a natural lead-in to additional content.
@@ -648,11 +646,7 @@
 <!-- Blog End -->
 
 <!-- Footer Start -->
-<th:block th:if="${RuntimeError != null}">
-    <script>
-        alert("Có lỗi xảy ra, vui lòng thử lại sau!");
-    </script>
-</th:block>
+
 <div th:replace="~{client/fragments/footer::footer}"></div>
 <div th:replace="~{client/fragments/js::js-insert}"></div>
 </body>
