@@ -16,7 +16,9 @@ import vn.hdweb.team9.utility.TitleToSlug;
 import vn.hdweb.team9.utility.UploadFile;
 
 import java.lang.module.FindException;
+import java.time.LocalDateTime;
 import java.util.*;
+import java.util.stream.Collectors;
 
 
 @Service
@@ -58,18 +60,9 @@ public class BlogService implements IBlogService {
     }
 
     private List<BlogResponDto> getBlogResponDtos(List<Blog> blogs) {
-        List<BlogResponDto> blogResponDtoList = new ArrayList<>();
-        for(Blog blog: blogs) {
-            BlogResponDto blogResult = new BlogResponDto();
-            blogResult.setId(blog.getId());
-            blogResult.setBlog_title(blog.getBlogTitle());
-            blogResult.setBlog_content(blog.getBlogContent());
-            blogResult.setBlog_img(blog.getBlog_img());
-            blogResult.setSlug(blog.getSlug());
-            blogResult.setCreatedAt(blog.getCreatedAt());
-            blogResponDtoList.add(blogResult);
-        }
-        return blogResponDtoList;
+        return blogs.stream()
+                .map(this::convertToDto)
+                .collect(Collectors.toList());
     }
 
     @Override
@@ -90,6 +83,8 @@ public class BlogService implements IBlogService {
                 blog.setBlog_img(uploadedImage);
             }
             blog.setSlug(createSlug(blogRepuestDto.getBlog_title()));
+            blog.setUpdatedAt(LocalDateTime.now());
+            blog.setCreatedAt(LocalDateTime.now());
 
             blogRepository.save(blog);
         } catch (Exception e) {
@@ -111,13 +106,7 @@ public class BlogService implements IBlogService {
     public BlogResponDto getBlogBySlug (String slug) {
         try {
             Blog blog = blogRepository.findBlogBySlug(slug);
-            BlogResponDto blogResponDto = new BlogResponDto();
-            blogResponDto.setBlog_title(blog.getBlogTitle());
-            blogResponDto.setBlog_content(blog.getBlogContent());
-            blogResponDto.setBlog_img(blog.getBlog_img());
-            blogResponDto.setCreatedAt(blog.getCreatedAt());
-
-            return blogResponDto;
+            return this.convertToDto(blog);
         } catch (Exception e) {
             throw new FindException("Blog with "+ slug + " not found");
         }
@@ -137,24 +126,37 @@ public class BlogService implements IBlogService {
         blogResponDto.setBlog_content(blog.getBlogContent());
         blogResponDto.setBlog_img(blog.getBlog_img());
         blogResponDto.setSlug(blog.getSlug());
+        blogResponDto.setCreatedAt(blog.getCreatedAt());
         return blogResponDto;
     }
 
     @Override
-    public List<BlogResponDto> getRandomBlogs(){
-        List<BlogResponDto> blogs = this.findAll();
-        Collections.shuffle(blogs);
+    public List<BlogResponDto> getRandomBlogs() {
+        List<Blog> allBlogs = blogRepository.findAll();
+        Collections.shuffle(allBlogs);
 
-        // Get the first 10 elements (or less if the list size is less than 10)
-        int numOfBlogsToGet = Math.min(blogs.size(), 10);
+        int numOfBlogsToGet = Math.min(allBlogs.size(), 10);
+        List<Blog> randomBlogs = allBlogs.subList(0, numOfBlogsToGet);
 
-        return blogs.subList(0, numOfBlogsToGet);
+        return getBlogResponDtos(randomBlogs);
     }
 
     @Override
     public List<BlogResponDto> searchBlogs(String searchText) {
-        List<Blog> blogsSearch =  blogRepository.findByBlogTitleContaining(searchText);
+        List<Blog> blogsSearch = blogRepository.findByBlogTitleContaining(searchText);
         return getBlogResponDtos(blogsSearch);
+    }
+
+    @Override
+    public void deleteBlogById(Long id) {
+        Optional<Blog> blogOptional = blogRepository.findById(id);
+        if (blogOptional.isPresent()) {
+            Blog blog = blogOptional.get();
+            blogRepository.delete(blog);
+        } else {
+            // Xử lý khi không tìm thấy blog với ID tương ứng
+            throw new NoSuchElementException("Không tìm thấy blog với ID: " + id);
+        }
     }
 
 }

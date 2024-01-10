@@ -26,4 +26,6 @@ public interface IBlogService {
 
     List<BlogResponDto> getRandomBlogs();
     List<BlogResponDto> searchBlogs(String searchText);
+
+    void deleteBlogById(Long id);
 }

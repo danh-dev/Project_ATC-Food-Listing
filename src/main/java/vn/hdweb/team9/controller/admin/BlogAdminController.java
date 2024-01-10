@@ -3,6 +3,7 @@ package vn.hdweb.team9.controller.admin;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -19,16 +20,44 @@ import java.util.List;
 @Controller
 @RequestMapping("/admin/blogs")
 @RequiredArgsConstructor
+@Slf4j
 public class BlogAdminController {
     private final BlogService blogService;
     private final IBlogRepository blogRepository;
 
-    @GetMapping(value = {"", "/","/list"})
-    public String writeBlogNew(Model model){
-        List<BlogResponDto> blogs = blogService.findAll();
-        model.addAttribute("blogs",blogs);
+    @GetMapping(value = {"","/"})
+    public String showBlogsAdmin(Model model,@RequestParam(defaultValue = "0") int page){
+        int pageSize = 5;
+
+        // Fetch paginated blogs
+        Page<BlogResponDto> blogPage = blogService.findPaginatedBlogs(page, pageSize);
+
+        // Set model attributes
+        model.addAttribute("blogs", blogPage.getContent());
+        model.addAttribute("currentPage", page);
+        model.addAttribute("totalPages", blogPage.getTotalPages());
+
+        // Render template
         return "admin/blog_list";
     }
+
+    @GetMapping("/{page}")
+    public String showBlogsPagination(@PathVariable("page") int page, Model model) {
+
+        // Fetch paginated blogs
+        Page<BlogResponDto> blogPage = blogService.findPaginatedBlogs(page, 5);
+        if(page<0) {
+            return "redirect:admin/blog_list";
+        }
+        // Set model attributes
+        model.addAttribute("blogs", blogPage.getContent());
+        model.addAttribute("currentPage", page);
+        model.addAttribute("totalPages", blogPage.getTotalPages());
+
+        // Render template
+        return "admin/blog_list";
+    }
+
     @GetMapping(value = "/edit/{blogId}")
     public String editBlog (@PathVariable Long blogId, Model model){
         Blog blog = blogRepository.findBlogById(blogId);
@@ -39,6 +68,26 @@ public class BlogAdminController {
         model.addAttribute("blog",blogRepuestDto);
         model.addAttribute("current_img", blog.getBlog_img());
         return "admin/edit_blog";
+    }
+    @PostMapping(value = "/update")
+    public String updateBlog (@ModelAttribute BlogRepuestDto blogRepuestDto,
+                              RedirectAttributes ra)
+    {
+        if(blogRepuestDto.getBlog_img() != null && !blogRepuestDto.getBlog_img().isEmpty()) {
+            List<String> validContentTypes = Arrays.asList("image/jpeg", "image/png");
+            if(!validContentTypes.contains(blogRepuestDto.getBlog_img().getContentType())){
+                ra.addFlashAttribute("error_upload", "Ảnh không đúng định dạng.");
+                return "redirect:/admin/blogs/edit/"+blogRepuestDto.getBlogId();
+            }
+            if(blogRepuestDto.getBlog_img().getSize() > 5000000){
+                ra.addFlashAttribute("error_upload", "Kích thước ảnh không được vượt quá 5MB.");
+                return "redirect:/admin/blogs/edit/"+blogRepuestDto.getBlogId();
+            }
+        }
+
+        blogService.blogUpdate(blogRepuestDto);
+        ra.addFlashAttribute("success_upload", "Edit blog success.");
+        return "redirect:/admin/blogs";
     }
     @GetMapping (value = "/create")
     public String create(Model model) {
@@ -63,27 +112,22 @@ public class BlogAdminController {
         }
         blogService.createBlog(blogRepuestDto);
         ra.addFlashAttribute("success_upload", "Create a new blog success.");
-        return "redirect:/admin/blogs/list";
-    }
-    @PostMapping(value = "/update")
-    public String updateBlog (@ModelAttribute BlogRepuestDto blogRepuestDto,
-                 RedirectAttributes ra)
-    {
-        if(blogRepuestDto.getBlog_img() != null && !blogRepuestDto.getBlog_img().isEmpty()) {
-            List<String> validContentTypes = Arrays.asList("image/jpeg", "image/png");
-            if(!validContentTypes.contains(blogRepuestDto.getBlog_img().getContentType())){
-                ra.addFlashAttribute("error_upload", "Ảnh không đúng định dạng.");
-                return "redirect:/admin/blogs/edit/"+blogRepuestDto.getBlogId();
-            }
-            if(blogRepuestDto.getBlog_img().getSize() > 5000000){
-                ra.addFlashAttribute("error_upload", "Kích thước ảnh không được vượt quá 5MB.");
-                return "redirect:/admin/blogs/edit/"+blogRepuestDto.getBlogId();
-            }
-        }
-
-        blogService.blogUpdate(blogRepuestDto);
-        ra.addFlashAttribute("success_upload", "Edit blog success.");
-        return "redirect:/admin/blogs/list";
+        return "redirect:/admin/blogs";
     }
 
+
+    @PostMapping("/search")
+    public String search(@RequestParam("searchText") String searchText, Model model) {
+        List<BlogResponDto> searchResults = blogService.searchBlogs(searchText);
+        model.addAttribute("searchResults", searchResults);
+        return "admin/blogs_search";
+    }
+
+
+    @GetMapping("/delete/{id}")
+    public String deleteBlog(@PathVariable Long id,RedirectAttributes ra) {
+        blogService.deleteBlogById(id);
+        ra.addFlashAttribute("success_delete", "Bạn đã vừa xóa thành công một blog.");
+        return "redirect:/admin/blogs";
+    }
 }
