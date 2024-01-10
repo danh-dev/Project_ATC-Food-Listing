@@ -41,11 +41,7 @@ public class ClientController {
         Collections.shuffle(coupons);
         model.addAttribute("coupons", coupons);
         List<RatingRestaurantDto> ratingList= ratingRestaurantService.findAll();
-//
-        model.addAttribute("rating0",ratingList.get(0));
-        model.addAttribute("rating1",ratingList.get(1));
-        model.addAttribute("rating2",ratingList.get(2));
-//        model.addAttribute("rating3",ratingList.get(3));
+        model.addAttribute("ratings", ratingList);
         return "client/index";
     }
 
