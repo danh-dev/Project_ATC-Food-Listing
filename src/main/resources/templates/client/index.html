@@ -526,88 +526,80 @@
             <h1 class="display-5 mb-5 text-dark">Khách hàng với chúng tôi!</h1>
         </div>
         <div class="owl-carousel testimonial-carousel">
+            <!-- 1 -->
             <div class="testimonial-item img-border-radius bg-light rounded p-4">
                 <div class="position-relative">
                     <i class="fa fa-quote-right fa-2x text-secondary position-absolute"
                        style="bottom: 30px; right: 0;"></i>
                     <div class="mb-4 pb-4 border-bottom border-secondary">
-                        <p class="mb-0">Lorem Ipsum is simply dummy text of the printing Ipsum has been the
-                            industry's
-                            standard dummy text ever since the 1500s,
+                        <p class="mb-0" th:text="${rating0.content}"> content
                         </p>
                     </div>
                     <div class="d-flex align-items-center flex-nowrap">
                         <div class="bg-secondary rounded">
-                            <img src="/client/img/avatar/1%20(1).jpg" class="img-fluid rounded"
+                            <img th:src="${rating0.userAvatar}" class="img-fluid rounded"
                                  style="width: 100px; height: 100px;" alt="">
                         </div>
                         <div class="ms-4 d-block">
-                            <h4 class="text-dark">Client Name</h4>
-                            <p class="m-0 pb-3">Ở Food nào</p>
+                            <h4 class="text-dark" th:text="${rating0.userFullName}">Client Name</h4>
+                            <p class="m-0 pb-3" th:text="${rating0.restaurantName}">Ở Food nào</p>
                             <div class="d-flex pe-5">
-                                <i class="fas fa-star text-primary"></i>
-                                <i class="fas fa-star text-primary"></i>
-                                <i class="fas fa-star text-primary"></i>
-                                <i class="fas fa-star text-primary"></i>
-                                <i class="fas fa-star"></i>
+                                <span th:replace="~{client/fragments/elements/rating :: rating(rating_value = ${rating0.rateStar})}"></span>
+
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
+            <!-- 2 -->
             <div class="testimonial-item img-border-radius bg-light rounded p-4">
                 <div class="position-relative">
                     <i class="fa fa-quote-right fa-2x text-secondary position-absolute"
                        style="bottom: 30px; right: 0;"></i>
                     <div class="mb-4 pb-4 border-bottom border-secondary">
-                        <p class="mb-0">Lorem Ipsum is simply dummy text of the printing Ipsum has been the
+                        <p class="mb-0" th:text="${rating1.content}">Lorem Ipsum is simply dummy text of the printing Ipsum has been the
                             industry's
                             standard dummy text ever since the 1500s,
                         </p>
                     </div>
                     <div class="d-flex align-items-center flex-nowrap">
                         <div class="bg-secondary rounded">
-                            <img src="/client/img/avatar/1%20(2).jpg" class="img-fluid rounded"
+                            <img th:src="${rating1.userAvatar}"  class="img-fluid rounded"
                                  style="width: 100px; height: 100px;" alt="">
                         </div>
                         <div class="ms-4 d-block">
-                            <h4 class="text-dark">Client Name</h4>
-                            <p class="m-0 pb-3">Ở cửa hàng nào</p>
+                            <h4 class="text-dark" th:text="${rating1.userFullName}">Client Name</h4>
+                            <p class="m-0 pb-3" th:text="${rating1.restaurantName}">Ở cửa hàng nào</p>
                             <div class="d-flex pe-5">
-                                <i class="fas fa-star text-primary"></i>
-                                <i class="fas fa-star text-primary"></i>
-                                <i class="fas fa-star text-primary"></i>
-                                <i class="fas fa-star text-primary"></i>
-                                <i class="fas fa-star text-primary"></i>
+                                <span th:replace="~{client/fragments/elements/rating :: rating(rating_value = ${rating1.rateStar})}"></span>
+
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
+            <!-- 3 -->
             <div class="testimonial-item img-border-radius bg-light rounded p-4">
                 <div class="position-relative">
                     <i class="fa fa-quote-right fa-2x text-secondary position-absolute"
                        style="bottom: 30px; right: 0;"></i>
                     <div class="mb-4 pb-4 border-bottom border-secondary">
-                        <p class="mb-0">Lorem Ipsum is simply dummy text of the printing Ipsum has been the
+                        <p class="mb-0"  th:text="${rating2.content}">Lorem Ipsum is simply dummy text of the printing Ipsum has been the
                             industry's
                             standard dummy text ever since the 1500s,
                         </p>
                     </div>
                     <div class="d-flex align-items-center flex-nowrap">
                         <div class="bg-secondary rounded">
-                            <img src="/client/img/avatar/1%20(3).jpg" class="img-fluid rounded"
+                            <img  th:src="${rating2.userAvatar}" class="img-fluid rounded"
                                  style="width: 100px; height: 100px;" alt="">
                         </div>
                         <div class="ms-4 d-block">
-                            <h4 class="text-dark">Client Name</h4>
-                            <p class="m-0 pb-3">Ở food nào</p>
+                            <h4 class="text-dark" th:text="${rating2.userFullName}">Client Name</h4>
+                            <p class="m-0 pb-3" th:text="${rating2.restaurantName}">Ở food nào</p>
                             <div class="d-flex pe-5">
-                                <i class="fas fa-star text-primary"></i>
-                                <i class="fas fa-star text-primary"></i>
-                                <i class="fas fa-star text-primary"></i>
-                                <i class="fas fa-star text-primary"></i>
-                                <i class="fas fa-star text-primary"></i>
+                                <span th:replace="~{client/fragments/elements/rating :: rating(rating_value = ${rating2.rateStar})}"></span>
+
                             </div>
                         </div>
                     </div>
@@ -617,6 +609,7 @@
     </div>
 </div>
 <!-- Rating End -->
+
 
 <!-- Blog Start -->
 <div class="container-fluid">

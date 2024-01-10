@@ -1,6 +1,7 @@
 package vn.hdweb.team9.controller.admin;
 
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -17,6 +18,7 @@ import java.util.List;
 
 @Controller
 @RequiredArgsConstructor
+@Slf4j
 @RequestMapping("/admin/rating-food")
 public class AdminRatingFoodController {
     private final RatingFoodService ratingFoodService;
@@ -24,9 +26,15 @@ public class AdminRatingFoodController {
     @GetMapping("/list")
     public String getList(Model model) {
         List<RatingFoodDto> ratingResponseList = ratingFoodService.findAll();
+        long count = ratingResponseList.size();
+        double avgRate = ratingResponseList.stream().mapToDouble(RatingFoodDto::getRateStar)
+                .average()
+                .orElse(0.0);
 
         model.addAttribute("title", "Rating Food List");
         model.addAttribute("ratingList", ratingResponseList);
+        model.addAttribute("count", count);
+        model.addAttribute("avgRate", avgRate);
         return "admin/ratingFood/ratingList";
     }
 

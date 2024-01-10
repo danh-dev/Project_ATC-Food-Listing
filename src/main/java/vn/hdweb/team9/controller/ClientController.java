@@ -20,6 +20,8 @@ import vn.hdweb.team9.service.BlogService;
 
 import java.util.Collections;
 import java.util.List;
+import java.util.Random;
+import java.util.stream.Collectors;
 
 @Controller
 @RequiredArgsConstructor
@@ -32,14 +34,18 @@ public class ClientController {
     private final CouponService couponService;
 
     @GetMapping(value = {"", "/","/home","/index","/trang-chu","index.html","home.html","trang-chu.html"})
-
     public String home(Model model) {
         List<BlogResponDto> blogs = blogService.findLimitOrderDate();
         model.addAttribute("blogs",blogs);
         List<Coupon> coupons = couponService.findAll();
         Collections.shuffle(coupons);
         model.addAttribute("coupons", coupons);
-
+        List<RatingRestaurantDto> ratingList= ratingRestaurantService.findAll();
+//
+        model.addAttribute("rating0",ratingList.get(0));
+        model.addAttribute("rating1",ratingList.get(1));
+        model.addAttribute("rating2",ratingList.get(2));
+//        model.addAttribute("rating3",ratingList.get(3));
         return "client/index";
     }
 
