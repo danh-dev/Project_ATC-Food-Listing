@@ -25,6 +25,11 @@
                         <h5 class="card-header" th:text="${title}">Title</h5>
                         <div class="card-body">
                             <div class="card-content ">
+                                <div th:replace="admin/ratingFood/overview.html :: overview"></div>
+
+                            </div>
+                            <div class="card-content ">
+
                                 <!--Nhớ bỏ min-vh-100 -->
                                 <div th:replace="admin/ratingFood/table.html :: table"></div>
                             </div>
