@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import vn.hdweb.team9.domain.dto.respon.RatingFoodDto;
 import vn.hdweb.team9.domain.dto.respon.RatingRestaurantDto;
 import vn.hdweb.team9.domain.entity.Coupon;
+import vn.hdweb.team9.domain.entity.Food;
 import vn.hdweb.team9.domain.entity.RatingFood;
 import vn.hdweb.team9.domain.entity.RatingRestaurant;
 import vn.hdweb.team9.service.*;
@@ -17,6 +18,7 @@ import vn.hdweb.team9.domain.dto.respon.BlogResponDto;
 
 import java.util.Collections;
 import java.util.List;
+import java.util.Optional;
 import java.util.Random;
 import java.util.stream.Collectors;
 
