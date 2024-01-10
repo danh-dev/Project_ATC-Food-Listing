@@ -27,6 +27,6 @@ public class RestaurantController {
         Set<Restaurant> restaurantSet = restaurantService.findAllRestaurantsWithFoodName(foodName);
         List<Restaurant> restaurants = new ArrayList<>(restaurantSet);
         model.addAttribute("restaurants", restaurants);
-        return "client/index";
+        return "client/restaurant_food";
     }
 }
