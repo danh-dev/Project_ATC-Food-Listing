@@ -119,12 +119,11 @@ public class FoodService {
     public List<Food> getFoodByName(Food food) {
         return foodDAO.findByName(food.getFoodName());
     }
-
+    
     // get food by slug
-    public Optional<Food> findBySlug(String slug) {
-        return foodDAO.findBySlug(slug);
+    public List<Food> getFoodBySlug(Food food) {
+        return foodDAO.findBySlug(food.getSlug());
     }
-
     
     // get ratings by food id
     public List<RatingFood> getRatingsByFoodId(Food food) {

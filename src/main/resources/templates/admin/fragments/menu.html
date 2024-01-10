@@ -48,13 +48,12 @@
                 <div>Restaurants</div>
             </a>
             <ul class="menu-sub">
-                <li th:classappend="${value_menu.contains('restaurants_list')?'active':''}" class="menu-item">
-                    <a th:href="@{/admin/restaurants/list}" class="menu-link">
+               <li th:classappend="${value_menu.contains('restaurants_list')?'active':''}" class="menu-item">
+                    <a th:href="@{/admin/restaurant/list}" class="menu-link">
                         <div>List restaurants</div>
                     </a>
-                </li>
-                <li th:classappend="${value_menu.contains('restaurants_create')?'active':''}" class="menu-item">
-                    <a th:href="@{/admin/restaurants/create}" class="menu-link">
+                </li><li th:classappend="${value_menu.contains('restaurants_create')?'active':''}" class="menu-item">
+                    <a th:href="@{/admin/restaurant/create}" class="menu-link">
                         <div>Create new restaurant</div>
                     </a>
                 </li>

@@ -41,7 +41,8 @@ public class Food {
     @JoinColumn(name = "category_id")
     private Category category;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE,
+                          CascadeType.DETACH, CascadeType.REFRESH})
     @JoinColumn(name = "restaurant_id")
     private Restaurant restaurant;
 

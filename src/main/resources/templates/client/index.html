@@ -222,141 +222,33 @@
             <p>Hãy đến với những nhà hàng nổi tiếng và cùng những món ăn tuyệt vời.</p>
         </div>
         <div class="row g-4">
-            <div class="col-lg-6 col-xl-4">
+            <!-- Thymeleaf iteration to display restaurants -->
+            <div th:each="restaurant : ${restaurants}" class="col-lg-6 col-xl-4">
                 <div class="p-4 border border-primary rounded vesitable-item bg-light">
                     <div class="row align-items-center">
                         <div class="col-6">
-                            <img src="/client/img/res/1.webp" class="img-fluid rounded-circle w-100" alt="">
+                            <!-- Thymeleaf expression to get image URL from the restaurant object -->
+                            <img th:src="@{'/' + ${restaurant.getImage()} }" class="img-fluid rounded-circle w-100" alt="">
                         </div>
                         <div class="col-6">
-                            <a href="#" class="h5">Nhà hàng 1</a>
+                            <a th:href="@{'/restaurant/' + ${restaurant.getSlug()}}" class="h5" th:text="${restaurant.getRestaurantName()}">Nhà hàng 1</a>
                             <div class="d-flex my-3">
-                                <i class="fas fa-star text-primary"></i>
-                                <i class="fas fa-star text-primary"></i>
-                                <i class="fas fa-star text-primary"></i>
-                                <i class="fas fa-star text-primary"></i>
-                                <i class="fas fa-star"></i>
+                                <!-- Thymeleaf expression to display star rating -->
+                                <i th:class="${'fas fa-star text-primary'}"></i>
+                                <i th:class="${'fas fa-star'}"></i>
                             </div>
-                            <p>Giới thiệu ngắn</p>
-                            <a href="#" class="btn btn-outline-primary"><i
-                                    class="fas fa-location-arrow me-2"></i> Xem chi tiết</a>
+                            <!-- Thymeleaf expression to display restaurant description -->
+                            <p th:text="${restaurant.getDescription()}">Giới thiệu ngắn</p>
+                            <a th:href="@{'/restaurant/' + ${restaurant.getSlug()}}" class="btn btn-outline-primary"><i class="fas fa-location-arrow me-2"></i> Xem chi tiết</a>
                         </div>
                     </div>
                 </div>
             </div>
-            <div class="col-lg-6 col-xl-4">
-                <div class="p-4 border border-primary rounded vesitable-item bg-light">
-                    <div class="row align-items-center">
-                        <div class="col-6">
-                            <img src="/client/img/res/1.webp" class="img-fluid rounded-circle w-100" alt="">
-                        </div>
-                        <div class="col-6">
-                            <a href="#" class="h5">Nhà hàng 1</a>
-                            <div class="d-flex my-3">
-                                <i class="fas fa-star text-primary"></i>
-                                <i class="fas fa-star text-primary"></i>
-                                <i class="fas fa-star text-primary"></i>
-                                <i class="fas fa-star text-primary"></i>
-                                <i class="fas fa-star"></i>
-                            </div>
-                            <p>Giới thiệu ngắn</p>
-                            <a href="#" class="btn btn-outline-primary"><i
-                                    class="fas fa-location-arrow me-2"></i> Xem chi tiết</a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="col-lg-6 col-xl-4">
-                <div class="p-4 border border-primary rounded vesitable-item bg-light">
-                    <div class="row align-items-center">
-                        <div class="col-6">
-                            <img src="/client/img/res/1.webp" class="img-fluid rounded-circle w-100" alt="">
-                        </div>
-                        <div class="col-6">
-                            <a href="#" class="h5">Nhà hàng 1</a>
-                            <div class="d-flex my-3">
-                                <i class="fas fa-star text-primary"></i>
-                                <i class="fas fa-star text-primary"></i>
-                                <i class="fas fa-star text-primary"></i>
-                                <i class="fas fa-star text-primary"></i>
-                                <i class="fas fa-star"></i>
-                            </div>
-                            <p>Giới thiệu ngắn</p>
-                            <a href="#" class="btn btn-outline-primary"><i
-                                    class="fas fa-location-arrow me-2"></i> Xem chi tiết</a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="col-lg-6 col-xl-4">
-                <div class="p-4 border border-primary rounded vesitable-item bg-light">
-                    <div class="row align-items-center">
-                        <div class="col-6">
-                            <img src="/client/img/res/1.webp" class="img-fluid rounded-circle w-100" alt="">
-                        </div>
-                        <div class="col-6">
-                            <a href="#" class="h5">Nhà hàng 1</a>
-                            <div class="d-flex my-3">
-                                <i class="fas fa-star text-primary"></i>
-                                <i class="fas fa-star text-primary"></i>
-                                <i class="fas fa-star text-primary"></i>
-                                <i class="fas fa-star text-primary"></i>
-                                <i class="fas fa-star"></i>
-                            </div>
-                            <p>Giới thiệu ngắn</p>
-                            <a href="#" class="btn btn-outline-primary"><i
-                                    class="fas fa-location-arrow me-2"></i> Xem chi tiết</a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="col-lg-6 col-xl-4">
-                <div class="p-4 border border-primary rounded vesitable-item bg-light">
-                    <div class="row align-items-center">
-                        <div class="col-6">
-                            <img src="/client/img/res/1.webp" class="img-fluid rounded-circle w-100" alt="">
-                        </div>
-                        <div class="col-6">
-                            <a href="#" class="h5">Nhà hàng 1</a>
-                            <div class="d-flex my-3">
-                                <i class="fas fa-star text-primary"></i>
-                                <i class="fas fa-star text-primary"></i>
-                                <i class="fas fa-star text-primary"></i>
-                                <i class="fas fa-star text-primary"></i>
-                                <i class="fas fa-star"></i>
-                            </div>
-                            <p>Giới thiệu ngắn</p>
-                            <a href="#" class="btn btn-outline-primary"><i
-                                    class="fas fa-location-arrow me-2"></i> Xem chi tiết</a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="col-lg-6 col-xl-4">
-                <div class="p-4 border border-primary rounded vesitable-item bg-light">
-                    <div class="row align-items-center">
-                        <div class="col-6">
-                            <img src="/client/img/res/1.webp" class="img-fluid rounded-circle w-100" alt="">
-                        </div>
-                        <div class="col-6">
-                            <a href="#" class="h5">Nhà hàng 1</a>
-                            <div class="d-flex my-3">
-                                <i class="fas fa-star text-primary"></i>
-                                <i class="fas fa-star text-primary"></i>
-                                <i class="fas fa-star text-primary"></i>
-                                <i class="fas fa-star text-primary"></i>
-                                <i class="fas fa-star"></i>
-                            </div>
-                            <p>Giới thiệu ngắn</p>
-                            <a href="#" class="btn btn-outline-primary"><i
-                                    class="fas fa-location-arrow me-2"></i> Xem chi tiết</a>
-                        </div>
-                    </div>
-                </div>
-            </div>
+            <!-- End Thymeleaf iteration -->
         </div>
     </div>
 </div>
+
 <!-- List Restaurant End -->
 
 <!-- Rating Start -->

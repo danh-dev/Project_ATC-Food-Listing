@@ -32,6 +32,7 @@ public class ClientController {
     private final BlogService blogService;
     private final CouponService couponService;
     private final FoodService foodService;
+    private final RestaurantService restaurantService;
 
     @GetMapping(value = {"", "/","/home","/index","/trang-chu","index.html","home.html","trang-chu.html"})
     public String home(Model model) {
@@ -44,6 +45,8 @@ public class ClientController {
         model.addAttribute("ratings", ratingList);
         List<Food> foods = foodService.getAllFoods();
         model.addAttribute("foods", foods);
+        List<Restaurant> restaurants = restaurantService.findRestaurants();
+        model.addAttribute("restaurants",restaurants);
         return "client/index";
     }
 
@@ -72,6 +75,16 @@ public class ClientController {
     }
 
 
+    @GetMapping("/restaurant/{slug}")
+    public String getRestaurantDetail(Model model, @PathVariable("slug") String slug) {
+        log.info("slug la:" + slug);
+
+        Optional<Restaurant> restaurant = restaurantService.findBySlug(slug);
+
+        log.info("slug la:" + restaurant.get());
+        model.addAttribute("restaurant", restaurant.get());
+        return "client/restaurant_page";
+    }
     @GetMapping("/food_demo")
     public String food_demo() {
         return "client/food_page";

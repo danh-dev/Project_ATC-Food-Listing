@@ -21,7 +21,7 @@
         <!-- Layout container -->
         <div class="layout-page">
             <!-- Navbar -->
-            <nav th:replace="~{admin/fragments/nav :: nav-bar(value_title = 'Create Food')}"></nav>
+            <nav th:replace="~{admin/fragments/nav :: nav-bar(value_title = 'Create Food')}" />
             <!-- / Navbar -->
             <!-- Content wrapper -->
             <div class="content-wrapper">
@@ -67,6 +67,20 @@
                                             <div
                                                 th:class="${#fields.hasErrors('categoryId')}? 'invalid-feedback d-block' : 'invalid-feedback'"
                                                 th:if="${#fields.hasErrors('categoryId')}" th:errors="*{categoryId}">
+                                            </div>
+                                        </div>
+                                        <!-- Restaurant selection -->
+                                        <div class="mb-3 form-group">
+                                            <label class="form-label" for="restaurant">Restaurants</label>
+                                            <select name="restaurantId" id="restaurant" class="form-control">
+                                                <option value="">Select restaurant</option>
+                                                <option th:each="item : ${restaurants}"
+                                                        th:value="${item.id}"
+                                                        th:text="${item.restaurantName}" />
+                                            </select>
+                                            <div
+                                                th:class="${#fields.hasErrors('restaurantId')}? 'invalid-feedback d-block' : 'invalid-feedback'"
+                                                th:if="${#fields.hasErrors('restaurantId')}" th:errors="*{restaurantId}">
                                             </div>
                                         </div>
                                         <!-- Desc -->

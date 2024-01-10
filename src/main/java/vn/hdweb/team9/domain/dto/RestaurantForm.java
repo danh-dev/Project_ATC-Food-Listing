@@ -1,5 +1,8 @@
-package vn.hdweb.team9.controller.admin;
+package vn.hdweb.team9.domain.dto;
 
+import jakarta.validation.constraints.NotEmpty;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Size;
 import lombok.Getter;
 import lombok.Setter;
 import org.springframework.web.multipart.MultipartFile;
@@ -13,12 +16,23 @@ import java.util.List;
 
 @Getter @Setter
 public class RestaurantForm {
+
+    @NotEmpty(message = "Đây là trường bắt buộc")
     private String restaurantName;
-    private String slug;
+
+    @NotEmpty(message = "Đây là trường bắt buộc")
     private String description;
+
+    @NotEmpty(message = "Đây là trường bắt buộc")
     private String address;
+
+    @NotNull(message = "Đây là trường bắt buộc")
     private MultipartFile image;
+
+    @NotEmpty(message = "Đây là trường bắt buộc")
     private String openTime;
+
+    @NotEmpty(message = "Đây là trường bắt buộc")
     private String closeTime;
     //private boolean isActive = true;
 }
