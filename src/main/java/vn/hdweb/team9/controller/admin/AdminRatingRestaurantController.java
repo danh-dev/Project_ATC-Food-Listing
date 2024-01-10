@@ -26,9 +26,14 @@ public class AdminRatingRestaurantController {
     @GetMapping("/list")
     public String getList(Model model) {
         List<RatingRestaurantDto> ratingResponseList= ratingRestaurantService.findAll();
-
-        model.addAttribute("title", "Rating Food List");
+        long count = ratingResponseList.size();
+        double avgRate = ratingResponseList.stream().mapToDouble(RatingRestaurantDto::getRateStar)
+                .average()
+                .orElse(0.0);
+        model.addAttribute("title", "Rating Restaurant List");
         model.addAttribute("ratingList", ratingResponseList);
+        model.addAttribute("count", count);
+        model.addAttribute("avgRate", avgRate);
         return "admin/ratingRestaurant/ratingList";
     }
 

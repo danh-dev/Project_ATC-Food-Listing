@@ -15,6 +15,8 @@ import vn.hdweb.team9.service.RatingFoodService;
 import vn.hdweb.team9.service.RatingRestaurantService;
 
 import java.util.List;
+import java.util.Random;
+import java.util.stream.Collectors;
 
 @Controller
 @RequiredArgsConstructor
@@ -26,9 +28,18 @@ public class ClientController {
 
 
     @GetMapping(value = {"", "/","/home","/index","/trang-chu","index.html","home.html","trang-chu.html"})
-    public String home() {
+    public String home(Model model) {
+        List<RatingRestaurantDto> ratingList= ratingRestaurantService.findAll();
+//
+        model.addAttribute("rating0",ratingList.get(0));
+        model.addAttribute("rating1",ratingList.get(1));
+        model.addAttribute("rating2",ratingList.get(2));
+//        model.addAttribute("rating3",ratingList.get(3));
         return "client/index";
     }
+
+
+
 
     @GetMapping("/category_demo")
     public String category_demo() {
