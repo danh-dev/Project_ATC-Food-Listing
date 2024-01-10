@@ -134,7 +134,7 @@
                                                     <strong>[[${coupon.couponName}]]</strong>
                                                 </td>
                                                 <td>
-                                                    <span class="badge me-1" th:classappend="${coupon.typeCoupon == T(vn.hdweb.team9.domain.entity.TypeCoupon).DIRECT ? 'bg-label-success' : 'bg-label-warning'}">
+                                                    <span class="badge me-1" th:classappend="${coupon.typeCoupon.toString() == 'DIRECT' ? 'bg-label-success' : 'bg-label-warning'}">
                                                         [[${coupon.typeCoupon}]]
                                                     </span></td>
                                                 </td>

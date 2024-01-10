@@ -1,8 +1,6 @@
 package vn.hdweb.team9.domain.entity;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 import jakarta.validation.constraints.NotEmpty;
 import lombok.Getter;
 import lombok.Setter;
@@ -11,10 +9,15 @@ import lombok.Setter;
 @Setter @Getter
 public class SiteSetting {
 
-    @NotEmpty
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "site_setting_id")
+    private Long id;
+
+    @Column(name = "key_setting")
     private String key;
 
+    @Column(name = "value_setting")
     private String value;
 
 }
