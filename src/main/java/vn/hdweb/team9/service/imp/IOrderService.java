@@ -13,4 +13,6 @@ public interface IOrderService {
         List<Order> orderOfUser(User user);
 
         Order findById(Long orderId);
+
+        void cancelOrder(Long orderId);
 }

@@ -35,7 +35,12 @@ public class OrderController {
         }
 
         Order order = orderService.createOrder(session, address, note, paymentMethod);
-        log.info("Order created: {}", order);
+        return "redirect:/users";
+    }
+
+    @PostMapping("/cancel")
+    public String cancelOrder(@RequestParam Long orderId) {
+        orderService.cancelOrder(orderId);
         return "redirect:/users";
     }
 

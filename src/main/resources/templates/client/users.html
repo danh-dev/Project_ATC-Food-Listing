@@ -111,23 +111,26 @@
                             <div th:replace="~{client/fragments/elements/alert::success(message= ${success_update} )}"></div>
                         </th:block>
                         <th:block th:if="${error_update}">
-                            <div th:replace="~{client/fragments/elements/alert::success(message= ${error_update} )}"></div>
+                            <div th:replace="~{client/fragments/elements/alert::error(message= ${error_update} )}"></div>
                         </th:block>
+                        <span th:text="${errors}"></span>
                         <form th:action="@{/users/update}" method="POST" th:object="${user}">
                             <div class="mb-3">
                                 <label for="fullName" class="form-label">Họ và tên</label>
-                                <input type="text" class="form-control" id="fullName" th:field="*{fullName}">
+                                <input type="text" class="form-control" id="fullName" th:field="*{fullName}"
+                                       th:classappend="${#fields.hasErrors('fullName')?'is-invalid':''}"
+                                >
+                                <span th:if="${#fields.hasErrors('fullName')}" th:errors="*{fullName}" class="invalid-feedback d-block"></span>
                             </div>
                             <div class="mb-3">
                                 <label for="email" class="form-label">Email</label>
-                                <input type="email" class="form-control" id="email"
-                                       th:value="${user.email}" disabled>
-                            </div>
+                                <input type="email" class="form-control" id="email" th:field="*{email}" readonly></div>
                             <div class="mb-3">
                                 <label for="phone" class="form-label">Số điện thoại</label>
                                 <input th:classappend="${error_phone != null?'is-invalid':''}" type="text"
                                        class="form-control" id="phone" th:field="*{phone}">
-                                <span th:if="${error_phone}" th:text="${error_phone}" class="invalid-feedback"></span>
+                                <span th:if="${#fields.hasErrors('phone')}" th:errors="*{phone}" class="invalid-feedback d-block"></span>
+
                             </div>
                             <div class="mb-3">
                                 <label for="address" class="form-label">Địa chỉ</label>

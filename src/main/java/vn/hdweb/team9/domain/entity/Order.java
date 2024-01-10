@@ -64,7 +64,7 @@ public class Order {
         try{
             this.couponDto = couponDto.toJson();
         } catch (IOException e) {
-            e.printStackTrace();
+            this.couponDto = null;
         }
     }
 
@@ -78,5 +78,16 @@ public class Order {
 
     public void cancelOrder() {
         this.status = OrderStatus.CANCEL;
+    }
+
+    public boolean canCancel() {
+        Boolean canCancel = false;
+        if(this.status == OrderStatus.PROCESSING || this.status == OrderStatus.WAITING) {
+            canCancel = true;
+        }
+        if (LocalDateTime.now().isAfter(this.createdAt.plusMinutes(3))) {
+            canCancel = false;
+        }
+        return canCancel;
     }
 }

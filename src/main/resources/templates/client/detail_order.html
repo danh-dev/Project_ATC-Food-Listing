@@ -61,7 +61,15 @@
             <div class="col-lg-8 col-12 card m-3 p-3">
                 <div class="card">
                     <h5 class="card-header">Chi tiết đơn hàng: #[[${order.getId()}]]</h5>
-                    <span class="card-header">Bạn được phép huỷ đơn trước: #[[${order.getCreatedAt().plusMinutes(3)}]]</span>
+                    <th:block th:if="${order.canCancel()}">
+                        <span class="card-header">Bạn được phép huỷ đơn trước: <span
+                                th:text="${#temporals.format(order.getCreatedAt().plusMinutes(3), 'dd-MM-yyyy HH:mm')}"></span></span>
+                        <br>
+                        <form th:action="@{/order/cancel}" method="POST" class="ps-4">
+                            <input type="hidden" name="orderId" th:value="${order.getId()}">
+                            <button type="submit" class="btn btn-danger">Huỷ đơn hàng</button>
+                        </form>
+                    </th:block>
                     <div class="card-content">
                         <!--Hiển thị thông tin khách hàng-->
                         <div class="ps-4">
@@ -81,11 +89,20 @@
                     <div class="card-content">
                         <div class="ps-4">
                             <strong>Thông tin khách hàng:</strong>
-                            <span class="fw-bold" th:text="${order.getUser().getFullName()}"></span>
-                            -
-                            <span class="fw-bold" th:text="${order.getUser().getPhone()}"></span>
-                            -
-                            <span class="fw-bold" th:text="${order.getDeliveryAddress()}"></span>
+                            <div><span class="text-muted">Người đặt hàng:</span> <span class="fw-semibold"
+                                                                                       th:text="${order.getUser().getFullName()}"></span>
+                            </div>
+                            <div><span class="text-muted">Địa chỉ giao hàng:</span> <span class="fw-semibold"
+                                                                                          th:text="${order.getDeliveryAddress()}"></span>
+                            </div>
+                            <div th:if="${order.getUser().getPhone()}"><span class="text-muted">Số điện thoại:</span>
+                                <span class="fw-semibold" th:text="${order.getUser().getPhone()}"></span></div>
+
+                            <div th:if="${!order.getOrderNote().isEmpty()}">
+                                <span class="text-muted">Khách hàng ghi chú:</span>
+                                <span class="fw-semibold" th:text="${order.getOrderNote()}"></span>
+                            </div>
+
                         </div>
                     </div>
                     <div class="card-content">
@@ -118,9 +135,50 @@
                                     </tr>
                                     </tbody>
                                 </table>
-                                <div class="d-flex justify-content-end">
-                                    <h5 class="text-end">Tổng tiền: <span
-                                            th:text="${order.getTotalBill()}"></span></h5>
+                                <div class="m-3 mb-2 p-1">
+                                    <div class="row">
+                                        <div class="col-12 col-lg-8 d-flex flex-column">
+
+                                            <th:block th:if="${order.couponDto}">
+                                                <div class="alert alert-success d-flex justify-content-between"
+                                                     role="alert">
+                                                    <div class="d-flex">
+                                                        <span
+                                                                class="badge badge-center rounded-pill bg-warning p-3 me-2">
+                                                        <i class="fas fa-percent"></i>
+                                                    </span>
+                                                        <div class="d-flex flex-column ps-1">
+                                                            <h6 class="alert-heading d-flex align-items-center mb-1">
+                                                                Mã giảm giá: [[${order.couponDto.getCouponCode()}]]</h6>
+                                                            <span th:if="${order.couponDto.getTypeCoupon().toString().equalsIgnoreCase('PERCENT')}">
+                                                            Giảm [[${order.couponDto.getCouponValue()}]]% trên tổng giá trị đơn hàng.
+                                                            </span>
+                                                            </span>
+                                                            <span th:if="${order.couponDto.getTypeCoupon().toString().equalsIgnoreCase('DIRECT')}">
+                                                            Giảm [[${order.couponDto.getCouponValue()}]]đ trên tổng giá trị đơn hàng.
+                                                            </span>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </th:block>
+                                        </div>
+                                        <div class="order-calculations col-12 col-lg-4">
+                                            <div th:if="${order.couponDto}" class="d-flex justify-content-between mb-2">
+                                                    <span class="w-px-100">Tạm tính:</span>
+                                                    <span class="text-heading"
+                                                          th:text="${order.getTotalBill()+order.couponDto.getOrderDiscount()}"></span>
+                                            </div>
+                                            <div th:if="${order.couponDto}" class="d-flex justify-content-between mb-2">
+                                                <span class="w-px-100">Giảm giá:</span>
+                                                <span class="text-heading mb-0"
+                                                      th:text="${order.couponDto.getOrderDiscount()}"></span>
+                                            </div>
+                                            <div class="d-flex justify-content-between">
+                                                <h6 class="w-px-100 mb-0">Tổng:</h6>
+                                                <h6 class="mb-0" th:text="${order.getTotalBill()}"></h6>
+                                            </div>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                         </div>

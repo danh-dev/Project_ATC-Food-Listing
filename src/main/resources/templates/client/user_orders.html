@@ -84,7 +84,7 @@
                             </tr>
                             <tr th:unless="${orders.isEmpty()}" th:each="order : ${orders}">
                                 <td th:text="${order.getId()}"></td>
-                                <td th:text="${order.getCreatedAt()}"></td>
+                                <td th:text="${#temporals.format(order.getCreatedAt(), 'dd/MM/yyyy')}"></td>
                                 <td>[[${order.getRestaurant().getRestaurantName()}]] - <span th:if="${!order.getRatingRestaurant()}">Rating</span></td>
                                 <td th:text="${order.getTotalBill()}"></td>
                                 <td>

@@ -128,11 +128,8 @@ public class UserController {
     @PostMapping("/users/update")
     public String update(@Valid @ModelAttribute("user") UserDto userDto, BindingResult bindingResult, RedirectAttributes ra) {
         try{
-            if (bindingResult.hasErrors() && !userDto.getPhone().isEmpty()) {
-                /* another way validator  */
-                ra.addFlashAttribute("error_phone", Objects.requireNonNull(bindingResult.getFieldError("phone")).getDefaultMessage());
-                ra.addFlashAttribute("error_update","Cập nhật thông tin thất bại.");
-                return "redirect:/users?updateError";
+            if (bindingResult.hasErrors()) {
+                return "client/users";
             }
             Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
             String userEmail = authentication.getName();

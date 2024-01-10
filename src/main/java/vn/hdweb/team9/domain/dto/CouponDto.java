@@ -27,6 +27,9 @@ public class CouponDto {
 
     public static CouponDto fromJson(String json) throws IOException {
         ObjectMapper mapper = new ObjectMapper();
+        if (json == null) {
+            return null;
+        }
         return mapper.readValue(json, CouponDto.class);
     }
 }
