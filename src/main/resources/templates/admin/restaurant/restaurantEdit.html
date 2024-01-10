@@ -4,7 +4,7 @@
       class="light-style layout-menu-fixed"
       dir="ltr"
       data-theme="theme-default"
-      data-assets-path="/admin/assets/"
+      data-assets-path="../../admin/assets/"
       data-template="vertical-menu-template-free"
 >
 <head th:replace="~{admin/fragments/head :: heads(pageTitle='Update Restaurants')}">
@@ -152,7 +152,7 @@
                 <!-- / Content -->
 
                 <!-- Footer -->
-                <footer th:replace="admin/fragments/layout :: footer"></footer>
+                <footer th:replace="~{admin/fragments/layout :: footer}"></footer>
                 <!-- / Footer -->
 
                 <div class="content-backdrop fade"></div>
@@ -167,7 +167,7 @@
 </div>
 <!-- / Layout wrapper -->
 
-<div th:replace="admin/fragments/layout :: script"></div>
+<div th:replace="~{admin/fragments/layout :: script}"></div>
 
 </body>
 </html>
