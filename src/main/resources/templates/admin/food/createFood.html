@@ -4,7 +4,7 @@
         class="light-style layout-menu-fixed"
         dir="ltr"
         data-theme="theme-default"
-        data-assets-path="/admin/assets/"
+        data-assets-path="../../admin/assets/"
         data-template="vertical-menu-template-free"
 >
 <head th:replace="~{admin/fragments/head :: heads(pageTitle='Create Food')}">
@@ -32,13 +32,10 @@
                     <div class="row">
                         <div class="col-xl">
                             <div class="card mb-4">
-<!--                                <div class="card-header d-flex justify-content-between align-items-center">-->
-<!--                                    <h5 class="mb-0">Basic Layout</h5>-->
-<!--                                    <small class="text-muted float-end">Default label</small>-->
-<!--                                </div>-->
                                 <div class="card-body">
                                     <form th:action="@{/admin/food/processForm}" th:object="${foodDTO}" method="post"
                                           class="needs-validation" novalidate enctype="multipart/form-data">
+                                        <!-- Name -->
                                         <div class="mb-3 form-group">
                                             <label class="form-label" for="food-name">Food Name</label>
                                             <input
@@ -58,7 +55,21 @@
                                                 <p th:text="${foodExist}"></p>
                                             </div>
                                         </div>
-
+                                        <!-- Category selection -->
+                                        <div class="mb-3 form-group">
+                                            <label class="form-label" for="category">Category</label>
+                                            <select name="categoryId" id="category" class="form-control">
+                                                <option value="">Select category</option>
+                                                <option th:each="item : ${categories}"
+                                                        th:value="${item.id}"
+                                                        th:text="${item.categoryName}" />
+                                            </select>
+                                            <div
+                                                th:class="${#fields.hasErrors('categoryId')}? 'invalid-feedback d-block' : 'invalid-feedback'"
+                                                th:if="${#fields.hasErrors('categoryId')}" th:errors="*{categoryId}">
+                                            </div>
+                                        </div>
+                                        <!-- Desc -->
                                         <div class="mb-3 form-group">
                                             <label class="form-label" for="food-description">Description</label>
                                             <input
@@ -74,7 +85,7 @@
                                                     th:if="${#fields.hasErrors('description')}" th:errors="*{description}">
                                             </div>
                                         </div>
-
+                                        <!-- Price -->
                                         <div class="mb-3 form-group">
                                             <label class="form-label" for="food-price">Price</label>
                                             <input
@@ -90,7 +101,7 @@
                                                     th:if="${#fields.hasErrors('price')}" th:errors="*{price}">
                                             </div>
                                         </div>
-
+                                        <!-- Time wait -->
                                         <div class="mb-3 form-group">
                                             <label class="form-label" for="food-timeWait">Time Wait</label>
                                             <input
@@ -106,7 +117,7 @@
                                                     th:if="${#fields.hasErrors('timeWait')}" th:errors="*{timeWait}">
                                             </div>
                                         </div>
-
+                                        <!-- Image -->
                                         <div class="mb-3 form-group">
                                             <label for="formFile" class="form-label">Food Image</label>
                                             <input class="form-control" type="file" id="formFile" name="imageFile"
@@ -120,7 +131,7 @@
                                                 <p th:text="${error}"></p>
                                             </div>
                                         </div>
-
+                                        <!-- Previous Image -->
                                         <div class="mb-3">
                                             <img id="preview-image-before-upload" class="rounded mx-auto d-block" />
                                         </div>
@@ -133,7 +144,7 @@
                                 </div>
                             </div>
 
-                            <!-- Previous Image -->
+                            <!-- Previous Image when updating-->
                             <div class="row mb-4">
                                 <div class="col-sm-4">
                                     <div class="card" th:if="${prevImageUrl} != null">
@@ -141,6 +152,7 @@
                                     </div>
                                 </div>
                             </div>
+                            <!--/ Previous Image when updating -->
                         </div>
                     </div>
                 </div>

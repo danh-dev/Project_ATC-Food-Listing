@@ -8,6 +8,7 @@ import vn.hdweb.team9.domain.entity.Food;
 import vn.hdweb.team9.domain.entity.RatingFood;
 
 import java.util.List;
+import java.util.Optional;
 
 @Repository
 @RequiredArgsConstructor
@@ -38,19 +39,28 @@ public class FoodDAOImpl implements FoodDAO {
     @Override
     public List<Food> findByName(String foodName) {
         TypedQuery<Food> query = entityManager
-                .createQuery("from Food f where f.foodName = :data", Food.class)
+                .createQuery("select f from Food f where f.foodName = :data", Food.class)
                 .setParameter("data", foodName);
         
         return query.getResultList();
     }
     
-    @Override
-    public List<Food> findBySlug(String foodSlug) {
+    @Override public List<Food> findByNameExceptId(String foodName, Long currentFoodId) {
         TypedQuery<Food> query = entityManager
-                .createQuery("from Food f where f.slug = :data", Food.class)
-                .setParameter("data", foodSlug);
+                .createQuery("select f from Food f where f.foodName = :data and f.id != :currentFoodId", Food.class)
+                .setParameter("data", foodName)
+                .setParameter("currentFoodId", currentFoodId);
         
         return query.getResultList();
+    }
+    
+    @Override
+    public Optional<Food> findBySlug(String foodSlug) {
+        TypedQuery<Food> query = entityManager
+                .createQuery("select f from Food f where f.slug = :data", Food.class)
+                .setParameter("data", foodSlug);
+
+        return Optional.ofNullable(query.getResultList().stream().findFirst().orElse(null));
     }
     
     /**
@@ -87,6 +97,7 @@ public class FoodDAOImpl implements FoodDAO {
         for (RatingFood ratingFood: ratingList) {
             ratingFood.setFood(null);
         }
+        food.setCategory(null);
         
         entityManager.remove(food);
     }

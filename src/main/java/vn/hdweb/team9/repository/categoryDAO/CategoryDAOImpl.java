@@ -50,6 +50,16 @@ public class CategoryDAOImpl implements CategoryDAO{
     }
     
     @Override
+    public List<Category> findByNameExceptId(String categoryName, Long currentCategoryId) {
+        TypedQuery<Category> query = entityManager
+                .createQuery("select c from Category c where c.categoryName = :data and c.id != :currentCategoryId", Category.class)
+                .setParameter("data", categoryName)
+                .setParameter("currentCategoryId", currentCategoryId);
+        
+        return query.getResultList();
+    }
+    
+    @Override
     public List<Food> findFoodsByCategoryId(Long categoryId) {
         TypedQuery<Food> query = entityManager
                 .createQuery("from Food f where f.category.id = :data", Food.class)

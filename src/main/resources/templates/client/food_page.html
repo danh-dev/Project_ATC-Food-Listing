@@ -12,20 +12,25 @@
 
 </div>
 
-<!-- List Restaurant Start -->
+<!-- Food Detail Start -->
 <div class="container-fluid py-5">
     <div class="container py-5">
         <div class="row gy-4 d-flex align-items-stretch">
             <div class="col-lg-5 d-flex">
                 <div class="restaurant-img-box position-relative border p-2 d-flex flex-column justify-content-between">
-                    <img src="/client/img/res/res.jpg" alt="restaurant name" class="res-img w-100 scaleX-n1-rtl">
+                    <!-- Use the 'image' property of the 'food' object -->
+                    <img th:src="@{'/' + ${food.getImage()} }" alt="food name" class="res-img w-100 scaleX-n1-rtl">
                 </div>
             </div>
             <div class="col-lg-7 d-flex">
                 <div class="card w-100">
                     <div class="card-body d-flex flex-column justify-content-between">
-                        <h4 class="my-2 py-2">Tên món ăn</h4>
-                        <p>Của nhà hàng: xxx</p>
+                        <!-- Use the 'foodName' property of the 'food' object -->
+                        <h4 class="my-2 py-2" th:text="${food.getFoodName()}">Tên món ăn</h4>
+
+                        <!-- Use the 'restaurant' property to access restaurant details -->
+<!--                        <p th:text="'Của nhà hàng: ' + ${food.getRestaurant().getRestaurantName()}">Của nhà hàng: xxx</p>-->
+
                         <div class="d-flex align-items-center">
                             <div th:insert="~{client/fragments/elements/rating :: rating(rating_value = ${ratingValue})}"></div>
 
@@ -34,9 +39,14 @@
                         <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#modalScrollable">
                             Xem Rating
                         </button>
-                        <div th:insert="~{client/fragments/rating_list :: list(listValue = ${ratingList})}"></div>
-                        <p>Thời gian đợi: xxx Giờ đóng cửa: xxx</p>
-                        <p>Giá: xxx</p>
+
+                        <!-- Render the list of ratings -->
+                        <div th:insert="~{client/fragments/rating_list :: rating}"></div>
+
+                        <!-- Use the 'timeWait', 'closingTime', and 'price' properties of the 'food' object -->
+                        <p th:text="'Thời gian đợi: ' + ${food.getTimeWait()}">xxx</p>
+
+                        <p th:text="'Giá: ' + ${food.getPrice()} + ' đồng'">xxx</p>
                         <th:block th:if="${userInfo}">
                             <!--NHỚ Thêm id vào nút mua-->
                             <form th:action="@{/cart/add/1}" method="post">
@@ -46,6 +56,12 @@
                         <th:block th:unless="${userInfo}">
                             <a href="/login?Request_login" class="btn btn-primary">Thêm vào giỏ hàng</a>
                         </th:block>
+
+                        <!-- Use the 'description' property of the 'food' object -->
+                        <p class="my-3 content-res" th:text="${food.getDescription()}">
+                        <div th:insert="~{client/fragments/rating_list :: list(listValue = ${ratingList})}"></div>
+
+
                         <p class="my-3 content-res">
                             If you would like to discuss anything related to payment, account, licensing,
                             partnerships, or have pre-sales questions, you’re at the right place.
@@ -53,12 +69,11 @@
                     </div>
                 </div>
             </div>
-
-
         </div>
     </div>
 </div>
-<!-- List Restaurant End -->
+<!-- Food Detail End -->
+
 
 <!-- Blog Start -->
 <div class="container-fluid vesitable py-5">

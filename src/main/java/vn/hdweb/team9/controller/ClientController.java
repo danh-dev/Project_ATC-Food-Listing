@@ -12,11 +12,8 @@ import vn.hdweb.team9.domain.dto.respon.RatingRestaurantDto;
 import vn.hdweb.team9.domain.entity.Coupon;
 import vn.hdweb.team9.domain.entity.RatingFood;
 import vn.hdweb.team9.domain.entity.RatingRestaurant;
-import vn.hdweb.team9.service.CouponService;
-import vn.hdweb.team9.service.RatingFoodService;
-import vn.hdweb.team9.service.RatingRestaurantService;
+import vn.hdweb.team9.service.*;
 import vn.hdweb.team9.domain.dto.respon.BlogResponDto;
-import vn.hdweb.team9.service.BlogService;
 
 import java.util.Collections;
 import java.util.List;
@@ -32,6 +29,7 @@ public class ClientController {
     private final RatingRestaurantService ratingRestaurantService;
     private final BlogService blogService;
     private final CouponService couponService;
+    private final FoodService foodService;
 
     @GetMapping(value = {"", "/","/home","/index","/trang-chu","index.html","home.html","trang-chu.html"})
     public String home(Model model) {
@@ -42,14 +40,14 @@ public class ClientController {
         model.addAttribute("coupons", coupons);
         List<RatingRestaurantDto> ratingList= ratingRestaurantService.findAll();
         model.addAttribute("ratings", ratingList);
+        List<Food> foods = foodService.getAllFoods();
+        model.addAttribute("foods", foods);
         return "client/index";
     }
 
     @GetMapping("/category_demo")
     public String category_demo() {
         return "client/category_page";
-//        return "client/food_page";
-
     }
 
     @GetMapping("/restaurant_demo")
@@ -92,6 +90,13 @@ public class ClientController {
         model.addAttribute("ratingList", ratingList);
         model.addAttribute("ratingValue", ratingValue);
         model.addAttribute("countRating", countRating);
+        return "client/food_page";
+    }
+
+    @GetMapping("/food/{slug}")
+    public String getFoodDetail(Model model, @PathVariable("slug") String slug) {
+        Optional<Food> food = foodService.findBySlug(slug);
+        model.addAttribute("food", food.get());
         return "client/food_page";
     }
 

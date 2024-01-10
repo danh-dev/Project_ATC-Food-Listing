@@ -31,4 +31,7 @@ public class FoodDTO {
     
     @Min(value= 0, message="Waiting time must be positive number")
     private int timeWait;
+    
+    @NotNull(message = "Choose category !")
+    private Long categoryId;
 }
