@@ -98,21 +98,25 @@
         </li>
         <!-- User -->
         <li class="menu-header small text-uppercase">
-            <span class="menu-header-text">User</span>
+            <span class="menu-header-text">Order</span>
         </li>
-        <li th:classappend="${value_menu.contains('users')?'active open':''}" class="menu-item">
-            <a href="javascript:void(0)" class="menu-link menu-toggle">
-                <i class='menu-icon tf-icons bx bx-user' ></i>
-                <div>User</div>
+        <li th:classappend="${value_menu.contains('orders')?'active':''}" class="menu-item">
+            <a th:href="@{/admin/orders}" class="menu-link">
+                <i class="menu-icon tf-icons bx bxs-package"></i>
+                <span>List Order</span>
             </a>
-            <ul class="menu-sub">
-                <li th:classappend="${value_menu.contains('users_list')?'active':''}" class="menu-item">
-                    <a th:href="@{/admin/users/list}" class="menu-link">
-                        <div>List user</div>
-                    </a>
-                </li>
-            </ul>
         </li>
+        <!-- User -->
+        <li class="menu-header small text-uppercase">
+            <span class="menu-header-text">Order</span>
+        </li>
+        <li th:classappend="${value_menu.contains('users')?'active':''}" class="menu-item">
+            <a th:href="@{/admin/users}" class="menu-link">
+                <i class="menu-icon tf-icons bx bx-user"></i>
+                <span>User</span>
+            </a>
+        </li>
+
         <!-- Coupon -->
         <li class="menu-header small text-uppercase">
             <span class="menu-header-text">Coupon</span>

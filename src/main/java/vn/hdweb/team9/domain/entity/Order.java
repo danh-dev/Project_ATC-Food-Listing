@@ -56,6 +56,10 @@ public class Order {
     @Column(name = "update_at")
     private LocalDateTime updatedAt = LocalDateTime.now();
 
+    public void setTotalBill(int totalBill) {
+        this.totalBill = Math.max(totalBill, 0);
+    }
+
     public boolean getRatingRestaurant() {
         return isRatingRestaurant;
     }

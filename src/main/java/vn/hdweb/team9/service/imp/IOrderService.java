@@ -8,6 +8,8 @@ import java.util.List;
 
 public interface IOrderService {
 
+        List<Order> findAll();
+
         Order createOrder(HttpSession session, String address, String note, String paymentMethod);
 
         List<Order> orderOfUser(User user);

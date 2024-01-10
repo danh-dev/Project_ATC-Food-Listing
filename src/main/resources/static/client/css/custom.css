@@ -287,3 +287,44 @@ img.res-img{
     border-color: var(--bs-primary);
     box-shadow: 0 2px 4px 0 rgba(var(--bs-primary-rgb), 0.4);
 }
+
+.coupon-card {
+    width: 350px;
+    padding: 10px;
+    border-radius: 20px;
+    background: orange;
+    border: none;
+    color: #fff;
+    height: 350px;
+    display: flex;
+    position: relative;
+    align-items: center;
+    justify-content: center;
+}
+
+.coupon-container {
+    height: 100vh;
+}
+
+.coupon-card h1 {
+    font-size: 48px;
+    margin-bottom: 0px;
+}
+
+.coupon-card span {
+    font-size: 28px;
+}
+
+.coupon-image {
+    position: absolute;
+    opacity: .1;
+    left: 0;
+    top: 0;
+}
+
+.coupon-image2 {
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    opacity: .1;
+}

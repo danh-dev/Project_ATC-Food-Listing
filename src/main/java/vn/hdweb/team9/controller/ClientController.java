@@ -9,13 +9,16 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import vn.hdweb.team9.domain.dto.respon.RatingFoodDto;
 import vn.hdweb.team9.domain.dto.respon.RatingRestaurantDto;
+import vn.hdweb.team9.domain.entity.Coupon;
 import vn.hdweb.team9.domain.entity.RatingFood;
 import vn.hdweb.team9.domain.entity.RatingRestaurant;
+import vn.hdweb.team9.service.CouponService;
 import vn.hdweb.team9.service.RatingFoodService;
 import vn.hdweb.team9.service.RatingRestaurantService;
 import vn.hdweb.team9.domain.dto.respon.BlogResponDto;
 import vn.hdweb.team9.service.BlogService;
 
+import java.util.Collections;
 import java.util.List;
 
 @Controller
@@ -26,12 +29,17 @@ public class ClientController {
     private final RatingFoodService ratingFoodService;
     private final RatingRestaurantService ratingRestaurantService;
     private final BlogService blogService;
+    private final CouponService couponService;
 
     @GetMapping(value = {"", "/","/home","/index","/trang-chu","index.html","home.html","trang-chu.html"})
 
     public String home(Model model) {
         List<BlogResponDto> blogs = blogService.findLimitOrderDate();
         model.addAttribute("blogs",blogs);
+        List<Coupon> coupons = couponService.findAll();
+        Collections.shuffle(coupons);
+        model.addAttribute("coupons", coupons);
+
         return "client/index";
     }
 

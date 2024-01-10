@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org"
+      class="light-style layout-menu-fixed layout-navbar-fixed"
+      dir="ltr"
+      data-theme="theme-default"
+      data-assets-path="/admin/assets/"
+      data-template="vertical-menu-template-free"
+>
+<head th:replace="~{admin/fragments/head :: heads(pageTitle='Orders List')}">
+    <title></title>
+</head>
+<body>
+<div class="layout-wrapper layout-content-navbar">
+    <div class="layout-container">
+        <!--đưa giá trị value_menu để so sánh với menu kích hoạt active-->
+        <aside th:replace="~{admin/fragments/menu :: drawer-menu(value_menu = 'orders')}"></aside>
+        <div class="layout-page">
+            <nav th:replace="~{admin/fragments/nav :: nav-bar(value_title = 'Orders List')}"></nav>
+            <div class="content-wrapper">
+                <div class="container-xxl flex-grow-1 container-p-y">
+                    <!--Content-->
+                    <div class="card">
+                        <div class="card-body">
+                            <div class="card-content">
+                                <div class="card">
+                                    <h5 class="card-header">List user account</h5>
+                                    <div class="table-responsive text-nowrap">
+                                        <table class="table table-striped">
+                                            <thead>
+                                            <tr>
+                                                <th>ID</th>
+                                                <th scope="col">Nhà hàng</th>
+                                                <th scope="col">Tổng tiền</th>
+                                                <th scope="col">Trạng thái</th>
+                                                <th scope="col">Ngày đặt</th>
+                                                <th scope="col">Chi tiết</th>
+                                            </tr>
+                                            </thead>
+                                            <tbody class="table-border-bottom-0">
+                                            <tr th:each="item : ${orders}">
+                                                <td th:text="${item.id}"></td>
+                                                <td th:text="${item.getRestaurant().getRestaurantName()}"></td>
+                                                <td th:text="${item.getTotalBill()}"></td>
+                                                <td>
+                                                    <span th:if="${item.getStatus().toString().equalsIgnoreCase('PROCESSING')}"
+                                                          class="badge bg-warning">Đang xử lý</span>
+                                                    <span th:if="${item.getStatus().toString().equalsIgnoreCase('WAITING')}"
+                                                          class="badge bg-success">Đợi thanh toán</span>
+                                                    <span th:if="${item.getStatus().toString().equalsIgnoreCase('SHIPPING')}"
+                                                          class="badge bg-success">Đang giao</span>
+                                                    <span th:if="${item.getStatus().toString().equalsIgnoreCase('DELIVERED')}"
+                                                          class="badge bg-info">Đã giao</span>
+                                                    <span th:if="${item.getStatus().toString().equalsIgnoreCase('CANCEL')}"
+                                                          class="badge bg-danger">Đã huỷ</span>
+                                                </td>
+                                                <td th:text="${#temporals.format(item.getCreatedAt(), 'dd/MM/yyyy')}"></td>
+                                                <td>
+                                                    <a th:href="@{/admin/orders/{id}(id=${item.getId()})}" class="btn btn-primary">Chi tiết</a>
+                                                </td>
+                                            </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                                <!--/ Striped Rows -->
+                            </div>
+                        </div>
+                    </div>
+                    <!--End Content-->
+                </div>
+                <footer th:replace="~{admin/fragments/footer :: footer}"></footer>
+                <div class="content-backdrop fade"></div>
+            </div>
+        </div>
+    </div>
+    <div class="layout-overlay layout-menu-toggle"></div>
+</div>
+<div th:replace="~{admin/fragments/js :: js-insert}"></div>
+</body>
+</html>

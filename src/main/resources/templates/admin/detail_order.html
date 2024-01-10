@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity6"
+      class="light-style layout-menu-fixed layout-navbar-fixed"
+      dir="ltr"
+      data-theme="theme-default"
+      data-assets-path="../../admin/assets/"
+      data-template="vertical-menu-template-free"
+>
+<head th:replace="~{admin/fragments/head :: heads(pageTitle='Thông tin đơn hàng')}">
+    <title></title>
+</head>
+<body>
+<div class="layout-wrapper layout-content-navbar">
+    <div class="layout-container">
+        <!--đưa giá trị value_menu để so sánh với menu kích hoạt active-->
+        <aside th:replace="~{admin/fragments/menu :: drawer-menu(value_menu = 'orders')}"></aside>
+        <div class="layout-page">
+            <nav th:replace="~{admin/fragments/nav :: nav-bar(value_title='Thông tin đơn hàng')}"></nav>
+            <div class="content-wrapper">
+                <div class="container-xxl flex-grow-1 container-p-y">
+                    <!--Content-->
+                    <div class="card">
+                        <h5 class="card-header">Title</h5>
+                        <div class="card-body">
+                            <div class="card-content ">
+                                <div class="card">
+                                    <h5 class="card-header">Chi tiết đơn hàng: #[[${order.getId()}]]</h5>
+                                    <div class="card-content">
+                                        <!--Hiển thị thông tin khách hàng-->
+                                        <div class="ps-4">
+                                            <strong>Trạng thái đơn hàng:</strong>
+                                            <span th:if="${order.getStatus().toString().equalsIgnoreCase('PROCESSING')}"
+                                                  class="badge bg-label-warning me-2 ms-2">Đang xử lý </span>
+                                            <span th:if="${order.getStatus().toString().equalsIgnoreCase('WAITING')}"
+                                                  class="badge bg-label-warning me-2 ms-2">Đợi thanh toán</span>
+                                            <span th:if="${order.getStatus().toString().equalsIgnoreCase('SHIPPING')}"
+                                                  class="badge bg-label-success me-2 ms-2">Đang giao</span>
+                                            <span th:if="${order.getStatus().toString().equalsIgnoreCase('DELIVERED')}"
+                                                  class="badge bg-label-info me-2 ms-2">Đã giao</span>
+                                            <span th:if="${order.getStatus().toString().equalsIgnoreCase('CANCEL')}"
+                                                  class="badge bg-label-danger me-2 ms-2">Đã huỷ</span>
+                                        </div>
+                                    </div>
+                                    <div class="card-content">
+                                        <div class="ps-4">
+                                            <strong>Thông tin khách hàng:</strong>
+                                            <div><span class="text-muted">Người đặt hàng:</span> <span class="fw-semibold"
+                                                                                                       th:text="${order.getUser().getFullName()}"></span>
+                                            </div>
+                                            <div><span class="text-muted">Địa chỉ giao hàng:</span> <span class="fw-semibold"
+                                                                                                          th:text="${order.getDeliveryAddress()}"></span>
+                                            </div>
+                                            <div th:if="${order.getUser().getPhone()}"><span class="text-muted">Số điện thoại:</span>
+                                                <span class="fw-semibold" th:text="${order.getUser().getPhone()}"></span></div>
+
+                                            <div th:if="${!order.getOrderNote().isEmpty()}">
+                                                <span class="text-muted">Khách hàng ghi chú:</span>
+                                                <span class="fw-semibold" th:text="${order.getOrderNote()}"></span>
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                    <div class="card-content">
+                                        <div class="card-body">
+                                            <div class="table-responsive">
+                                                <table class="table table-striped mb-0">
+                                                    <thead>
+                                                    <tr>
+                                                        <th>STT</th>
+                                                        <th>Tên sản phẩm</th>
+                                                        <th>Số lượng</th>
+                                                        <th>Giá</th>
+                                                        <th>Thành tiền</th>
+                                                        <th>Rating</th>
+                                                    </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                    <tr th:each="orderDetail, iStat : ${order.getOrderItems()}">
+                                                        <td th:text="${iStat.count}"></td>
+                                                        <td>
+                                                            <a th:href="@{/food/{slug}(slug=${orderDetail.getFood().getSlug()})}">
+                                                                <img th:src="@{'/' + ${orderDetail.getFood().getImage()}}"
+                                                                     alt="food image" width="30px" height="30px">
+                                                                <span class="fw-bold"
+                                                                      th:text="${orderDetail.getFood().getFoodName()}"></span>
+                                                            </a>
+                                                        </td>
+                                                        <td th:text="${orderDetail.getQuantity()}"></td>
+                                                        <td th:text="${orderDetail.getUnitPrice()}"></td>
+                                                        <td th:text="${orderDetail.getQuantity() * orderDetail.getUnitPrice()}"></td>
+                                                        <td>
+                                                            <th:block th:if="${!orderDetail.ratingFood}">
+                                                                <a class="btn btn-primary">Chua Rating</a>
+                                                            </th:block>
+                                                            <th:block th:unless="${!orderDetail.ratingFood}">
+                                                                <a class="btn btn-primary">Da Rating</a>
+                                                            </th:block>
+                                                        </td>
+                                                    </tr>
+                                                    </tbody>
+                                                </table>
+                                                <div class="m-3 mb-2 p-1">
+                                                    <div class="row">
+                                                        <div class="col-12 col-lg-8 d-flex flex-column">
+
+                                                            <th:block th:if="${order.couponDto}">
+                                                                <div class="alert alert-success d-flex justify-content-between"
+                                                                     role="alert">
+                                                                    <div class="d-flex">
+                                                        <span
+                                                                class="badge badge-center rounded-pill bg-warning p-3 me-2">
+                                                        <i class="fas fa-percent"></i>
+                                                    </span>
+                                                                        <div class="d-flex flex-column ps-1">
+                                                                            <h6 class="alert-heading d-flex align-items-center mb-1">
+                                                                                Mã giảm giá: [[${order.couponDto.getCouponCode()}]]</h6>
+                                                                            <span th:if="${order.couponDto.getTypeCoupon().toString().equalsIgnoreCase('PERCENT')}">
+                                                            Giảm [[${order.couponDto.getCouponValue()}]]% trên tổng giá trị đơn hàng.
+                                                            </span>
+                                                                            </span>
+                                                                            <span th:if="${order.couponDto.getTypeCoupon().toString().equalsIgnoreCase('DIRECT')}">
+                                                            Giảm [[${order.couponDto.getCouponValue()}]]đ trên tổng giá trị đơn hàng.
+                                                            </span>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </th:block>
+                                                        </div>
+                                                        <div class="order-calculations col-12 col-lg-4">
+                                                            <div th:if="${order.couponDto}" class="d-flex justify-content-between mb-2">
+                                                                <span class="w-px-100">Tạm tính:</span>
+                                                                <span class="text-heading"
+                                                                      th:text="${order.getTotalBill()+order.couponDto.getOrderDiscount()}"></span>
+                                                            </div>
+                                                            <div th:if="${order.couponDto}" class="d-flex justify-content-between mb-2">
+                                                                <span class="w-px-100">Giảm giá:</span>
+                                                                <span class="text-heading mb-0"
+                                                                      th:text="${order.couponDto.getOrderDiscount()}"></span>
+                                                            </div>
+                                                            <div class="d-flex justify-content-between">
+                                                                <h6 class="w-px-100 mb-0">Tổng:</h6>
+                                                                <h6 class="mb-0" th:text="${order.getTotalBill()}"></h6>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!--End Content-->
+                </div>
+                <footer th:replace="~{admin/fragments/footer :: footer}"></footer>
+                <div class="content-backdrop fade"></div>
+            </div>
+        </div>
+    </div>
+    <div class="layout-overlay layout-menu-toggle"></div>
+</div>
+<div th:replace="~{admin/fragments/js :: js-insert}"></div>
+</body>
+</html>

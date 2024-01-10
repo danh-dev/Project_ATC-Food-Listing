@@ -33,6 +33,11 @@ public class OrderService implements IOrderService {
     private final CouponService couponService;
 
     @Override
+    public List<Order> findAll() {
+        return orderRepository.findAll();
+    }
+
+    @Override
     public Order createOrder(HttpSession session, String address, String note, String paymentMethod) {
         Cart cart = null;
         try {

@@ -15,7 +15,7 @@
 <div class="layout-wrapper layout-content-navbar">
     <div class="layout-container">
         <!--đưa giá trị value_menu để so sánh với menu kích hoạt active-->
-        <aside th:replace="~{admin/fragments/menu :: drawer-menu(value_menu = 'users,users_list')}"></aside>
+        <aside th:replace="~{admin/fragments/menu :: drawer-menu(value_menu = 'users')}"></aside>
         <div class="layout-page">
             <nav th:replace="~{admin/fragments/nav :: nav-bar(value_title = 'User List')}"></nav>
             <div class="content-wrapper">

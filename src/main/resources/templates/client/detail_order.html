@@ -116,6 +116,7 @@
                                         <th>Số lượng</th>
                                         <th>Giá</th>
                                         <th>Thành tiền</th>
+                                        <th>Rating</th>
                                     </tr>
                                     </thead>
                                     <tbody>
@@ -132,6 +133,14 @@
                                         <td th:text="${orderDetail.getQuantity()}"></td>
                                         <td th:text="${orderDetail.getUnitPrice()}"></td>
                                         <td th:text="${orderDetail.getQuantity() * orderDetail.getUnitPrice()}"></td>
+                                        <td>
+                                            <th:block th:if="${!orderDetail.ratingFood}">
+                                                <a class="btn btn-primary">Rating</a>
+                                            </th:block>
+                                            <th:block th:unless="${!orderDetail.ratingFood}">
+                                                <a class="btn btn-primary">Da Rating</a>
+                                            </th:block>
+                                        </td>
                                     </tr>
                                     </tbody>
                                 </table>

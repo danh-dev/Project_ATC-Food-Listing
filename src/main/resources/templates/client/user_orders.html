@@ -96,6 +96,9 @@
                                 </td>
                                 <td>
                                     <a th:href="@{/users/orders/{id}(id=${order.getId()})}" class="btn btn-primary">Chi tiết</a>
+                                    <th:block th:if="${!order.getRatingRestaurant()}">
+                                        <a class="btn btn-primary">Rating</a>
+                                    </th:block>
                                 </td>
                             </tr>
                             </tbody>
