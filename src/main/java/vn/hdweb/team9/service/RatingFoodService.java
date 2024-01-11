@@ -7,9 +7,11 @@ import org.springframework.transaction.annotation.Transactional;
 import vn.hdweb.team9.domain.dto.respon.RatingFoodDto;
 import vn.hdweb.team9.domain.dto.respon.UserDto;
 import vn.hdweb.team9.domain.entity.Food;
+import vn.hdweb.team9.domain.entity.OrderDetail;
 import vn.hdweb.team9.domain.entity.RatingFood;
 import vn.hdweb.team9.domain.entity.User;
 import vn.hdweb.team9.repository.interfaces.FoodRepository;
+import vn.hdweb.team9.repository.interfaces.IOrderDetailRepository;
 import vn.hdweb.team9.repository.interfaces.RatingFoodRepository;
 import vn.hdweb.team9.service.imp.IUserService;
 
@@ -26,15 +28,17 @@ public class RatingFoodService {
     private final RatingFoodRepository ratingFoodRepository;
     private final FoodRepository foodRepository;
     private final IUserService userService;
+    private final IOrderDetailRepository orderDetailRepository;
 
     /*
      * add new
      */
     @Transactional
-    public Long rateFood(Long foodId, String content, int rateStar) {
+    public Long rateFood(OrderDetail orderDetail, String content, int rateStar) {
         // Retrieve Entities
+
         User user = userService.findByEmail(SecurityContextHolder.getContext().getAuthentication().getName());
-        Food food = foodRepository.findById(foodId).orElseThrow(() -> new RuntimeException("Food not found"));
+        Food food = orderDetailRepository.findById(orderDetail.getId()).get().getFood();
 
         // Create Rating
         RatingFood rating = new RatingFood();
@@ -46,7 +50,7 @@ public class RatingFoodService {
 
         // Save Rating
         ratingFoodRepository.save(rating);
-
+        orderDetail.setRatingFood(true);
         return rating.getId();
     }
 

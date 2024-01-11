@@ -8,10 +8,7 @@ import org.springframework.transaction.annotation.Transactional;
 import vn.hdweb.team9.domain.dto.respon.RatingFoodDto;
 import vn.hdweb.team9.domain.dto.respon.RatingRestaurantDto;
 import vn.hdweb.team9.domain.dto.respon.UserDto;
-import vn.hdweb.team9.domain.entity.RatingFood;
-import vn.hdweb.team9.domain.entity.RatingRestaurant;
-import vn.hdweb.team9.domain.entity.Restaurant;
-import vn.hdweb.team9.domain.entity.User;
+import vn.hdweb.team9.domain.entity.*;
 import vn.hdweb.team9.repository.interfaces.IUserRepository;
 import vn.hdweb.team9.repository.interfaces.RatingRestaurantRepository;
 import vn.hdweb.team9.repository.interfaces.RestaurantRepository;
@@ -34,11 +31,10 @@ public class RatingRestaurantService {
      * add new
      */
     @Transactional
-    public Long rateRestaurant(Long restaurantId, String content, int rateStar) {
+    public Long rateRestaurant(Order order, String content, int rateStar) {
         // Retrieve Entities
         User user = userService.findByEmail(SecurityContextHolder.getContext().getAuthentication().getName());
-
-        Restaurant restaurant = restaurantRepository.findById(restaurantId).orElseThrow(() -> new RuntimeException("Restaurant not found"));
+        Restaurant restaurant = order.getRestaurant();
 
         // Create Rating
         RatingRestaurant rating = new RatingRestaurant();
@@ -50,7 +46,7 @@ public class RatingRestaurantService {
 
         // Save Rating
         ratingRestaurantRepository.save(rating);
-
+        order.setRatingRestaurant(true);
         return rating.getId();
     }
 

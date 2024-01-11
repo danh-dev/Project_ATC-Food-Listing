@@ -232,11 +232,6 @@
                         </div>
                         <div class="col-6">
                             <a th:href="@{'/restaurant/' + ${restaurant.getSlug()}}" class="h5" th:text="${restaurant.getRestaurantName()}">Nhà hàng 1</a>
-                            <div class="d-flex my-3">
-                                <!-- Thymeleaf expression to display star rating -->
-                                <i th:class="${'fas fa-star text-primary'}"></i>
-                                <i th:class="${'fas fa-star'}"></i>
-                            </div>
                             <!-- Thymeleaf expression to display restaurant description -->
                             <p th:text="${restaurant.getDescription()}">Giới thiệu ngắn</p>
                             <a th:href="@{'/restaurant/' + ${restaurant.getSlug()}}" class="btn btn-outline-primary"><i class="fas fa-location-arrow me-2"></i> Xem chi tiết</a>

@@ -6,8 +6,10 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import vn.hdweb.team9.domain.dto.respon.RatingRestaurantDto;
+import vn.hdweb.team9.domain.entity.Order;
 import vn.hdweb.team9.domain.entity.RatingRestaurant;
 import vn.hdweb.team9.domain.entity.Restaurant;
+import vn.hdweb.team9.repository.interfaces.IOrderRepository;
 import vn.hdweb.team9.repository.interfaces.RestaurantRepository;
 import vn.hdweb.team9.service.RatingRestaurantService;
 
@@ -19,6 +21,7 @@ import java.util.Optional;
 @RequestMapping("/rating-restaurant")
 public class RatingRestaurantController {
     private final RatingRestaurantService ratingRestaurantService;
+    private final IOrderRepository orderRepository;
 
     /*
      * add new
@@ -37,10 +40,9 @@ public class RatingRestaurantController {
             Model model) {
 
         //Test
-        model.addAttribute("restaurantId", 1);
-
-        ratingRestaurantService.rateRestaurant(restaurantId, content, rateStar);
-        return "redirect:/";
+        Order thisOrder = orderRepository.findById(restaurantId).get();
+        ratingRestaurantService.rateRestaurant(thisOrder, content, rateStar);
+        return "redirect:/users/orders/" + thisOrder.getId();
 
 
     }

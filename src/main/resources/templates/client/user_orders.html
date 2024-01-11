@@ -97,11 +97,8 @@
                                 </td>
                                 <td>
                                     <a th:href="@{/users/orders/{id}(id=${order.getId()})}" class="btn btn-primary">Chi tiết</a>
-                                    <th:block th:if="${!order.getRatingRestaurant()}">
-<!--                                        <a class="btn btn-primary">Rating</a>-->
-                                        <!-- Button trigger modal add Form -->
-<!--                                        -->
-                                     <div th:replace="~{client/ratingRestaurant/rating_form :: ratingForm(restaurantId= ${order.getRestaurant().getId()})}"></div>
+                                    <th:block th:if="${!order.getRatingRestaurant() && !order.getStatus().toString().equalsIgnoreCase('cancel')}">
+                                     <div th:replace="~{client/ratingRestaurant/rating_form :: ratingForm(restaurantId= ${order.getId()})}"></div>
 
                                     </th:block>
                                 </td>

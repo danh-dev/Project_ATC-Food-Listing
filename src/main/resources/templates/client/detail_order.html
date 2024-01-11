@@ -135,10 +135,10 @@
                                         <td th:text="${orderDetail.getUnitPrice()}"></td>
                                         <td th:text="${orderDetail.getQuantity() * orderDetail.getUnitPrice()}"></td>
                                         <td>
-                                            <th:block th:if="${!orderDetail.ratingFood}">
+                                            <th:block th:if="${!orderDetail.ratingFood && !order.getStatus().toString().equalsIgnoreCase('cancel')}">
                                                 <!--  food id-->
                                                 <!--  add rating- form-->
-                                                <div th:replace="~{client/ratingFood/rating_form :: ratingForm(foodId= ${orderDetail.getFood().getId()})}"></div>
+                                                <div th:replace="~{client/ratingFood/rating_form :: ratingForm(foodId= ${orderDetail.getId()})}"></div>
 
                                             </th:block>
                                             <th:block th:unless="${!orderDetail.ratingFood}">

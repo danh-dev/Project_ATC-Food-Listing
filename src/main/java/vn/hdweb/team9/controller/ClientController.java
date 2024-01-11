@@ -16,8 +16,6 @@ import vn.hdweb.team9.domain.dto.respon.BlogResponDto;
 import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
-import java.util.Random;
-import java.util.stream.Collectors;
 
 @Controller
 @RequiredArgsConstructor
@@ -57,28 +55,25 @@ public class ClientController {
         return "client/restaurant_page";
     }
 
-    @GetMapping("/restaurant_demo/{restaurantId}")
-    public String restaurant_demo_detail(@PathVariable("restaurantId") Long restaurantId, Model model) {
-        List<RatingRestaurantDto> ratingList = ratingRestaurantService.getRatingsByRestaurantId(restaurantId);
-        Double ratingValue = ratingRestaurantService.calculateAverageRatingByRestaurantId(restaurantId);
-        long countRating=ratingRestaurantService.countRating(restaurantId);
-
-        model.addAttribute("restaurantId", restaurantId);
-        model.addAttribute("ratingList", ratingList);
-        model.addAttribute("ratingValue", ratingValue);
-        model.addAttribute("countRating", countRating);
-
-        return "client/restaurant_page";
-    }
 
 
     @GetMapping("/restaurant/{slug}")
     public String getRestaurantDetail(Model model, @PathVariable("slug") String slug) {
-        log.info("slug la:" + slug);
 
         Optional<Restaurant> restaurant = restaurantService.findBySlug(slug);
 
-        log.info("slug la:" + restaurant.get());
+        List<RatingRestaurantDto> ratingList = ratingRestaurantService.getRatingsByRestaurantId(restaurant.get().getId());
+        Double ratingValue = ratingRestaurantService.calculateAverageRatingByRestaurantId(restaurant.get().getId());
+        long countRating=ratingRestaurantService.countRating(restaurant.get().getId());
+
+        model.addAttribute("restaurantId", restaurant.get().getId());
+        model.addAttribute("ratingList", ratingList);
+        model.addAttribute("ratingValue", ratingValue);
+        if(ratingValue == null) {
+            model.addAttribute("ratingValue", 0);
+        }
+        model.addAttribute("countRating", countRating);
+
         model.addAttribute("restaurant", restaurant.get());
         return "client/restaurant_page";
     }
@@ -94,13 +89,11 @@ public class ClientController {
         List<RatingFoodDto> ratingList = ratingFoodService.getRatingsByFoodId(food.get().getId());
         Double ratingValue = ratingFoodService.calculateAverageRatingByFoodId(food.get().getId());
         long countRating=ratingFoodService.countRating(food.get().getId());
-        log.info("Check rating list"+ ratingList);
-        log.info("Check rating value"+ ratingValue);
-        log.info("Check count" + countRating);
 
         model.addAttribute("foodId", food.get().getId());
         model.addAttribute("ratingList", ratingList);
-        if(ratingValue != null) {
+        model.addAttribute("ratingValue", ratingValue);
+        if(ratingValue == null) {
             model.addAttribute("ratingValue", 0);
         }
         model.addAttribute("countRating", countRating);
